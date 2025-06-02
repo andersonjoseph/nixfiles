@@ -23,5 +23,9 @@ k = up
 j = down
 l = right
 
+{{ if eq .chezmoi.hostname "almazrah" }}
+backspace = delete
+{{ end }}
+
 [capslock-layer+shift]
 space = C-backspace
