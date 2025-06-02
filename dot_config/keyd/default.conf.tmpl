@@ -1,0 +1,27 @@
+[ids]
+*
+
+[main]
+capslock = overload(capslock-layer, esc)
+
+{{ if eq .chezmoi.hostname "almazrah" }}
+esc = `
+backspace = noop
+{{ end }}
+
+
+[shift]
+esc = ~
+
+[capslock-layer:C]
+
+space = backspace
+
+# movement
+h = left
+k = up
+j = down
+l = right
+
+[capslock-layer+shift]
+space = C-backspace
