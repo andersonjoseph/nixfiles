@@ -1,0 +1,24 @@
+[memory]
+command=echo $(free -m | awk 'NR==2{printf "%.2f%%\t\t", $3*100/$2 }')
+label=[ram]
+color=#DCD7BA
+interval=60
+
+[cpu]
+command=echo $(top -bn1 | grep load | awk '{printf "%.2f%%\t\t\n", $(NF-2)}')
+label=[cpu]
+color=#DCD7BA
+interval=60
+
+[time]
+command=date '+%a %x %I:%M%P'
+color=#7E9CD8
+interval=60
+
+{{ if eq .chezmoi.hostname "ashika" }}
+[battery]
+command=scripts/battery
+markup=pango
+instance=BAT0
+interval=60
+{{end}}
