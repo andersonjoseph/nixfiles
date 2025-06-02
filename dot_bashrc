@@ -51,7 +51,7 @@ tnv() {
 }
 
 # Prompt
-export STARSHIP_CONFIG="$HOME/dotfiles/shared/bash/prompt.toml"
+export STARSHIP_CONFIG="$HOME/prompt.toml"
 eval "$(starship init bash)"
 
 export MANPAGER='nvim +Man!'
