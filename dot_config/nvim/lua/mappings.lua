@@ -23,3 +23,38 @@ end
 
 vim.keymap.set('n', 'j', jumplist_motion('j'), { silent = true })
 vim.keymap.set('n', 'k', jumplist_motion('k'), { silent = true })
+
+vim.keymap.set("n", "<leader>D", function()
+  local file = vim.fn.expand("%:p")
+  local line = vim.fn.line(".")
+  local drill_cmd = table.concat({
+    "drill",
+    "-c",
+    "-f", file,
+    "-b", file .. ":" .. line,
+  }, " ")
+  local env_drill = "devenv shell -- " .. drill_cmd
+  local escaped = vim.fn.shellescape(env_drill)
+  local cwd = vim.fn.expand("%:p:h")
+  local alacritty_cmd = table.concat({
+    "alacritty",
+    "--class", "Drill",
+    "--working-directory", cwd,
+    "-e", "sh", "-c", escaped,
+  }, " ")
+
+  -- build a single i3-msg invocation that:
+  --  1) execs our Alacritty command
+  --  2) sets any [class="Drill"] window to floating
+  local i3_cmds = table.concat({
+    "exec " .. alacritty_cmd,
+    '[class="Drill"] floating enable',
+  }, "; ")
+
+
+  vim.fn.jobstart({ "i3-msg", i3_cmds }, {
+    detach = true,
+  })
+end, {
+  desc = "Run drill in a floating Alacritty i3 window, inside devenv shell"
+})
