@@ -1,4 +1,5 @@
 vim.lsp.enable("gopls")
+vim.lsp.enable("typescript")
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
@@ -40,4 +41,3 @@ vim.diagnostic.config({
     prefix = "",
   },
 })
-
