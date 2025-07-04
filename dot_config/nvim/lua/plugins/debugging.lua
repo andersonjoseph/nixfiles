@@ -20,7 +20,7 @@ return {
     })
 
     vim.keymap.set('n', '<Leader>db', function() dap.toggle_breakpoint() end)
-    vim.keymap.set('n', '<Leader>ds', function() dap.continue() end)
+    vim.keymap.set('n', '<Leader>dc', function() dap.continue() end)
 
     local function open_dap_view()
       dapView.open()
@@ -61,7 +61,7 @@ return {
           focus_dap_view()
         end, opts)
         
-        vim.keymap.set("n", "S", function()
+        vim.keymap.set("n", "o", function()
           dap.step_out()
           focus_dap_view()
         end, opts)
