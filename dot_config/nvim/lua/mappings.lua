@@ -11,11 +11,11 @@ vim.keymap.set('v', '<leader>y', '"+y')
 
 vim.keymap.set('n', '<leader>p', '"+p')
 
-local function jumplist_motion(key) -- adds relative motion to jumplist
+local function jumplist_motion(key)
   return function()
     local count = vim.v.count1
-    if count > 5 then  -- threshold of 5 lines
-      vim.cmd("normal! m'")  -- add to jump list
+    if count > 5 then 
+      vim.cmd("normal! m'")
     end
     vim.cmd("normal! " .. count .. key)
   end
@@ -24,6 +24,7 @@ end
 vim.keymap.set('n', 'j', jumplist_motion('j'), { silent = true })
 vim.keymap.set('n', 'k', jumplist_motion('k'), { silent = true })
 
+  -- this launch an i3 window with Drill
 vim.keymap.set("n", "<leader>D", function()
   local file = vim.fn.expand("%:p")
   local line = vim.fn.line(".")
@@ -50,7 +51,6 @@ vim.keymap.set("n", "<leader>D", function()
     "exec " .. alacritty_cmd,
     '[class="Drill"] floating enable',
   }, "; ")
-
 
   vim.fn.jobstart({ "i3-msg", i3_cmds }, {
     detach = true,
