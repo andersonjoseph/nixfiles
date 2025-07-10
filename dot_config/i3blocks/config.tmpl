@@ -2,12 +2,19 @@
 command=scripts/cpu
 LABEL=[cpu]
 interval=60
+color=#DCD7BA
 
 [memory]
 command=echo $(free -m | awk 'NR==2{printf "%.2f%%\t\t", $3*100/$2 }')
 label=[ram]
 color=#DCD7BA
 interval=60
+
+[disk]
+command=scripts/disk
+LABEL=[disk] 
+interval=600
+color=#DCD7BA
 
 [time]
 command=date '+%a %x %I:%M%P'
