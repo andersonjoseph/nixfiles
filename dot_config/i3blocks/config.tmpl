@@ -1,12 +1,11 @@
+[cpu]
+command=scripts/cpu
+LABEL=[cpu]
+interval=60
+
 [memory]
 command=echo $(free -m | awk 'NR==2{printf "%.2f%%\t\t", $3*100/$2 }')
 label=[ram]
-color=#DCD7BA
-interval=60
-
-[cpu]
-command=echo $(top -bn1 | grep load | awk '{printf "%.2f%%\t\t\n", $(NF-2)}')
-label=[cpu]
 color=#DCD7BA
 interval=60
 
