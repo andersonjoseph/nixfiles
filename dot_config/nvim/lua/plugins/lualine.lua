@@ -7,7 +7,7 @@ return {
 	lualine_b = {
 	  {
 	    'filename',
-	    path = 1,
+	    path = 2,
 	  }
 	},
 	lualine_c = {'diagnostics'},
