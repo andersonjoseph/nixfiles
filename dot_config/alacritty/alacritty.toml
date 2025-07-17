@@ -1,33 +1,31 @@
-# Colors (Gruvbox dark)
+# Colors (Kanagawa-paper)
 
 # Default colors
 [colors.primary]
-# hard contrast background = = '#1d2021'
-background = '#282828'
-# soft contrast background = = '#32302f'
-foreground = '#ebdbb2'
+background = '#1F1F28'
+foreground = '#DCD7BA'
 
 # Normal colors
 [colors.normal]
-black   = '#282828'
-red     = '#cc241d'
-green   = '#98971a'
-yellow  = '#d79921'
-blue    = '#458588'
-magenta = '#b16286'
-cyan    = '#689d6a'
-white   = '#a89984'
+black   = '#16161D'
+red     = '#C34043'
+green   = '#76946A'
+yellow  = '#DCA561'
+blue    = '#7E9CD8'
+magenta = '#957FB8'
+cyan    = '#6A9589'
+white   = '#DCD7BA'
 
 # Bright colors
 [colors.bright]
-black   = '#928374'
-red     = '#fb4934'
-green   = '#b8bb26'
-yellow  = '#fabd2f'
-blue    = '#83a598'
-magenta = '#d3869b'
-cyan    = '#8ec07c'
-white   = '#ebdbb2'
+black   = '#727169'
+red     = '#FF5D62'
+green   = '#98BB6C'
+yellow  = '#FF9E3B'
+blue    = '#7FB4CA'
+magenta = '#D27E99'
+cyan    = '#7AA89F'
+white   = '#DCD7BA'
 
 [font]
 size = 12

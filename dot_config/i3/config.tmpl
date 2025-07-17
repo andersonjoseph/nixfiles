@@ -190,26 +190,26 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 # ===========================
-#       Gruvbox Theme
+#     Kanagawa-paper Theme
 # ===========================
 
-# Define color variables from the Gruvbox palette
-set $primary_background  #282828
-set $normal_black        #1d2021
-set $normal_red          #cc241d
-set $normal_green        #98971a
-set $normal_yellow       #d79921
-set $normal_blue         #458588
-set $normal_magenta      #b16286
-set $normal_cyan         #689d6a
-set $normal_white        #ebdbb2
+# Define color variables from the Kanagawa-paper palette
+set $primary_background  #1F1F28
+set $normal_black        #16161D
+set $normal_red          #C34043
+set $normal_green        #76946A
+set $normal_yellow       #DCA561
+set $normal_blue         #7E9CD8
+set $normal_magenta      #957FB8
+set $normal_cyan         #6A9589
+set $normal_white        #DCD7BA
 
 # ===========================
 #        Window Colors
 # ===========================
 #
 # class                 border         background         text            indicator        child_border
-client.focused          $normal_yellow $normal_yellow     $normal_white   $normal_yellow   $normal_yellow
+client.focused          $normal_blue   $normal_blue       $primary_background   $normal_blue     $normal_blue
 client.focused_inactive $normal_black  $primary_background $normal_white   $normal_black    $normal_black
 client.unfocused        $normal_black  $primary_background $normal_cyan    $normal_black    $normal_black
 client.urgent           $normal_red    $normal_red        $normal_white   $normal_red      $normal_red
@@ -228,7 +228,7 @@ bar {
         background $primary_background
 
         # <colorclass>        <border>       <background>    <text>
-        focused_workspace    $normal_yellow  $normal_yellow  $normal_white
+        focused_workspace    $normal_blue    $normal_blue    $primary_background
         active_workspace     $normal_black   $normal_black   $normal_magenta
         inactive_workspace   $normal_black   $normal_black   $normal_cyan
         urgent_workspace     $normal_red     $normal_red     $normal_white
