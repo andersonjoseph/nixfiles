@@ -13,6 +13,7 @@
 
   home.packages = with pkgs; [
     vivaldi
+    stremio
     dunst
     keepassxc
     xfce.thunar
