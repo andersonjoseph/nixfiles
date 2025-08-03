@@ -68,6 +68,20 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # we need this to allow eddie to be installed 
+  # https://github.com/NixOS/nixpkgs/pull/332532
+  nixpkgs.config.permittedInsecurePackages = [
+    "dotnet-sdk-6.0.36"
+    "dotnet-sdk-6.0.428"
+    "dotnet-runtime-6.0.36"
+  ];
+
+  swapDevices = [{
+    device = "/swapfile";
+    size = 16 * 1024; # 16GB
+  }];
+
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; [

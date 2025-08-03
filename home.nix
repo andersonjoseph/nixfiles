@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./i3
     ./alacritty.nix
   ];
@@ -19,6 +19,7 @@
     keepassxc
     xfce.thunar
     maim
+    eddie # eddie has insecure packages, see permittedInsecurePackages in configuration.nix
 
     sysstat
     networkmanagerapplet
