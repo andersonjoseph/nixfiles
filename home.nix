@@ -12,6 +12,7 @@
   home.homeDirectory = "/home/anderson";
 
   home.packages = with pkgs; [
+    ripgrep
     vivaldi
     stremio
     dunst
