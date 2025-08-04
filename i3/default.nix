@@ -132,6 +132,7 @@ in
       exec --no-startup-id nm-applet
       exec_always --no-startup-id i3-auto-layout
       exec_always feh --bg-fill ${config.home.homeDirectory}/pictures/wallpaper
+      exec_always --no-startup-id picom
     '';
   };
 }
