@@ -84,19 +84,15 @@
 	strength = 4;
       };
       blur-background-exclude = [
-        "window_type = 'dock'"
-        "window_type = 'desktop'"
-        "class_g = 'i3-frame'"
-        "class_g = 'i3-workspace'"
-        "class_g = 'i3-gap'"
-        "class_g = 'i3-dock'"
-        "class_g = 'dunst'"
-        "class_g = 'Conky'"
-        "class_g = 'rofi'"
-        "class_g = 'waybar'"
-        "class_g = 'firefox'"
+	"window_type = 'dock'" 
+	"class_g = 'Vivaldi'"
+	"override_redirect = true"
+	"class_g = 'Stremio'"
+	"class_i = 'stremio'"
+	"class_g = 'darktable'"
+	"class_g = 'Darktable'"
+	"class_g = 'vlc'"
       ];
-
       inactive-opacity-override = false;
       inactive-dim = 0.2;
     };
