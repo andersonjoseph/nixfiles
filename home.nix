@@ -1,5 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+# All configuration attributes are now nested under 'config'
 {
   imports = [
     ./i3
@@ -73,10 +74,10 @@
       corner-radius = 10;
       detect-rounded-corners = true;
       rounded-corners-exclude = [
-        "class_g = 'i3bar'"
-        "class_i = 'i3bar'"
-        "class_i = 'dmenu'"
-        "class_g = 'dmenu'"
+	"class_g = 'i3bar'"
+	"class_i = 'i3bar'"
+	"class_i = 'dmenu'"
+	"class_g = 'dmenu'"
       ];
 
       blur = {
@@ -84,7 +85,7 @@
 	strength = 4;
       };
       blur-background-exclude = [
-	"window_type = 'dock'" 
+	"window_type = 'dock'"
 	"class_g = 'Vivaldi'"
 	"override_redirect = true"
 	"class_g = 'Stremio'"
