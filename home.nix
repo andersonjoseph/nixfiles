@@ -38,6 +38,9 @@
       cl = "clear";
       wtf = "sudo $(fc -ln -1)";
     };
+    initExtra = ''
+      eval "$(fzf --bash)"
+    '';
   };
 
   programs.starship = {
