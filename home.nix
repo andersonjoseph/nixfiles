@@ -24,6 +24,7 @@
     sysstat
     networkmanagerapplet
     i3-auto-layout
+    feh
   ];
 
   programs.git = {
@@ -100,6 +101,8 @@
       inactive-dim = 0.2;
     };
   };
+
+  home.file."pictures/wallpaper".source = ./wallpaper;
 
   home.file.".config/nvim".source = ./nvim;
 }
