@@ -130,6 +130,7 @@ in
     extraConfig = ''
       for_window [class="^.*"] border pixel 0
       exec --no-startup-id nm-applet
+      exec_always --no-startup-id i3-auto-layout
     '';
   };
 }

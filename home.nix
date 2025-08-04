@@ -23,6 +23,7 @@
 
     sysstat
     networkmanagerapplet
+    i3-auto-layout
   ];
 
   programs.git = {
