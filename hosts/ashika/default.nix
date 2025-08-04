@@ -5,5 +5,5 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "ashika"; # Define your hostname.
+  networking.hostName = "ashika";
 }

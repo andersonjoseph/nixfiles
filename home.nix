@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, hostName, ... }:
 
 # All configuration attributes are now nested under 'config'
 {
@@ -52,7 +52,7 @@
     settings = pkgs.lib.importTOML ./starship.toml;
   };
 
-  home.file."pictures/wallpaper".source = ./wallpaper;
+  home.file."pictures/wallpaper".source = ./hosts/${hostName}/wallpaper;
   home.file.".config/nvim".source = ./nvim;
   home.file.".config/picom.conf".source = ./picom.conf;
 }
