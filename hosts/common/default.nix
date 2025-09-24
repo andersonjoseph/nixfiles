@@ -50,7 +50,6 @@
     };
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.anderson = {
     isNormalUser = true;
     description = "anderson";
@@ -68,14 +67,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; [
-     fzf
-     neovim
-     xclip
      pulseaudio
-     brightnessctl
-     bc
-     tree
-     distrobox
   ];
 
   fonts = {
@@ -90,13 +82,13 @@
 
       hinting = {
 	enable = true;
-	style = "full"; # no difference
-	  autohint = true; # no difference
+	style = "full";
+	  autohint = true;
       };
 
       subpixel = {
 	rgba = "rgb";
-	lcdfilter = "default"; # no difference
+	lcdfilter = "default";
       };
     };
   };

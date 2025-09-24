@@ -13,26 +13,36 @@
   home.homeDirectory = "/home/anderson";
 
   home.packages = with pkgs; [
-    ripgrep
+    neovim
     vivaldi
     stremio
-    dunst
     keepassxc
-    maim
+    distrobox
+    vlc
+
     xfce.thunar
     xfce.thunar-volman
 
     sysstat
     networkmanagerapplet
+    dunst
     i3-auto-layout
-    feh
-    picom
     pavucontrol
+    picom
+
+    maim
+    feh
     alsa-utils
     killall
     jq
-    vlc
-  ];
+    xclip
+    bc
+    fzf
+    ripgrep
+    tree
+    ] ++ (lib.optionals (hostName == "ashika") [
+	brightnessctl
+    ]);
 
   programs.obs-studio = {
     enable = (hostName == "almazrah");
@@ -56,7 +66,7 @@
     };
     initExtra = ''
       eval "$(fzf --bash)"
-    '';
+      '';
   };
 
   programs.starship = {
