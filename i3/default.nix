@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, hostName, ... }:
 let 
   mod = "Mod1";
 in
@@ -125,14 +125,19 @@ in
 	  };
 	};
       }];
+
+      startup = [
+	{ command = "nm-applet"; }
+	{ command = "picom"; always = true; }
+	{ command = "i3-auto-layout"; always = true; }
+	{ command = "feh --bg-fill ${config.home.homeDirectory}/pictures/wallpaper"; always = true; }
+      ] ++ (lib.optionals (hostName == "almazrah") [
+	  { command = "xrandr --output HDMI-0 --mode 1920x1080 --rate 99.93"; }
+      ]);
     };
 
     extraConfig = ''
       for_window [class="^.*"] border pixel 0
-      exec --no-startup-id nm-applet
-      exec_always --no-startup-id i3-auto-layout
-      exec_always feh --bg-fill ${config.home.homeDirectory}/pictures/wallpaper
-      exec_always --no-startup-id picom
     '';
   };
 }
