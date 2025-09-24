@@ -6,6 +6,10 @@
     ./nordvpn.nix
   ];
 
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
 
   environment.pathsToLink = [ "/libexec" ];
 
@@ -65,7 +69,7 @@
      brightnessctl
      bc
      tree
-     dmidecode
+     distrobox
   ];
 
   fonts.packages = with pkgs; [
