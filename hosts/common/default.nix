@@ -147,12 +147,14 @@
 	    k = "up";
 	    j = "down";
 	    l = "right";
-	  };
-
-	  "capslock-layer+shift" = {
-	    space = "C-backspace";
+	    backspace = "delete";
 	  };
 	};
+
+	extraConfig = ''
+	  [capslock-layer+shift]
+	  space = C-backspace
+	'';
       };
     };
   };
