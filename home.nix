@@ -29,6 +29,7 @@
     picom
     pavucontrol
     alsa-utils
+    killall
   ];
 
   programs.git = {
