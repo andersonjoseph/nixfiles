@@ -31,6 +31,7 @@
     alsa-utils
     killall
     jq
+    vlc
   ];
 
   programs.obs-studio = {
