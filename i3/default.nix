@@ -29,12 +29,12 @@ in
       };
 
       fonts = {
-	names = [ "Terminess Nerd Font Mono" ];
+	names = [ "Iosevka Nerd Font Mono" ];
 	size  = 10.0;
       };
 
       keybindings = {
-	"${mod}+p" = "exec ${pkgs.dmenu}/bin/dmenu_run -fn 'Terminess Nerd Font Mono' -p 'Run:' -nb '#0A0A0A' -nf '#DEEEED' -sb '#7788AA' -sf '#DEEEED'";
+	"${mod}+p" = "exec ${pkgs.dmenu}/bin/dmenu_run -fn 'Iosevka Nerd Font Mono' -p 'Run:' -nb '#0A0A0A' -nf '#DEEEED' -sb '#7788AA' -sf '#DEEEED'";
 
 	"${mod}+f"           = "fullscreen toggle";
 	"${mod}+Shift+f"     = "exec --no-startup-id thunar";
@@ -113,7 +113,7 @@ in
 	statusCommand = "i3blocks";
 	trayOutput = "primary";
 	fonts = {
-	  names = [ "Terminess Nerd Font Mono" ];
+	  names = [ "Iosevka Nerd Font Mono" ];
 	  size  = 10.0;
 	};
 	colors = {
