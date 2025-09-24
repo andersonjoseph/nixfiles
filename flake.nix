@@ -15,6 +15,7 @@
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
+	./nordvpn.nix
 
 	home-manager.nixosModules.home-manager ({config, ...}: {
 	  home-manager.useGlobalPkgs = true;

@@ -20,7 +20,6 @@
     keepassxc
     xfce.thunar
     maim
-    eddie # eddie has insecure packages, see permittedInsecurePackages in configuration.nix
 
     sysstat
     networkmanagerapplet
