@@ -29,6 +29,12 @@
     LC_TIME = "es_VE.UTF-8";
   };
 
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
+
   services.gvfs.enable = true;
 
   # Configure keymap in X11

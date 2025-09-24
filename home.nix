@@ -27,6 +27,8 @@
     i3-auto-layout
     feh
     picom
+    pavucontrol
+    alsa-utils
   ];
 
   programs.git = {
