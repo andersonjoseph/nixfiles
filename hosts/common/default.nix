@@ -78,13 +78,36 @@
      distrobox
   ];
 
+  fonts = {
+    fonts = with pkgs; [
+	noto-fonts
+	noto-fonts-emoji
+	nerd-fonts.terminess-ttf
+    ];
+
+    fontconfig = {
+      antialias = true;
+
+      hinting = {
+	enable = true;
+	style = "full"; # no difference
+	  autohint = true; # no difference
+      };
+
+      subpixel = {
+	rgba = "rgb";
+	lcdfilter = "default"; # no difference
+      };
+    };
+  };
+
   fonts.packages = with pkgs; [
     nerd-fonts.terminess-ttf
   ];
 
   programs.i3lock.enable = true;
 
-  # List services that you want to enable:
+# List services that you want to enable:
   services.openssh.enable = true;
   services.upower.enable = true;
 
@@ -92,30 +115,30 @@
   environment.etc."libinput/local-overrides.quirks".text = ''
     [Serial Keyboards]
     MatchUdevType=keyboard
-    MatchName=keyd virtual keyboard
-    AttrKeyboardIntegration=internal
-  '';
+      MatchName=keyd virtual keyboard
+      AttrKeyboardIntegration=internal
+      '';
 
   services.keyd = {
     enable = true;
     keyboards = {
       default = {
-        ids = [ "*" ];
-        # https://github.com/rvaiya/keyd/blob/master/docs/keyd.scdoc
-        # play with it by
-        # sudo bash -c 'cd /etc/keyd; cp -H default.conf t;mv -f t default.conf; chown wmertens default.conf'
-        # and then edit /etc/keyd/default.conf + restart keyd
-        # (be sure to retain the ids section at the top!)
+	ids = [ "*" ];
+# https://github.com/rvaiya/keyd/blob/master/docs/keyd.scdoc
+# play with it by
+# sudo bash -c 'cd /etc/keyd; cp -H default.conf t;mv -f t default.conf; chown wmertens default.conf'
+# and then edit /etc/keyd/default.conf + restart keyd
+# (be sure to retain the ids section at the top!)
 	settings = {
 	  main = lib.mkMerge [
-	    {
-	      capslock = "overload(capslock-layer, esc)";
-	    }
+	  {
+	    capslock = "overload(capslock-layer, esc)";
+	  }
 
-	    (lib.mkIf (config.networking.hostName == "almazrah") {
-	     esc = "`";
-	     backspace = "noop";
-	    })
+	  (lib.mkIf (config.networking.hostName == "almazrah") {
+	   esc = "`";
+	   backspace = "noop";
+	   })
 	  ];
 
 	  shift = {
@@ -149,21 +172,21 @@
     i3lock.enable = true;
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+# Open ports in the firewall.
+# networking.firewall.allowedTCPPorts = [ ... ];
+# networking.firewall.allowedUDPPorts = [ ... ];
+# Or disable the firewall altogether.
+# networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+# This value determines the NixOS release from which the default
+# settings for stateful data, like file locations and database versions
+# on your system were taken. It‘s perfectly fine and recommended to leave
+# this value at the release version of the first install of this system.
+# Before changing this value read the documentation for this option
+# (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 
-  system.autoUpgrade.enable = true;
+    system.autoUpgrade.enable = true;
   system.autoUpgrade.dates = "weekly";
   nix.gc = {
     automatic = true;
