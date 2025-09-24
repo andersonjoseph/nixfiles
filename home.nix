@@ -33,6 +33,13 @@
     jq
   ];
 
+  programs.obs-studio = {
+    enable = (hostName == "almazrah");
+    package = (pkgs.obs-studio.override {
+      cudaSupport = true;
+    });
+  };
+
   programs.git = {
     enable = true;
     userName = "andersonjoseph";
