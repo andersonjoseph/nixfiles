@@ -1,6 +1,7 @@
 { config, pkgs, lib, hostName, ... }:
 let 
   mod = "Mod1";
+  change-audio-port = pkgs.writeScriptBin "change-audio-port" (builtins.readFile ../scripts/change-audio-port.sh);
 in
 {
   imports = [ ./bar ];
@@ -66,13 +67,19 @@ in
 	"${mod}+Shift+r" = "restart";
 	"${mod}+r"       = "mode resize";
 
+	"${mod}+period"       = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%";
+	"${mod}+comma"       = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%";
+
 	"XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%";
 	"XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%";
 	"XF86AudioMute"        = "exec --no-startup-id pactl set-sink-mute   @DEFAULT_SINK@ toggle";
-	"XF86AudioMicMute"     = "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
 	"XF86MonBrightnessUp"   = "exec --no-startup-id brightnessctl set +10%";
 	"XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 10%-";
+      };
+
+      keycodebindings = {
+	"94" = "exec --no-startup-id ${change-audio-port}/bin/change-audio-port";
       };
 
       modes = {
