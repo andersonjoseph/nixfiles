@@ -30,6 +30,7 @@
     pavucontrol
     alsa-utils
     killall
+    jq
   ];
 
   programs.git = {
