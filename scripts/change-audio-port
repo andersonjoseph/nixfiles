@@ -1,0 +1,13 @@
+#!/bin/bash
+
+SINK=$(pactl get-default-sink)
+
+CURRENT_PORT=$(pactl -f json list sinks | jq -r --arg SINK "$SINK" '.[] | select(.name == $SINK).active_port')
+
+if [ "$CURRENT_PORT" = "analog-output-lineout" ]; then
+    TARGET_PORT="analog-output-headphones"
+else
+    TARGET_PORT="analog-output-lineout"
+fi
+
+pactl set-sink-port "$SINK" "$TARGET_PORT"

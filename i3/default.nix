@@ -1,7 +1,20 @@
 { config, pkgs, lib, hostName, ... }:
 let 
   mod = "Mod1";
-  change-audio-port = pkgs.writeScriptBin "change-audio-port" (builtins.readFile ../scripts/change-audio-port.sh);
+  change-audio-port = pkgs.writeShellApplication {
+    name = "change-audio-port";
+
+    runtimeInputs = with pkgs; [
+      bash
+      pulseaudio
+      jq
+    ];
+
+    text = ''
+#!${pkgs.bash}/bin/bash
+      ${builtins.readFile ../scripts/change-audio-port}
+    '';
+  };
 in
 {
   imports = [ ./bar ];
@@ -79,7 +92,8 @@ in
       };
 
       keycodebindings = {
-	"94" = "exec --no-startup-id ${change-audio-port}/bin/change-audio-port";
+	#"94" = "exec --no-startup-id ${change-audio-port}/bin/change-audio-port";
+	"94" = "exec --no-startup-id /bin/sh -c '${change-audio-port}/bin/change-audio-port > /tmp/audio-toggle.log 2>&1'";
       };
 
       modes = {
