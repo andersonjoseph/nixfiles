@@ -12,21 +12,18 @@
 
   outputs = { self, nixpkgs, home-manager, ... }: {
     nixosConfigurations.ashika = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
-        ./configuration.nix
-	./nordvpn.nix
+        ./hosts/ashika
+	./home-manager.nix
+	home-manager.nixosModules.home-manager  
+      ];
+    };
 
-	home-manager.nixosModules.home-manager ({config, ...}: {
-	  home-manager.useGlobalPkgs = true;
-	  home-manager.useUserPackages = true;
-	  home-manager.users.anderson = ./home.nix;
-	  home-manager.backupFileExtension = "backup";
-
-	  home-manager.extraSpecialArgs = {
-	    inherit (config.networking) hostName;
-	  };
-	})
+    nixosConfigurations.almazrah = nixpkgs.lib.nixosSystem {
+      modules = [
+        ./hosts/almazrah
+	./home-manager.nix
+	home-manager.nixosModules.home-manager  
       ];
     };
   };

@@ -1,35 +1,19 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hosts/ashika
-    ];
 
-  environment.pathsToLink = [ "/libexec" ];
+  imports = [
+    ./nordvpn.nix
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.grub.device = "nodev";
 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  environment.pathsToLink = [ "/libexec" ];
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
   time.timeZone = "America/Caracas";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -72,7 +56,6 @@
     size = 16 * 1024; # 16GB
   }];
 
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; [
@@ -83,6 +66,7 @@
      brightnessctl
      bc
      tree
+     dmidecode
   ];
 
   fonts.packages = with pkgs; [
@@ -92,7 +76,6 @@
   programs.i3lock.enable = true;
 
   # List services that you want to enable:
-
   services.openssh.enable = true;
   services.upower.enable = true;
 
