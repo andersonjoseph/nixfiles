@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
 
@@ -100,26 +100,34 @@
         # sudo bash -c 'cd /etc/keyd; cp -H default.conf t;mv -f t default.conf; chown wmertens default.conf'
         # and then edit /etc/keyd/default.conf + restart keyd
         # (be sure to retain the ids section at the top!)
-        extraConfig = ''
-	  [main]
-	  capslock = overload(capslock-layer, esc)
+	settings = {
+	  main = lib.mkMerge [
+	    {
+	      capslock = "overload(capslock-layer, esc)";
+	    }
 
-	  [shift]
-	  esc = ~
+	    (lib.mkIf (config.networking.hostName == "almazrah") {
+	     esc = "`";
+	     backspace = "noop";
+	    })
+	  ];
 
-	  [capslock-layer:C]
+	  shift = {
+	    esc = "~";
+	  };
 
-	  space = backspace
+	  "capslock-layer:C" = {
+	    space = "backspace";
+	    h = "left";
+	    k = "up";
+	    j = "down";
+	    l = "right";
+	  };
 
-          # movement
-	  h = left
-	  k = up
-	  j = down
-	  l = right
-
-	  [capslock-layer+shift]
-	  space = C-backspace
-	'';
+	  "capslock-layer+shift" = {
+	    space = "C-backspace";
+	  };
+	};
       };
     };
   };
