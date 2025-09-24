@@ -6,9 +6,6 @@
     ./nordvpn.nix
   ];
 
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
 
   environment.pathsToLink = [ "/libexec" ];
 
