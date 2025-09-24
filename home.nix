@@ -18,8 +18,9 @@
     stremio
     dunst
     keepassxc
-    xfce.thunar
     maim
+    xfce.thunar
+    xfce.thunar-volman
 
     sysstat
     networkmanagerapplet

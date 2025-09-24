@@ -25,6 +25,8 @@
     LC_TIME = "es_VE.UTF-8";
   };
 
+  services.gvfs.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
