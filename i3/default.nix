@@ -41,7 +41,8 @@ in
 	"floating_modifier" = "${mod}";
 	"${mod}+Return"      = "exec ${pkgs.alacritty}/bin/alacritty";
 
-	"Print" = "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
+	"Print" 	     = "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
+	"${mod}+s"           = "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
 
 	"${mod}+q"           = "kill";
 	"${mod}+h"           = "focus left";
