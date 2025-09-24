@@ -5,7 +5,7 @@
     settings = {
       font = {
 	normal = {
-	  family = "Terminess Nerd Font Mono";
+	  family = "Iosevka Nerd Font Mono";
 	};
 	size   = 10;
       };

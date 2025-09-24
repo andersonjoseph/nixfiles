@@ -79,10 +79,11 @@
   ];
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
 	noto-fonts
 	noto-fonts-emoji
 	nerd-fonts.terminess-ttf
+	nerd-fonts.iosevka
     ];
 
     fontconfig = {
@@ -100,10 +101,6 @@
       };
     };
   };
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.terminess-ttf
-  ];
 
   programs.i3lock.enable = true;
 
