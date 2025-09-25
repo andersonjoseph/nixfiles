@@ -93,8 +93,7 @@ in
       };
 
       keycodebindings = {
-	#"94" = "exec --no-startup-id ${change-audio-port}/bin/change-audio-port";
-	"94" = "exec --no-startup-id /bin/sh -c '${change-audio-port}/bin/change-audio-port > /tmp/audio-toggle.log 2>&1'";
+	"94" = "exec --no-startup-id ${change-audio-port}/bin/change-audio-port";
       };
 
       modes = {
