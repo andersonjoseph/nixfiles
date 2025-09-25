@@ -35,6 +35,8 @@
     pulse.enable = true;
   };
 
+  hardware.alsa.enablePersistence = true;
+
   services.gvfs.enable = true;
 
   # Configure keymap in X11
