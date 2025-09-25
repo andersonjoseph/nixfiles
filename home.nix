@@ -40,9 +40,11 @@
     fzf
     ripgrep
     tree
+    (ffmpeg-full.override { withUnfree = true; })
     ] ++ (lib.optionals (hostName == "ashika") [
 	brightnessctl
     ]);
+
 
   programs.obs-studio = {
     enable = (hostName == "almazrah");
