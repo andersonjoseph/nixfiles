@@ -29,6 +29,7 @@
     i3-auto-layout
     pavucontrol
     picom
+    lxde.lxsession
 
     maim
     feh

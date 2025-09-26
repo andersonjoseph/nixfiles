@@ -150,6 +150,7 @@ in
       startup = [
 	{ command = "nm-applet"; }
 	{ command = "picom"; always = true; }
+	{ command = "lxpolkit"; always = true; }
 	{ command = "i3-auto-layout"; always = true; }
 	{ command = "feh --bg-fill ${config.home.homeDirectory}/pictures/wallpaper"; always = true; }
       ] ++ (lib.optionals (hostName == "almazrah") [
