@@ -97,6 +97,11 @@
 
   programs.i3lock.enable = true;
 
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
 # List services that you want to enable:
   services.openssh.enable = true;
   services.upower.enable = true;
