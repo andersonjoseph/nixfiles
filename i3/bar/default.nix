@@ -32,11 +32,11 @@ in
         color = "#DCD7BA";
       };
 
-      time = lib.hm.dag.entryAfter [ "disk" ] {
-        command = "date '+%a %x %I:%M%P'";
-        color = "#7E9CD8";
-        interval = 60;
-      };
+       time = lib.hm.dag.entryAfter [ "disk" ] {
+         command = "date '+%a %x %I:%M%P'";
+         color = "#2b54a9";
+         interval = 60;
+       };
     } // lib.optionalAttrs (hostName == "ashika") {
       battery =  lib.hm.dag.entryAfter [ "time" ] {
         command = "${scripts.battery}/bin/battery";
