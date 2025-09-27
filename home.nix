@@ -23,10 +23,10 @@
     xfce.thunar
     xfce.thunar-volman
 
+    i3-auto-layout
     sysstat
     networkmanagerapplet
     dunst
-    i3-auto-layout
     pavucontrol
     picom
     lxde.lxsession

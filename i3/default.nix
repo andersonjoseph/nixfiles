@@ -42,7 +42,7 @@ in
 	"${mod}+Return"      = "exec ${pkgs.alacritty}/bin/alacritty";
 
 	"Print" 	     = "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
-	"${mod}+s"           = "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
+	"${mod}+Grave"           = "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
 
 	"${mod}+q"           = "kill";
 	"${mod}+h"           = "focus left";
@@ -55,6 +55,13 @@ in
 	"${mod}+Shift+l"     = "move right";
 	"${mod}+Shift+space" = "floating toggle";
 	"${mod}+space"       = "focus mode_toggle";
+
+	"${mod}+s"           = "layout stacking";
+	"${mod}+w"           = "layout tabbed";
+
+	"${mod}+x"           = "split h";
+	"${mod}+y"           = "split v";
+	"${mod}+e"           = "layout toggle split";
 
 	"${mod}+1"           = "workspace number 1";
 	"${mod}+2"           = "workspace number 2";
@@ -148,18 +155,14 @@ in
       }];
 
       startup = [
-	{ command = "nm-applet"; }
+	{ command = "i3-auto-layout"; always = true; }
+	{ command = "nm-applet"; always = true; }
 	{ command = "picom"; always = true; }
 	{ command = "lxpolkit"; always = true; }
-	{ command = "i3-auto-layout"; always = true; }
 	{ command = "feh --bg-fill ${config.home.homeDirectory}/pictures/wallpaper"; always = true; }
       ] ++ (lib.optionals (hostName == "almazrah") [
 	  { command = "xrandr --output HDMI-0 --mode 1920x1080 --rate 99.93"; }
       ]);
     };
-
-    extraConfig = ''
-      for_window [class="^.*"] border pixel 0
-    '';
   };
 }
