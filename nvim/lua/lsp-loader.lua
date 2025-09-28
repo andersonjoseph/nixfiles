@@ -2,6 +2,7 @@ vim.lsp.enable("gopls")
 vim.lsp.enable("typescript")
 vim.lsp.enable("python")
 vim.lsp.enable("json")
+vim.lsp.enable("nix")
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)

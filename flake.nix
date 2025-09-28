@@ -10,7 +10,19 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: {
+  outputs = { self, nixpkgs, home-manager, ... }: 
+  let 
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+    };
+  in
+  {
+    devShells.${system}.default = pkgs.mkShell {
+      buildInputs = with pkgs; [
+	nixd
+      ];
+    };
     nixosConfigurations.ashika = nixpkgs.lib.nixosSystem {
       modules = [
         ./hosts/ashika
