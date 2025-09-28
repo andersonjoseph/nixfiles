@@ -1,8 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-
   imports = [
+    ./../../options.nix
     ./nordvpn.nix
   ];
 
@@ -55,42 +60,50 @@
   users.users.anderson = {
     isNormalUser = true;
     description = "anderson";
-    extraGroups = [ "networkmanager" "wheel"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  swapDevices = [{
-    device = "/swapfile";
-    size = 16 * 1024; # 16GB
-  }];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16 * 1024; # 16GB
+    }
+  ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; [
-     pulseaudio
+    pulseaudio
   ];
 
   fonts = {
     packages = with pkgs; [
-	noto-fonts
-	noto-fonts-emoji
-	nerd-fonts.iosevka
+      noto-fonts
+      noto-fonts-emoji
+      nerd-fonts.iosevka
     ];
 
     fontconfig = {
       antialias = true;
 
       hinting = {
-	enable = true;
-	style = "full";
-	  autohint = true;
+        enable = true;
+        style = "full";
+        autohint = true;
       };
 
       subpixel = {
-	rgba = "rgb";
-	lcdfilter = "default";
+        rgba = "rgb";
+        lcdfilter = "default";
       };
     };
   };
@@ -102,58 +115,58 @@
     binfmt = true;
   };
 
-# List services that you want to enable:
+  # List services that you want to enable:
   services.openssh.enable = true;
   services.upower.enable = true;
 
-# make palm rejection work with keyd
+  # make palm rejection work with keyd
   environment.etc."libinput/local-overrides.quirks".text = ''
     [Serial Keyboards]
     MatchUdevType=keyboard
       MatchName=keyd virtual keyboard
       AttrKeyboardIntegration=internal
-      '';
+  '';
 
   services.keyd = {
     enable = true;
     keyboards = {
       default = {
-	ids = [ "*" ];
-# https://github.com/rvaiya/keyd/blob/master/docs/keyd.scdoc
-# play with it by
-# sudo bash -c 'cd /etc/keyd; cp -H default.conf t;mv -f t default.conf; chown wmertens default.conf'
-# and then edit /etc/keyd/default.conf + restart keyd
-# (be sure to retain the ids section at the top!)
-	settings = {
-	  main = lib.mkMerge [
-	  {
-	    capslock = "overload(capslock-layer, esc)";
-	  }
+        ids = [ "*" ];
+        # https://github.com/rvaiya/keyd/blob/master/docs/keyd.scdoc
+        # play with it by
+        # sudo bash -c 'cd /etc/keyd; cp -H default.conf t;mv -f t default.conf; chown wmertens default.conf'
+        # and then edit /etc/keyd/default.conf + restart keyd
+        # (be sure to retain the ids section at the top!)
+        settings = {
+          main = lib.mkMerge [
+            {
+              capslock = "overload(capslock-layer, esc)";
+            }
 
-	  (lib.mkIf (config.networking.hostName == "almazrah") {
-	   esc = "`";
-	   backspace = "noop";
-	   })
-	  ];
+            (lib.mkIf (config.custom.isDesktop) {
+              esc = "`";
+              backspace = "noop";
+            })
+          ];
 
-	  shift = {
-	    esc = "~";
-	  };
+          shift = {
+            esc = "~";
+          };
 
-	  "capslock-layer:C" = {
-	    space = "backspace";
-	    h = "left";
-	    k = "up";
-	    j = "down";
-	    l = "right";
-	    backspace = "delete";
-	  };
-	};
+          "capslock-layer:C" = {
+            space = "backspace";
+            h = "left";
+            k = "up";
+            j = "down";
+            l = "right";
+            backspace = "delete";
+          };
+        };
 
-	extraConfig = ''
-	  [capslock-layer+shift]
-	  space = C-backspace
-	'';
+        extraConfig = ''
+          	  [capslock-layer+shift]
+          	  space = C-backspace
+          	'';
       };
     };
   };
@@ -169,21 +182,21 @@
     i3lock.enable = true;
   };
 
-# Open ports in the firewall.
-# networking.firewall.allowedTCPPorts = [ ... ];
-# networking.firewall.allowedUDPPorts = [ ... ];
-# Or disable the firewall altogether.
-# networking.firewall.enable = false;
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
 
-# This value determines the NixOS release from which the default
-# settings for stateful data, like file locations and database versions
-# on your system were taken. It‘s perfectly fine and recommended to leave
-# this value at the release version of the first install of this system.
-# Before changing this value read the documentation for this option
-# (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 
-    system.autoUpgrade.enable = true;
+  system.autoUpgrade.enable = true;
   system.autoUpgrade.dates = "weekly";
   nix.gc = {
     automatic = true;

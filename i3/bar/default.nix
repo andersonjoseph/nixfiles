@@ -1,4 +1,9 @@
-{ config, pkgs, lib, hostName, ... }:
+{
+  pkgs,
+  lib,
+  nixosConfig,
+  ...
+}:
 let
   scripts = lib.mapAttrs (name: value: pkgs.writeScriptBin name (builtins.readFile value)) {
     cpu = ./scripts/cpu;
@@ -32,13 +37,14 @@ in
         color = "#DCD7BA";
       };
 
-       time = lib.hm.dag.entryAfter [ "disk" ] {
-         command = "date '+%a %x %I:%M%P'";
-         color = "#2b54a9";
-         interval = 60;
-       };
-    } // lib.optionalAttrs (hostName == "ashika") {
-      battery =  lib.hm.dag.entryAfter [ "time" ] {
+      time = lib.hm.dag.entryAfter [ "disk" ] {
+        command = "date '+%a %x %I:%M%P'";
+        color = "#2b54a9";
+        interval = 60;
+      };
+    }
+    // lib.optionalAttrs nixosConfig.custom.isLaptop {
+      battery = lib.hm.dag.entryAfter [ "time" ] {
         command = "${scripts.battery}/bin/battery";
         markup = "pango";
         instance = "BAT0";

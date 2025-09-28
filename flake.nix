@@ -10,33 +10,38 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: 
-  let 
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-    };
-  in
-  {
-    devShells.${system}.default = pkgs.mkShell {
-      buildInputs = with pkgs; [
-	nixd
-      ];
-    };
-    nixosConfigurations.ashika = nixpkgs.lib.nixosSystem {
-      modules = [
-        ./hosts/ashika
-	./home-manager.nix
-	home-manager.nixosModules.home-manager  
-      ];
-    };
+  outputs =
+    { nixpkgs, home-manager, ... }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+      };
+    in
+    {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          nixd
+          nixfmt-rfc-style
+        ];
+      };
 
-    nixosConfigurations.almazrah = nixpkgs.lib.nixosSystem {
-      modules = [
-        ./hosts/almazrah
-	./home-manager.nix
-	home-manager.nixosModules.home-manager  
-      ];
+      nixosConfigurations.ashika = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/ashika
+          ./home-manager.nix
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
+      nixosConfigurations.almazrah = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/almazrah
+          ./home-manager.nix
+          home-manager.nixosModules.home-manager
+        ];
+      };
     };
-  };
 }
