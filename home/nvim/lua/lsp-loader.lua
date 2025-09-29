@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map("<leader>gi", vim.lsp.buf.implementation, "[G]oto [I]implementation")
     map("<leader>pb", vim.lsp.buf.format, "[P]rettify [B]buffer")
     map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]action")
-    map("<leader>d", function() vim.diagnostic.open_float({ scope = "cursor" }) end, "[D]iagnostics")
+    map("<leader>e", function() vim.diagnostic.open_float({ scope = "cursor" }) end, "[E]rrors")
   end,
 })
 
