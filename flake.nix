@@ -30,7 +30,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/ashika
-          ./home-manager.nix
+          ./home
           home-manager.nixosModules.home-manager
         ];
       };
@@ -39,7 +39,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/almazrah
-          ./home-manager.nix
+          ./home
           home-manager.nixosModules.home-manager
         ];
       };

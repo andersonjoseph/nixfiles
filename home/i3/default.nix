@@ -33,7 +33,7 @@ let
     ];
     text = ''
       #!${pkgs.bash}/bin/bash
-      ${builtins.readFile ../scripts/change-audio-port}
+      ${builtins.readFile ../../scripts/change-audio-port}
     '';
   };
 in
