@@ -109,6 +109,7 @@
   };
 
   programs.i3lock.enable = true;
+  programs.ssh.startAgent = true;
 
   programs.appimage = {
     enable = true;
