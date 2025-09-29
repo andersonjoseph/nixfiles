@@ -59,7 +59,7 @@ in
         "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
 
         "Print" = "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
-        "${mod}+Grave" =
+        "${mod}+grave" =
           "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
 
         "${mod}+q" = "kill";
