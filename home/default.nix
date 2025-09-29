@@ -73,7 +73,12 @@
           enable = true;
           userName = "andersonjoseph";
           userEmail = "andersonjoseph@mailfence.com";
-        };
+
+	  signing = {
+	    signByDefault = true;
+	    format = "ssh";
+	  };
+	};
 
         programs.bash = {
           enable = true;
