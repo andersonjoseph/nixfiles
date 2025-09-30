@@ -43,6 +43,7 @@
   hardware.alsa.enablePersistence = true;
 
   services.gvfs.enable = true;
+  services.tumbler.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
