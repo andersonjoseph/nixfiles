@@ -32,6 +32,7 @@
             keepassxc
             distrobox
             vlc
+	    qbittorrent
 
             xfce.thunar
             xfce.thunar-volman
