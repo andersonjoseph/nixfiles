@@ -44,6 +44,11 @@ in
     config = {
       modifier = "${mod}";
 
+      gaps = {
+        inner = 6;
+        outer = 3;
+      };
+
       fonts = {
         names = [ "Iosevka Nerd Font Mono" ];
         size = 10.0;
@@ -73,13 +78,6 @@ in
         "${mod}+Shift+l" = "move right";
         "${mod}+Shift+space" = "floating toggle";
         "${mod}+space" = "focus mode_toggle";
-
-        "${mod}+s" = "layout stacking";
-        "${mod}+w" = "layout tabbed";
-
-        "${mod}+x" = "split h";
-        "${mod}+y" = "split v";
-        "${mod}+e" = "layout toggle split";
 
         "${mod}+1" = "workspace number 1";
         "${mod}+2" = "workspace number 2";
@@ -245,5 +243,9 @@ in
         { command = nixosConfig.custom.xrandr.startupCommand; }
       ]);
     };
+
+    extraConfig = ''
+      for_window [class="^.*"] border pixel 0
+    '';
   };
 }
