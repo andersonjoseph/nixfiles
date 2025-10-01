@@ -103,6 +103,20 @@
             	  '';
         };
 
+	programs.tmux = {
+	  enable = true;
+	  baseIndex = 1;
+	  keyMode = "vi";
+	  shortcut = "p";
+	  plugins = with pkgs; [
+	    tmuxPlugins.power-theme
+	  ];
+	  extraConfig = ''
+	    set -sg escape-time 0
+	    set -g status-interval 0
+	  '';
+	};
+
         programs.starship = {
           enable = true;
           settings = pkgs.lib.importTOML ./starship.toml;
