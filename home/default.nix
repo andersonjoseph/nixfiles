@@ -107,22 +107,6 @@
             	  '';
         };
 
-	programs.tmux = {
-	  enable = true;
-	  baseIndex = 1;
-	  keyMode = "vi";
-	  shortcut = "p";
-	  plugins = with pkgs; [
-	    tmuxPlugins.power-theme
-	  ];
-	  extraConfig = ''
-	    set -sg escape-time 0
-	    set -g status-interval 0
-	    set -g default-terminal "tmux-256color"
-	    set -ag terminal-overrides ",xterm-256color:RGB"
-	  '';
-	};
-
         programs.starship = {
           enable = true;
           settings = pkgs.lib.importTOML ./starship.toml;

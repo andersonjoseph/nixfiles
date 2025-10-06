@@ -248,7 +248,7 @@ in
     };
 
     extraConfig = ''
-      new_window pixel 1
+      new_window pixel 2
     '';
   };
 }
