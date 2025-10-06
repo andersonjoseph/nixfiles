@@ -36,6 +36,7 @@
 
             xfce.thunar
             xfce.thunar-volman
+            xfce.thunar-archive-plugin
 
             i3-auto-layout
             sysstat
@@ -55,6 +56,7 @@
             fzf
             ripgrep
             tree
+	    unzip
             (ffmpeg-full.override { withUnfree = true; })
           ]
           ++ (lib.optionals nixosConfig.custom.isLaptop [
