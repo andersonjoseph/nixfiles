@@ -55,9 +55,7 @@ in
       };
 
       keybindings = {
-        "${mod}+p" =
-          "exec ${pkgs.dmenu}/bin/dmenu_run -fn 'Iosevka Nerd Font Mono' -p 'Run:' -nb '${colors.bg}' -nf '${colors.fg}' -sb '${colors.blue}' -sf '${colors.bg}'";
-
+        "${mod}+p" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun ";
         "${mod}+f" = "fullscreen toggle";
         "${mod}+Shift+f" = "exec --no-startup-id thunar";
         "floating_modifier" = "${mod}";
@@ -78,6 +76,15 @@ in
         "${mod}+Shift+l" = "move right";
         "${mod}+Shift+space" = "floating toggle";
         "${mod}+space" = "focus mode_toggle";
+
+        "${mod}+x" = "split h";
+        "${mod}+y" = "split v";
+
+        "${mod}+s" = "layout stacking";
+        "${mod}+w" = "layout tabbed";
+	"${mod}+e" = "layout toggle split";
+
+	"${mod}+a" = "focus parent";
 
         "${mod}+1" = "workspace number 1";
         "${mod}+2" = "workspace number 2";
@@ -219,15 +226,11 @@ in
 
       startup = [
         {
-          command = "i3-auto-layout";
+          command = "autotiling";
           always = true;
         }
         {
           command = "nm-applet";
-          always = true;
-        }
-        {
-          command = "picom";
           always = true;
         }
         {
@@ -245,7 +248,7 @@ in
     };
 
     extraConfig = ''
-      for_window [class="^.*"] border pixel 0
+      new_window pixel 1
     '';
   };
 }

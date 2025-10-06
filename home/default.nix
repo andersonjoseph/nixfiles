@@ -38,7 +38,7 @@
             xfce.thunar-volman
             xfce.thunar-archive-plugin
 
-            i3-auto-layout
+            autotiling
             sysstat
             networkmanagerapplet
             dunst
@@ -57,6 +57,7 @@
             ripgrep
             tree
 	    unzip
+	    rofi
             (ffmpeg-full.override { withUnfree = true; })
           ]
           ++ (lib.optionals nixosConfig.custom.isLaptop [
