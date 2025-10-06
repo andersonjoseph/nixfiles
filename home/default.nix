@@ -10,6 +10,7 @@
         pkgs,
         lib,
         nixosConfig,
+	config,
         ...
       }:
       {
@@ -131,7 +132,10 @@
           source = nixosConfig.custom.wallpaperFile;
         };
 
-        home.file.".config/nvim".source = ./nvim;
+	home.file.".config/nvim" = {
+	  source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/nvim";
+	};
+
         home.file.".config/picom.conf".source = ./picom.conf;
       };
   };
