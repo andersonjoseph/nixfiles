@@ -37,6 +37,7 @@
             xfce.thunar
             xfce.thunar-volman
             xfce.thunar-archive-plugin
+	    xfce.xfconf
 
             autotiling
             sysstat
