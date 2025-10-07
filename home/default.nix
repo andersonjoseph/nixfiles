@@ -31,7 +31,6 @@
             vivaldi
             stremio
             keepassxc
-            distrobox
             vlc
 	    qbittorrent
 
