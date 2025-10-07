@@ -58,6 +58,8 @@
     };
   };
 
+  services.blueman.enable = true;
+  hardware.bluetooth.enable = true;
 
   users.users.anderson = {
     isNormalUser = true;
