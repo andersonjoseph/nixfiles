@@ -105,6 +105,9 @@
           initExtra = ''
             	  eval "$(fzf --bash)"
             	  '';
+	  bashrcExtra = ''
+	    export MANPAGER='nvim +Man!'
+	  '';
         };
 
         programs.starship = {
