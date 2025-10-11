@@ -110,6 +110,12 @@
 	  '';
         };
 
+	programs.direnv = {
+	  enable = true;
+	  enableBashIntegration = true;
+	  nix-direnv.enable = true;
+	};
+
         programs.starship = {
           enable = true;
           settings = pkgs.lib.importTOML ./starship.toml;
