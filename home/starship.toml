@@ -6,6 +6,7 @@ command_timeout = 2000
 
 format = """
 $username\
+$hostname\
 $directory\
 $nix_shell\
 $git_branch\
@@ -32,6 +33,7 @@ color_caution = 'bright-yellow'
 
 color_os = 'red'
 color_username = 'red'
+color_hostname = 'cyan'
 color_directory = 'yellow'
 color_git = 'cyan'
 color_git_added = 'bright-green'
@@ -58,6 +60,7 @@ color_caution = '#d79921'
 
 color_os = '#d65d0e'
 color_username = '#d65d0e'
+color_hostname = '#83a598'
 color_directory = '#d79921'
 color_git = '#689d6a'
 color_git_added = '#b8bb26'
@@ -84,6 +87,7 @@ color_caution = '#d79921'
 
 color_os = '#d65d0e'
 color_username = '#d65d0e'
+color_hostname = '#076678'
 color_directory = '#d79921'
 color_git = '#689d6a'
 color_git_added = '#79740e'
@@ -106,7 +110,12 @@ color_vimcmd_visual = '#d79921'
 show_always = true
 style_user = "fg:color_username"
 style_root = "bold fg:color_danger"
-format = '[$user ]($style)'
+format = '[$user]($style)'
+
+[hostname]
+ssh_only = false
+style = "fg:color_hostname"
+format = '[@$hostname]($style)'
 
 [directory]
 style = "fg:color_directory"
