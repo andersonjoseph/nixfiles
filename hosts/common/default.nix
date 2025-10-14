@@ -113,7 +113,12 @@
   };
 
   programs.i3lock.enable = true;
-  programs.ssh.startAgent = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      X11Forwarding = true;
+    };
+  };
 
   programs.appimage = {
     enable = true;
@@ -121,7 +126,6 @@
   };
 
   # List services that you want to enable:
-  services.openssh.enable = true;
   services.upower.enable = true;
 
   # make palm rejection work with keyd
