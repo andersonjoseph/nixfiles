@@ -67,11 +67,11 @@
 
 	services.redshift = {
 	  enable = true;
-	  dawnTime = "4:00-5:45";
-	  duskTime = "16:35-18:15";
+	  dawnTime = "7:00";
+	  duskTime = "16:35";
 	  temperature = {
 	    day = 6500;
-	    night = 3500;
+	    night = 2500;
 	  };
 	};
 
