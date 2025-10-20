@@ -33,6 +33,7 @@
             keepassxc
             vlc
 	    qbittorrent
+	    jamesdsp
 
             xfce.thunar
             xfce.thunar-volman
