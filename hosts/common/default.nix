@@ -113,6 +113,8 @@
   };
 
   programs.i3lock.enable = true;
+  programs.ssh.startAgent = true;
+
   services.openssh = {
     enable = true;
     settings = {
