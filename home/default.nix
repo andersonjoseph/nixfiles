@@ -34,6 +34,7 @@
             vlc
 	    qbittorrent
 	    jamesdsp
+	    xarchiver
 
             xfce.thunar
             xfce.thunar-volman
