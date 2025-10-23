@@ -9,7 +9,7 @@
 
       font = {
         normal = {
-          family = "Iosevka Nerd Font Mono";
+          family = "TX\-02 Retina Semicondensed";
         };
         size = 10;
       };
