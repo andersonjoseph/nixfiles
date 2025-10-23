@@ -45,7 +45,6 @@
             networkmanagerapplet
             dunst
             pavucontrol
-            picom
             lxde.lxsession
 
             maim
