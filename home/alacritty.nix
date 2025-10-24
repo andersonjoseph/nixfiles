@@ -11,7 +11,7 @@
         normal = {
           family = "TX\-02 Retina Semicondensed";
         };
-        size = 10;
+        size = 11;
       };
 
       colors = {
