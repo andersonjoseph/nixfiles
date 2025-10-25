@@ -8,19 +8,19 @@
 let
   mod = "Mod1";
 
-  # Color Palette based on Kanagawa-Paper
+  # Color Palette based on Kanso Ink theme
   colors = {
-    bg = "#1F1F28";
-    fg = "#DCD7BA";
-    gray = "#727169";
+    bg = "#14171d";
+    fg = "#C5C9C7";
+    gray = "#717C7C";
     red = "#C34043";
-    green = "#76946A";
+    green = "#98BB6C";
     yellow = "#DCA561";
-    blue = "#658594";
-    magenta = "#957FB8";
-    cyan = "#6A9589";
-    white = "#C8C093";
-    dark_gray = "#2A2A37";
+    blue = "#7FB4CA";
+    magenta = "#938AA9";
+    cyan = "#8ea4a2";
+    white = "#f2f1ef";
+    dark_gray = "#393B44";
     light_blue = "#7E9CD8";
   };
 

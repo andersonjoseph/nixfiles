@@ -15,32 +15,32 @@
       };
 
       colors = {
-        # Colors (Kanagawa-paper)
+        # Colors (Kanso Ink theme)
         primary = {
-          background = "#1F1F28";
-          foreground = "#DCD7BA";
+          background = "#14171d";
+          foreground = "#C5C9C7";
         };
 
         normal = {
-          black = "#16161D";
+          black = "#090E13";
           red = "#C34043";
-          green = "#76946A";
+          green = "#98BB6C";
           yellow = "#DCA561";
-          blue = "#7E9CD8";
-          magenta = "#957FB8";
-          cyan = "#6A9589";
-          white = "#DCD7BA";
+          blue = "#7FB4CA";
+          magenta = "#938AA9";
+          cyan = "#8ea4a2";
+          white = "#f2f1ef";
         };
 
         bright = {
-          black = "#727169";
-          red = "#FF5D62";
-          green = "#98BB6C";
-          yellow = "#FF9E3B";
-          blue = "#7FB4CA";
-          magenta = "#D27E99";
-          cyan = "#7AA89F";
-          white = "#DCD7BA";
+          black = "#717C7C";
+          red = "#E46876";
+          green = "#87a987";
+          yellow = "#E6C384";
+          blue = "#658594";
+          magenta = "#8992a7";
+          cyan = "#8ba4b0";
+          white = "#C5C9C7";
         };
       };
     };
