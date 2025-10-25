@@ -50,7 +50,7 @@ in
       };
 
       fonts = {
-        names = [ "TX-02 Retina Semicondensed" ];
+        names = [ "TX-02" ];
         size = 10.0;
       };
 
@@ -147,7 +147,7 @@ in
           statusCommand = "i3blocks";
           trayOutput = "primary";
           fonts = {
-            names = [ "TX-02 Retina Semicondensed" ];
+            names = [ "TX-02" ];
             size = 10.0;
           };
           colors = {
