@@ -112,6 +112,7 @@
             	  '';
 	  bashrcExtra = ''
 	    export MANPAGER='nvim +Man!'
+	    export PATH="$PATH:$HOME/go/bin"
 	  '';
         };
 
