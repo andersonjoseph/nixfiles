@@ -9,38 +9,38 @@
 
       font = {
         normal = {
-          family = "TX\-02 Retina Semicondensed";
+          family = "TX-02";
         };
         size = 11;
       };
 
       colors = {
-        # Colors (Kanso Ink theme)
+        # Vague theme colors
         primary = {
-          background = "#14171d";
-          foreground = "#C5C9C7";
+          background = "#141415";
+          foreground = "#cdcdcd";
         };
 
         normal = {
-          black = "#090E13";
-          red = "#C34043";
-          green = "#98BB6C";
-          yellow = "#DCA561";
-          blue = "#7FB4CA";
-          magenta = "#938AA9";
-          cyan = "#8ea4a2";
-          white = "#f2f1ef";
+          black = "#141415";
+          red = "#d8647e";
+          green = "#7fa563";
+          yellow = "#f3be7c";
+          blue = "#7e98e8";
+          magenta = "#bb9dbd";
+          cyan = "#b4d4cf";
+          white = "#cdcdcd";
         };
 
         bright = {
-          black = "#717C7C";
-          red = "#E46876";
-          green = "#87a987";
-          yellow = "#E6C384";
-          blue = "#658594";
-          magenta = "#8992a7";
-          cyan = "#8ba4b0";
-          white = "#C5C9C7";
+          black = "#4b4b4e";
+          red = "#c48282";
+          green = "#90a0b5";
+          yellow = "#e0a363";
+          blue = "#9bb4bc";
+          magenta = "#aeaed1";
+          cyan = "#c3c3d5";
+          white = "#e8e8e8";
         };
       };
     };

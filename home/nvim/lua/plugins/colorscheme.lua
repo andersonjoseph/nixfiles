@@ -1,8 +1,8 @@
 return {
-  "webhooked/kanso.nvim",
+  "vague-theme/vague.nvim",
   lazy = false,
   priority = 1000,
-  init = function()
-    vim.cmd.colorscheme("kanso-ink")
-  end,
+  config = function()
+    vim.cmd("colorscheme vague")
+  end
 }

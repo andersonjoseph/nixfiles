@@ -19,7 +19,7 @@ in
       cpu = {
         label = "[cpu]";
         command = "${scripts.cpu}/bin/cpu";
-        color = "#DCD7BA";
+        color = "#cdcdcd";
         interval = 60;
       };
 
@@ -27,19 +27,19 @@ in
         label = "[mem]";
         command = "echo $(free -m | awk 'NR==2{printf \"%.2f%%\t\t\", $3*100/$2 }')";
         interval = 60;
-        color = "#DCD7BA";
+        color = "#cdcdcd";
       };
 
       disk = lib.hm.dag.entryAfter [ "memory" ] {
         label = "[disk]";
         command = "${scripts.disk}/bin/disk";
         interval = 600;
-        color = "#DCD7BA";
+        color = "#cdcdcd";
       };
 
       time = lib.hm.dag.entryAfter [ "disk" ] {
         command = "date '+%a %x %I:%M%P'";
-        color = "#2b54a9";
+        color = "#7e98e8";
         interval = 60;
       };
     }

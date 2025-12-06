@@ -10,18 +10,18 @@ let
 
   # Color Palette based on Kanso Ink theme
   colors = {
-    bg = "#14171d";
-    fg = "#C5C9C7";
-    gray = "#717C7C";
-    red = "#C34043";
-    green = "#98BB6C";
-    yellow = "#DCA561";
-    blue = "#7FB4CA";
-    magenta = "#938AA9";
-    cyan = "#8ea4a2";
-    white = "#f2f1ef";
-    dark_gray = "#393B44";
-    light_blue = "#7E9CD8";
+    bg = "#141415";
+    fg = "#cdcdcd";
+    gray = "#1c1c24";
+    red = "#d8647e";
+    green = "#7fa563";
+    yellow = "#f3be7c";
+    blue = "#7e98e8";
+    magenta = "#bb9dbd";
+    cyan = "#b4d4cf";
+    white = "#cdcdcd";
+    dark_gray = "#252530";
+    light_blue = "#9bb4bc";
   };
 
   change-audio-port = pkgs.writeShellApplication {
@@ -170,7 +170,7 @@ in
             inactiveWorkspace = {
               border = colors.bg;
               background = colors.bg;
-              text = colors.gray;
+              text = colors.fg;
             };
 
             urgentWorkspace = {
