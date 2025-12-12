@@ -29,7 +29,6 @@
           [
             neovim
             vivaldi
-            stremio
             keepassxc
             vlc
 	    qbittorrent
@@ -46,7 +45,7 @@
             networkmanagerapplet
             dunst
             pavucontrol
-            lxde.lxsession
+            lxsession
 
             maim
             feh
@@ -87,9 +86,12 @@
 
         programs.git = {
           enable = true;
-          userName = "andersonjoseph";
-          userEmail = "andersonjoseph@mailfence.com";
-
+	  settings = {
+	    user = {
+	      name = "anderson";
+	      email = "andersonjoseph@mailfence.com";
+	    };
+	  };
 	  signing = {
 	    signByDefault = true;
 	    format = "ssh";
@@ -134,8 +136,6 @@
 	home.file.".config/nvim" = {
 	  source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/nvim";
 	};
-
-        home.file.".config/picom.conf".source = ./picom.conf;
       };
   };
 }
