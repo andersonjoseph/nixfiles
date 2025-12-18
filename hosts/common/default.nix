@@ -183,6 +183,7 @@
   };
 
   services.nordvpn.enable = true;
+  environment.etc.hosts.mode = "0644";
 
   services.xserver = {
     enable = true;
