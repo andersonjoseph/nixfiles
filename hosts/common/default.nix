@@ -158,6 +158,11 @@
               esc = "`";
               backspace = "noop";
             })
+
+	    (lib.mkIf (config.custom.isLaptop) {
+              # delete key is stuck :(
+              delete = "noop";
+            })
           ];
 
           shift = {
