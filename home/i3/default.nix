@@ -23,19 +23,6 @@ let
     dark_gray = "#252530";
     light_blue = "#9bb4bc";
   };
-
-  change-audio-port = pkgs.writeShellApplication {
-    name = "change-audio-port";
-    runtimeInputs = with pkgs; [
-      bash
-      pulseaudio
-      jq
-    ];
-    text = ''
-      #!${pkgs.bash}/bin/bash
-      ${builtins.readFile ../../scripts/change-audio-port}
-    '';
-  };
 in
 {
   imports = [ ./bar ];
@@ -123,10 +110,6 @@ in
 
         "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +10%";
         "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 10%-";
-      };
-
-      keycodebindings = {
-        "94" = "exec --no-startup-id ${change-audio-port}/bin/change-audio-port";
       };
 
       modes = {

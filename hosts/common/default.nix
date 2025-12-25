@@ -40,6 +40,9 @@
     pulse.enable = true;
   };
 
+  security.rtkit.enable = true; 
+
+  hardware.pulseaudio.enable = false;
   hardware.alsa.enablePersistence = true;
 
   services.gvfs.enable = true;
