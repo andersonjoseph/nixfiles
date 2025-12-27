@@ -185,7 +185,7 @@ in
         unfocused = {
           border = colors.dark_gray;
           background = colors.bg;
-          text = colors.gray;
+          text = colors.white;
           indicator = colors.dark_gray;
           childBorder = colors.dark_gray;
         };
