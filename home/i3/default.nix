@@ -45,6 +45,7 @@ in
         "${mod}+p" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun ";
         "${mod}+f" = "fullscreen toggle";
         "${mod}+Shift+f" = "exec --no-startup-id thunar";
+        "${mod}+Shift+p" = "exec --no-startup-id keepassxc";
         "floating_modifier" = "${mod}";
         "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
 
