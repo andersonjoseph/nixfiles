@@ -34,6 +34,7 @@
 	    qbittorrent
 	    jamesdsp
 	    xarchiver
+	    darktable
 
             xfce.thunar
             xfce.thunar-volman
