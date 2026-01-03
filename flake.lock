@@ -37,10 +37,23 @@
         "type": "github"
       }
     },
+    "nordvpn-pr": {
+      "locked": {
+        "lastModified": 0,
+        "narHash": "sha256-RNZ0HbIAxPl7x2hWK0h29tSYUaJ7MbgYSyTAZui4VR8=",
+        "path": "/home/anderson/projects/nixpkgs",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/anderson/projects/nixpkgs",
+        "type": "path"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nordvpn-pr": "nordvpn-pr"
       }
     }
   },
