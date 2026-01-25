@@ -61,6 +61,7 @@
             tree
 	    unzip
 	    rofi
+	    lsof
             (ffmpeg-full.override { withUnfree = true; })
           ]
           ++ (lib.optionals nixosConfig.custom.isLaptop [
