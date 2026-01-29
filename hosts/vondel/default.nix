@@ -51,7 +51,7 @@
     enable = true;
     settings = {
       UseDns = true;
-      PasswordAuthentication = true;
+      PasswordAuthentication = false;
     };
   };
 
