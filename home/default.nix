@@ -78,6 +78,25 @@
 	  };
 	};
 
+	programs.ssh = {
+	  enable = true;
+	  enableDefaultConfig = false; 
+	  matchBlocks = {
+	    "*" = {
+	      forwardAgent = false;
+	      hashKnownHosts = true;
+	      addKeysToAgent = "yes";
+	    };
+	    "github.com" = {
+	      identityFile = "~/.ssh/identity/anderson";
+	    };
+	    "vondel-nord" = {
+	      user = "anderson";
+	      identityFile = "~/.ssh/access/vondel";
+	    };
+	  };
+	};
+
         programs.obs-studio = lib.mkIf nixosConfig.custom.isDesktop {
           enable = true;
           package = (
