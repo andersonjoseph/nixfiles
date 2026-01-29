@@ -19,6 +19,11 @@
     }
   ];
 
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   networking.hostName = "vondel";
   networking.networkmanager.enable = true;
 
