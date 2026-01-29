@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nordvpn-pr.url = "path:./flakes/nordvpn";
+    nordvpn-flake.url = "path:./flakes/nordvpn";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
