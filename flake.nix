@@ -3,8 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nordvpn-pr.url = "path:/home/anderson/projects/nixpkgs";
-
+    nordvpn-pr.url = "path:./flakes/nordvpn";
+    nordvpn-flake.url = "path:/home/anderson/projects/nordvpn-flake";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -13,12 +13,23 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-pr, ... }:
+    { nixpkgs, home-manager, nordvpn-pr, nordvpn-flake, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
       };
+      norvpn-module = ({...}: {
+	  imports = [
+	    nordvpn-flake.nixosModules.nordvpn
+	  ];
+	  services.nordvpn.enable = true;
+	  environment.etc.hosts.mode = "0666";
+	  networking.firewall = {
+	    enable =  true;
+	    checkReversePath = "loose";
+	};
+      });
     in
     {
       devShells.${system}.default = pkgs.mkShell {
@@ -26,6 +37,14 @@
           nixd
           nixfmt-rfc-style
         ];
+      };
+
+      nixosConfigurations.vondel = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+	modules = [
+	  nordvpn-module
+	  ./hosts/vondel
+	];
       };
 
       nixosConfigurations.ashika = nixpkgs.lib.nixosSystem {
