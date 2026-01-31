@@ -10,7 +10,7 @@ return {
     ---@type opencode.Opts
     vim.g.opencode_opts = {
       provider = {
-	cmd = "jailed-opencode --port",
+	cmd = "jailed-opencode --port --agent plan",
       }
     }
 
