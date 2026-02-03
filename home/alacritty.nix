@@ -24,9 +24,9 @@
         normal = {
           black = "#141415";
           red = "#d8647e";
-          green = "#7fa563";
+          green = "#a8e6cf";
           yellow = "#f3be7c";
-          blue = "#7e98e8";
+          blue = "#2c4a6e";
           magenta = "#bb9dbd";
           cyan = "#b4d4cf";
           white = "#cdcdcd";
