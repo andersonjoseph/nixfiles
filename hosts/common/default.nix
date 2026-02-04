@@ -10,9 +10,8 @@
     ./../../options.nix
   ];
 
-  virtualisation.podman = {
+  virtualisation.docker = {
     enable = true;
-    dockerCompat = true;
   };
 
   environment.pathsToLink = [ "/libexec" ];
@@ -70,6 +69,7 @@
       "networkmanager"
       "wheel"
       "nordvpn"
+      "docker"
     ];
   };
 
