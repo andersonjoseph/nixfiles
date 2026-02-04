@@ -2,11 +2,6 @@ return {
   "NickvanDyke/opencode.nvim",
   config = function()
     ---@type opencode.Opts
-    vim.g.opencode_opts = {
-      provider = {
-	cmd = "jailed-opencode --port --agent plan",
-      }
-    }
 
     -- Required for `opts.events.reload`.
     vim.o.autoread = true
