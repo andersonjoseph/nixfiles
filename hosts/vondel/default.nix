@@ -94,6 +94,8 @@
     vim
     jq
     ripgrep
+    lazydocker
+    tree
   ];
 
   nix.gc = {
