@@ -36,7 +36,7 @@
 	    jamesdsp
 	    xarchiver
 	    darktable
-	    cherry-studio
+	    slack
 
             xfce.thunar
             xfce.thunar-volman
