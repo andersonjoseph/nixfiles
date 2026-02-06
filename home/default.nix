@@ -29,6 +29,7 @@
           [
             neovim
             vivaldi
+            google-chrome
             keepassxc
             vlc
 	    qbittorrent
