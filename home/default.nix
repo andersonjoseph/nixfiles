@@ -37,6 +37,7 @@
 	    xarchiver
 	    darktable
 	    slack
+	    thunderbird
 
             xfce.thunar
             xfce.thunar-volman
