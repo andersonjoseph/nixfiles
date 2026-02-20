@@ -10,13 +10,14 @@
         pkgs,
         lib,
         nixosConfig,
-	config,
+        config,
         ...
       }:
       {
         imports = [
           ./i3
           ./alacritty.nix
+          ./zellij.nix
         ];
 
         home.stateVersion = "25.05";
@@ -32,17 +33,17 @@
             google-chrome
             keepassxc
             vlc
-	    qbittorrent
-	    jamesdsp
-	    xarchiver
-	    darktable
-	    slack
-	    thunderbird
+            qbittorrent
+            jamesdsp
+            xarchiver
+            darktable
+            slack
+            thunderbird
 
             xfce.thunar
             xfce.thunar-volman
             xfce.thunar-archive-plugin
-	    xfce.xfconf
+            xfce.xfconf
 
             autotiling
             sysstat
@@ -61,43 +62,43 @@
             fzf
             ripgrep
             tree
-	    unzip
-	    rofi
-	    lsof
+            unzip
+            rofi
+            lsof
             (ffmpeg-full.override { withUnfree = true; })
           ]
           ++ (lib.optionals nixosConfig.custom.isLaptop [
             brightnessctl
           ]);
 
-	services.redshift = {
-	  enable = true;
-	  dawnTime = "7:00";
-	  duskTime = "16:35";
-	  temperature = {
-	    day = 6500;
-	    night = 3500;
-	  };
-	};
+        services.redshift = {
+          enable = true;
+          dawnTime = "7:00";
+          duskTime = "16:35";
+          temperature = {
+            day = 6500;
+            night = 3500;
+          };
+        };
 
-	programs.ssh = {
-	  enable = true;
-	  enableDefaultConfig = false; 
-	  matchBlocks = {
-	    "*" = {
-	      forwardAgent = false;
-	      hashKnownHosts = true;
-	      addKeysToAgent = "yes";
-	    };
-	    "github.com" = {
-	      identityFile = "~/.ssh/identity/anderson";
-	    };
-	    "vondel-nord" = {
-	      user = "anderson";
-	      identityFile = "~/.ssh/access/vondel";
-	    };
-	  };
-	};
+        programs.ssh = {
+          enable = true;
+          enableDefaultConfig = false;
+          matchBlocks = {
+            "*" = {
+              forwardAgent = false;
+              hashKnownHosts = true;
+              addKeysToAgent = "yes";
+            };
+            "github.com" = {
+              identityFile = "~/.ssh/identity/anderson";
+            };
+            "vondel-nord" = {
+              user = "anderson";
+              identityFile = "~/.ssh/access/vondel";
+            };
+          };
+        };
 
         programs.obs-studio = lib.mkIf nixosConfig.custom.isDesktop {
           enable = true;
@@ -110,25 +111,25 @@
 
         programs.git = {
           enable = true;
-	  settings = {
-	    user = {
-	      name = "anderson";
-	      email = "andersonjoseph@mailfence.com";
-	    };
-	  };
-	  signing = {
-	    signByDefault = true;
-	    format = "ssh";
-	  };
-	};
+          settings = {
+            user = {
+              name = "anderson";
+              email = "andersonjoseph@mailfence.com";
+            };
+          };
+          signing = {
+            signByDefault = true;
+            format = "ssh";
+          };
+        };
 
-	programs.lazygit = {
-	  enable = true;
-	};
+        programs.lazygit = {
+          enable = true;
+        };
 
-	programs.lazydocker = {
-	  enable = true;
-	};
+        programs.lazydocker = {
+          enable = true;
+        };
 
         programs.bash = {
           enable = true;
@@ -140,17 +141,17 @@
           initExtra = ''
             	  eval "$(fzf --bash)"
             	  '';
-	  bashrcExtra = ''
-	    export MANPAGER='nvim +Man!'
-	    export PATH="$PATH:$HOME/go/bin"
-	  '';
+          bashrcExtra = ''
+            	    export MANPAGER='nvim +Man!'
+            	    export PATH="$PATH:$HOME/go/bin"
+            	  '';
         };
 
-	programs.direnv = {
-	  enable = true;
-	  enableBashIntegration = true;
-	  nix-direnv.enable = true;
-	};
+        programs.direnv = {
+          enable = true;
+          enableBashIntegration = true;
+          nix-direnv.enable = true;
+        };
 
         programs.starship = {
           enable = true;
@@ -161,9 +162,9 @@
           source = nixosConfig.custom.wallpaperFile;
         };
 
-	home.file.".config/nvim" = {
-	  source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/nvim";
-	};
+        home.file.".config/nvim" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/nvim";
+        };
       };
   };
 }

@@ -43,6 +43,13 @@
           white = "#e8e8e8";
         };
       };
+      keyboard.bindings = [
+	{
+	  key = "f";
+	  mods = "Control|Shift";
+	  action = "ReceiveChar";
+	}
+      ];
     };
   };
 }
