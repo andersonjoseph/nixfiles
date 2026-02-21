@@ -152,27 +152,27 @@
                       use_arrow_keys true
                   }
               }
-              bind "Shift down" {
+              bind "Alt down" {
                   MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
                       name "move_focus"
                       payload "down"
-                      move_mod "shift"
+                      move_mod "alt"
                       use_arrow_keys true
                   }
               }
-              bind "Shift right" {
+              bind "Alt right" {
                   MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
                       name "move_focus_or_tab"
                       payload "right"
-                      move_mod "shift"
+                      move_mod "alt"
                       use_arrow_keys true
                   }
               }
-              bind "Shift left" {
+              bind "Alt left" {
                   MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
                       name "move_focus_or_tab"
                       payload "left"
-                      move_mod "shift"
+                      move_mod "alt"
                       use_arrow_keys true
                   }
               }
@@ -181,16 +181,13 @@
               bind "Ctrl Alt =" { Resize "Increase"; }
               bind "Ctrl [" { PreviousSwapLayout; }
               bind "Ctrl ]" { NextSwapLayout; }
-              bind "Ctrl Shift f" { ToggleFocusFullscreen; }
-              bind "Alt Shift right" { MoveTab "right"; }
-              bind "Alt Shift left" { MoveTab "left"; }
-              bind "Ctrl Shift n" { NewPane; }
+              bind "Ctrl Alt f" { ToggleFocusFullscreen; }
+              bind "Ctrl Alt n" { NewPane; }
               bind "Ctrl Shift t" { NewTab; }
-              bind "Ctrl Shift 1" { GoToTab 1; }
-              bind "Ctrl Shift 2" { GoToTab 2; }
-              bind "Ctrl Shift 3" { GoToTab 3; }
-              bind "Ctrl Shift 4" { GoToTab 4; }
-              bind "Ctrl Shift d" { Detach; }
+              bind "Ctrl Alt 1" { GoToTab 1; }
+              bind "Ctrl Alt 2" { GoToTab 2; }
+              bind "Ctrl Alt 3" { GoToTab 3; }
+              bind "Ctrl Alt 4" { GoToTab 4; }
           }
           shared_except "locked" "renametab" "renamepane" {
               bind "Ctrl f" { SwitchToMode "locked"; }
