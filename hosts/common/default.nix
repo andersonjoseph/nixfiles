@@ -40,6 +40,10 @@
 
   security.rtkit.enable = true; 
 
+  security.pki.certificateFiles = [
+    ./vondel.crt
+  ];
+
   hardware.alsa.enablePersistence = true;
 
   services.pulseaudio.enable = false;

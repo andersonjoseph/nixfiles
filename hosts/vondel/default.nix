@@ -83,9 +83,22 @@
 
   services.journald.extraConfig = "SystemMaxUse=1G";
 
+  services.caddy = {
+    enable = true;
+
+    virtualHosts."vondel-nord.nord".extraConfig = ''
+      tls internal
+
+      handle_path /llm* {
+	reverse_proxy localhost:8080
+      }
+    '';
+  };
+
   networking.firewall.allowedTCPPorts = [
     22
-    8080
+    80
+    443
   ];
 
   environment.systemPackages = with pkgs; [
