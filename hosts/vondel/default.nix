@@ -62,9 +62,7 @@
 
   services.open-webui = {
     enable = true;
-    host = "0.0.0.0";
-    port = 8080;
-    openFirewall = true;
+    port = 3000;
   };
 
   services.logrotate = {
@@ -86,12 +84,9 @@
   services.caddy = {
     enable = true;
 
-    virtualHosts."vondel-nord.nord".extraConfig = ''
+    virtualHosts."vondel-nord.nord:8000".extraConfig = ''
       tls internal
-
-      handle_path /llm* {
-	reverse_proxy localhost:8080
-      }
+      reverse_proxy localhost:3000
     '';
   };
 
@@ -99,6 +94,8 @@
     22
     80
     443
+
+    8000
   ];
 
   environment.systemPackages = with pkgs; [
