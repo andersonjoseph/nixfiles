@@ -130,9 +130,17 @@
 
         programs.lazygit = {
           enable = true;
-        };
+	  settings = {
+	    git.pagers = [
+	      {
+		pager = "delta --dark --paging=never";
+		colorArg = "always";
+	      }
+	    ];
+	  };
+	};
 
-        programs.lazydocker = {
+	programs.lazydocker = {
           enable = true;
         };
 
