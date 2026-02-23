@@ -81,6 +81,11 @@
           };
         };
 
+        programs.delta = {
+	  enable = true;
+	  enableGitIntegration = true;
+	};
+
         programs.ssh = {
           enable = true;
           enableDefaultConfig = false;
