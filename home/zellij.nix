@@ -48,10 +48,8 @@
               bind "z" { TogglePaneFrames; SwitchToMode "locked"; }
           }
           tab {
-              bind "left" { GoToPreviousTab; }
-              bind "down" { GoToNextTab; }
-              bind "up" { GoToPreviousTab; }
-              bind "right" { GoToNextTab; }
+              bind "left" { MoveTab "Left"; }
+              bind "right" { MoveTab "Right"; }
               bind "1" { GoToTab 1; SwitchToMode "locked"; }
               bind "2" { GoToTab 2; SwitchToMode "locked"; }
               bind "3" { GoToTab 3; SwitchToMode "locked"; }
