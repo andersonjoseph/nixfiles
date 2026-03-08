@@ -1,8 +1,20 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  notificationSound = ./alacritty-notification.mp3;
+in
 {
   programs.alacritty = {
     enable = true;
     settings = {
+      bell = {
+	command = {
+	  program = "${pkgs.bash}/bin/sh";
+	  args = [
+	    "-c"
+	    "${pkgs.dunst}/bin/dunstify alacritty 'Terminal needs your attention!' & ${pkgs.pulseaudio}/bin/paplay ${notificationSound}"
+	  ];
+	};
+      };
       env = {
         "TERM" = "xterm-256color";
       };
