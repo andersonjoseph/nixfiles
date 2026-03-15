@@ -12,46 +12,39 @@ end
 
 return {
   "olimorris/codecompanion.nvim",
-  version = "^18.0.0",
+  version = "^19.0.0",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
   },
   keys = {
-    { "<leader>gc", ":CodeCompanionChat #{buffer} ", desc = "Open CodeCompanion", mode = "n" },
-    { "<leader>gc", ":CodeCompanionChat #{buffer} ", desc = "Open CodeCompanion", mode = "v" },
-    { "<leader>gi", ":CodeCompanion #{buffer} replace ", desc = "CodeCompanion inline", mode = "v" },
+    { "<leader>ac", ":CodeCompanionChat #{buffer} ", desc = "Open CodeCompanion", mode = "n" },
+    { "<leader>ac", ":CodeCompanionChat #{buffer} ", desc = "Open CodeCompanion", mode = "v" },
+    { "<leader>ai", ":CodeCompanion #{buffer} replace ", desc = "CodeCompanion inline", mode = "v" },
   },
   opts = {
     interactions = {
-      chat = {
-	adapter = "glm",
-	tools = {
-	  opts = {
-	    default_tools = {
-	      "full_stack_dev",
-	    },
-	  },
-	},
+      shared = {
 	keymaps = {
 	  accept_change = {
+	    callback = "keymaps.accept_change",
+	    description = "Accept change",
 	    modes = { n = "ga" },
+	    opts = { nowait = true, noremap = true },
 	  },
 	  reject_change = {
+	    callback = "keymaps.reject_change",
+	    description = "Reject change",
 	    modes = { n = "gr" },
+	    opts = { nowait = true, noremap = true },
 	  },
 	},
       },
+      chat = {
+	adapter = "glm",
+      },
       inline = {
 	adapter = "glm",
-	keymaps = {
-	  accept_change = {
-	    modes = { n = "ga" },
-	  },
-	  reject_change = {
-	    modes = { n = "gr" },
-	  },
-	},
       },
     },
     adapters = {
@@ -65,19 +58,7 @@ return {
 	    },
 	    schema = {
 	      model = {
-		default = "glm-4.6",
-	      },
-	    },
-	  })
-	end,
-      },
-      acp = {
-	opencode = function()
-	  return require("codecompanion.adapters").extend("opencode", {
-	    commands = {
-	      default = {
-		"opencode",
-		"acp",
+		default = "glm-4.7",
 	      },
 	    },
 	  })
