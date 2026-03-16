@@ -8,8 +8,6 @@
 
   networking.hostName = "almazrah";
   custom.wallpaperFile = ./wallpaper;
-
-  custom.isDesktop = true;
   custom.hasNvidia = true;
   custom.xrandr.startupCommand = "xrandr --output HDMI-0 --mode 1920x1080 --rate 99.93";
 

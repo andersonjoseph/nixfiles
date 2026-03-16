@@ -1,64 +1,23 @@
 { pkgs, ... }:
-{
 
+{
   imports = [
     ./hardware-configuration.nix
-  ];
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  nixpkgs.config.allowUnfree = true;
-
-  boot.tmp.useTmpfs = true;
-
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 16 * 1024; # 16GB
-    }
-  ];
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
+    ../common/default.nix
   ];
 
   networking.hostName = "vondel";
-  networking.networkmanager.enable = true;
 
-  time.timeZone = "America/Caracas";
-  i18n.defaultLocale = "en_US.UTF-8";
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.tmp.useTmpfs = true;
 
-  users.users.anderson = {
-    isNormalUser = true;
-    description = "anderson";
-    initialHashedPassword = "$6$k2/MT8SgzcASeb4W$5N9Z7D114THiK47xMbo0RDt.dXJkeROI4t.55C087sTas8wIYIO5xjHVrNaHUkO4QQ0E4vBNgF1YnkS7EYOQa0";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "nordvpn"
-      "docker"
-    ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID4RQrSTll/Ugui6ty+c6XvBCPYHT9OMm7F1K4KeTiCC almazrah->vondel"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC94m5sA5JJQ+n4UYoUCiT1YNYxsmTYFjk1wYupVesna ashika->vondel"
-    ];
-  };
-
-  virtualisation.docker = {
-    enable = true;
-  };
+  users.users.anderson.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID4RQrSTll/Ugui6ty+c6XvBCPYHT9OMm7F1K4KeTiCC almazrah->vondel"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC94m5sA5JJQ+n4UYoUCiT1YNYxsmTYFjk1wYupVesna ashika->vondel"
+  ];
 
   services.fail2ban.enable = true;
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      UseDns = true;
-      PasswordAuthentication = false;
-    };
-  };
 
   services.open-webui = {
     enable = true;
@@ -79,40 +38,35 @@
     };
   };
 
-  services.journald.extraConfig = "SystemMaxUse=1G";
-
   services.caddy = {
     enable = true;
-
     virtualHosts."vondel-nord.nord:8000".extraConfig = ''
       tls internal
       reverse_proxy localhost:3000
     '';
   };
 
+  services.journald.extraConfig = "SystemMaxUse=1G";
+
+  programs.mosh.enable = true;
+
   networking.firewall.allowedTCPPorts = [
     22
     80
     443
-
     8000
+  ];
+
+  networking.firewall.allowedUDPPortRanges = [
+    {
+      from = 60000;
+      to = 61000;
+    }
   ];
 
   environment.systemPackages = with pkgs; [
     htop
     git
     vim
-    jq
-    ripgrep
-    lazydocker
-    tree
   ];
-
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 7d";
-  };
-
-  system.stateVersion = "23.05";
 }

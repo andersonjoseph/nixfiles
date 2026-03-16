@@ -13,12 +13,18 @@
         config,
         ...
       }:
+      let
+        isDesktopMachine = builtins.elem nixosConfig.networking.hostName [ "almazrah" "ashika" ];
+      in
       {
-        imports = [
-          ./i3
-          ./alacritty.nix
-          ./zellij.nix
-        ];
+        imports =
+          [
+            ./zellij.nix
+          ]
+          ++ (lib.optionals isDesktopMachine [
+            ./i3
+            ./alacritty.nix
+          ]);
 
         home.stateVersion = "25.05";
 
@@ -29,6 +35,16 @@
           with pkgs;
           [
             neovim
+            jq
+            ripgrep
+            tree
+            fzf
+            killall
+            unzip
+            lsof
+            bc
+          ]
+          ++ (lib.optionals isDesktopMachine [
             vivaldi
             google-chrome
             keepassxc
@@ -55,23 +71,14 @@
             maim
             feh
             alsa-utils
-            killall
-            jq
             xclip
-            bc
-            fzf
-            ripgrep
-            tree
-            unzip
             rofi
-            lsof
             (ffmpeg-full.override { withUnfree = true; })
-          ]
-          ++ (lib.optionals nixosConfig.custom.isLaptop [
             brightnessctl
+            mosh
           ]);
 
-        services.redshift = {
+        services.redshift = lib.mkIf isDesktopMachine {
           enable = true;
           dawnTime = "7:00";
           duskTime = "16:35";
@@ -82,9 +89,9 @@
         };
 
         programs.delta = {
-	  enable = true;
-	  enableGitIntegration = true;
-	};
+          enable = true;
+          enableGitIntegration = true;
+        };
 
         programs.ssh = {
           enable = true;
@@ -105,7 +112,7 @@
           };
         };
 
-        programs.obs-studio = lib.mkIf nixosConfig.custom.isDesktop {
+        programs.obs-studio = lib.mkIf isDesktopMachine {
           enable = true;
           package = (
             pkgs.obs-studio.override {
@@ -130,17 +137,17 @@
 
         programs.lazygit = {
           enable = true;
-	  settings = {
-	    git.pagers = [
-	      {
-		pager = "delta --dark --paging=never";
-		colorArg = "always";
-	      }
-	    ];
-	  };
-	};
+          settings = {
+            git.pagers = [
+              {
+                pager = "delta --dark --paging=never";
+                colorArg = "always";
+              }
+            ];
+          };
+        };
 
-	programs.lazydocker = {
+        programs.lazydocker = {
           enable = true;
         };
 
@@ -152,12 +159,12 @@
             wtf = "sudo $(fc -ln -1)";
           };
           initExtra = ''
-            	  eval "$(fzf --bash)"
-            	  '';
+            eval "$(fzf --bash)"
+          '';
           bashrcExtra = ''
-            	    export MANPAGER='nvim +Man!'
-            	    export PATH="$PATH:$HOME/go/bin"
-            	  '';
+            export MANPAGER='nvim +Man!'
+            export PATH="$PATH:$HOME/go/bin"
+          '';
         };
 
         programs.direnv = {

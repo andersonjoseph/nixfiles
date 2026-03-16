@@ -43,6 +43,8 @@
 	modules = [
 	  nordvpn-module
 	  ./hosts/vondel
+	  ./home
+	  home-manager.nixosModules.home-manager
 	];
       };
 

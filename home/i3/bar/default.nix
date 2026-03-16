@@ -43,7 +43,7 @@ in
         interval = 60;
       };
     }
-    // lib.optionalAttrs nixosConfig.custom.isLaptop {
+    // lib.optionalAttrs (nixosConfig.networking.hostName == "ashika") {
       battery = lib.hm.dag.entryAfter [ "time" ] {
         command = "${scripts.battery}/bin/battery";
         markup = "pango";

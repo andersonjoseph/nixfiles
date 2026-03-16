@@ -5,6 +5,9 @@
   ...
 }:
 
+let
+  isDesktopMachine = builtins.elem config.networking.hostName [ "almazrah" "ashika" ];
+in
 {
   imports = [
     ./../../options.nix
@@ -32,39 +35,33 @@
     LC_TIME = "es_VE.UTF-8";
   };
 
-  services.pipewire = {
+  services.pipewire = lib.mkIf isDesktopMachine {
     enable = true;
     alsa.enable = true;
     pulse.enable = true;
   };
 
-  security.rtkit.enable = true; 
+  security.rtkit.enable = true;
 
   security.pki.certificateFiles = [
     ./vondel.crt
   ];
 
-  hardware.alsa.enablePersistence = true;
+  hardware.alsa.enablePersistence = lib.mkIf isDesktopMachine true;
 
-  services.pulseaudio.enable = false;
-  services.gvfs.enable = true;
-  services.tumbler.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  services.pulseaudio.enable = lib.mkIf isDesktopMachine false;
+  services.gvfs.enable = lib.mkIf isDesktopMachine true;
+  services.tumbler.enable = lib.mkIf isDesktopMachine true;
 
-  services.libinput = {
+  services.libinput = lib.mkIf isDesktopMachine {
     enable = true;
     touchpad = {
       naturalScrolling = true;
     };
   };
-
-  services.blueman.enable = true;
-  hardware.bluetooth.enable = true;
 
   users.users.anderson = {
     isNormalUser = true;
@@ -77,13 +74,12 @@
     ];
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   swapDevices = [
     {
       device = "/swapfile";
-      size = 16 * 1024; # 16GB
+      size = 16 * 1024;
     }
   ];
 
@@ -91,12 +87,14 @@
     "nix-command"
     "flakes"
   ];
+  nix.settings.auto-optimise-store = true;
+
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; [
     pulseaudio
   ];
 
-  fonts = {
+  fonts = lib.mkIf isDesktopMachine {
     packages = with pkgs; [
       noto-fonts
       noto-fonts-color-emoji
@@ -119,7 +117,7 @@
     };
   };
 
-  programs.i3lock.enable = true;
+  programs.i3lock.enable = lib.mkIf isDesktopMachine true;
   programs.ssh.startAgent = true;
 
   services.openssh = {
@@ -134,40 +132,34 @@
     binfmt = true;
   };
 
-  # List services that you want to enable:
   services.upower.enable = true;
 
-  # make palm rejection work with keyd
-  environment.etc."libinput/local-overrides.quirks".text = ''
-    [Serial Keyboards]
-    MatchUdevType=keyboard
-      MatchName=keyd virtual keyboard
-      AttrKeyboardIntegration=internal
-  '';
+  environment.etc = lib.mkIf isDesktopMachine {
+    "libinput/local-overrides.quirks".text = ''
+      [Serial Keyboards]
+      MatchUdevType=keyboard
+        MatchName=keyd virtual keyboard
+        AttrKeyboardIntegration=internal
+    '';
+  };
 
-  services.keyd = {
+  services.keyd = lib.mkIf isDesktopMachine {
     enable = true;
     keyboards = {
       default = {
         ids = [ "*" ];
-        # https://github.com/rvaiya/keyd/blob/master/docs/keyd.scdoc
-        # play with it by
-        # sudo bash -c 'cd /etc/keyd; cp -H default.conf t;mv -f t default.conf; chown wmertens default.conf'
-        # and then edit /etc/keyd/default.conf + restart keyd
-        # (be sure to retain the ids section at the top!)
         settings = {
           main = lib.mkMerge [
             {
               capslock = "overload(capslock-layer, esc)";
             }
 
-            (lib.mkIf (config.custom.isDesktop) {
+            (lib.mkIf (config.custom.hasNvidia) {
               esc = "`";
               backspace = "noop";
             })
 
-	    (lib.mkIf (config.custom.isLaptop) {
-              # delete key is stuck :(
+            (lib.mkIf (config.networking.hostName == "ashika") {
               delete = "noop";
             })
           ];
@@ -187,42 +179,31 @@
         };
 
         extraConfig = ''
-          	  [capslock-layer+shift]
-          	  space = C-backspace
-          	'';
+          [capslock-layer+shift]
+          space = C-backspace
+        '';
       };
     };
   };
 
-  services.xserver = {
+  services.xserver = lib.mkIf isDesktopMachine {
     enable = true;
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
     windowManager.i3.enable = true;
   };
-  services.displayManager.defaultSession = "none+i3";
-  security.pam.services = {
+  services.displayManager.defaultSession = lib.mkIf isDesktopMachine "none+i3";
+  security.pam.services = lib.mkIf isDesktopMachine {
     i3lock.enable = true;
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
-
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.dates = "weekly";
   nix.gc = {
     automatic = true;
     dates = "daily";
     options = "--delete-older-than 7d";
   };
-  nix.settings.auto-optimise-store = true;
+
+  system.stateVersion = "25.05";
 }
