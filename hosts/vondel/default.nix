@@ -17,8 +17,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC94m5sA5JJQ+n4UYoUCiT1YNYxsmTYFjk1wYupVesna ashika->vondel"
   ];
 
-  services.fail2ban.enable = true;
-
   services.open-webui = {
     enable = true;
     port = 3000;
@@ -50,10 +48,13 @@
 
   services.eternal-terminal.enable = true;
 
+  networking.firewall.trustedInterfaces = [ "docker0" ];
+
   networking.firewall.allowedTCPPorts = [
     22
     80
     443
+
     8000
     2022
   ];
