@@ -12,3 +12,15 @@ vim.opt.cursorline = true  -- Highlight current line
 vim.opt.splitright = true  -- Put new windows right of current
 vim.opt.splitbelow = true  -- Put new windows below current
 vim.opt.colorcolumn = "100"
+
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+    ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste '+',
+    ['*'] = require('vim.ui.clipboard.osc52').paste '*',
+  },
+}
