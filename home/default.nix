@@ -75,7 +75,7 @@
             rofi
             (ffmpeg-full.override { withUnfree = true; })
             brightnessctl
-            mosh
+            eternal-terminal
           ]);
 
         services.redshift = lib.mkIf isDesktopMachine {

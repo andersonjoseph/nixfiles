@@ -48,20 +48,14 @@
 
   services.journald.extraConfig = "SystemMaxUse=1G";
 
-  programs.mosh.enable = true;
+  services.eternal-terminal.enable = true;
 
   networking.firewall.allowedTCPPorts = [
     22
     80
     443
     8000
-  ];
-
-  networking.firewall.allowedUDPPortRanges = [
-    {
-      from = 60000;
-      to = 61000;
-    }
+    2022
   ];
 
   environment.systemPackages = with pkgs; [
