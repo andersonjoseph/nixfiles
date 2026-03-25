@@ -27,32 +27,32 @@ in
       };
 
       colors = {
-        # Vague theme colors
+        # Jellybeans (muted)
         primary = {
-          background = "#141415";
-          foreground = "#cdcdcd";
+          background = "#101010";
+          foreground = "#dad6c8";
         };
 
         normal = {
-          black = "#141415";
-          red = "#d8647e";
-          green = "#a8e6cf";
-          yellow = "#f3be7c";
-          blue = "#2c4a6e";
-          magenta = "#bb9dbd";
-          cyan = "#b4d4cf";
-          white = "#cdcdcd";
+          black = "#101010";
+          red = "#cc4d4d";
+          green = "#98b67c";
+          yellow = "#d9a45a";
+          blue = "#7db7cc";
+          magenta = "#b8aed3";
+          cyan = "#617b87";
+          white = "#bebebe";
         };
 
         bright = {
-          black = "#4b4b4e";
-          red = "#c48282";
-          green = "#90a0b5";
-          yellow = "#e0a363";
-          blue = "#9bb4bc";
-          magenta = "#aeaed1";
-          cyan = "#c3c3d5";
-          white = "#e8e8e8";
+          black = "#3c3b38";
+          red = "#cc4d4d";
+          green = "#6aa84c";
+          yellow = "#d8a16c";
+          blue = "#a6c3d9";
+          magenta = "#b8aed3";
+          cyan = "#a5acb1";
+          white = "#dad6c8";
         };
       };
       keyboard.bindings = [

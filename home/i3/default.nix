@@ -8,20 +8,20 @@
 let
   mod = "Mod1";
 
-  # Color Palette based on Kanso Ink theme
+  # Color Palette based on Jellybeans (muted)
   colors = {
-    bg = "#141415";
-    fg = "#cdcdcd";
-    gray = "#1c1c24";
-    red = "#d8647e";
-    green = "#7fa563";
-    yellow = "#f3be7c";
-    blue = "#7e98e8";
-    magenta = "#bb9dbd";
-    cyan = "#b4d4cf";
-    white = "#cdcdcd";
-    dark_gray = "#252530";
-    light_blue = "#9bb4bc";
+    bg = "#101010";
+    fg = "#bebebe";
+    gray = "#302e2c";
+    red = "#cc4d4d";
+    green = "#98b67c";
+    yellow = "#d9a45a";
+    blue = "#7db7cc";
+    magenta = "#b8aed3";
+    cyan = "#617b87";
+    white = "#bebebe";
+    dark_gray = "#3c3936";
+    light_blue = "#a6c3d9";
   };
 in
 {

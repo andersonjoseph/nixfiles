@@ -23,7 +23,7 @@ $line_break\
 $character\
 """
 
-palette = 'default'
+palette = 'jellybeans'
 
 [palettes.default]
 
@@ -105,6 +105,33 @@ color_duration = '#282828'
 color_vimcmd_ok = '#689d6a'
 color_vimcmd_replace = '#b16286'
 color_vimcmd_visual = '#d79921'
+
+[palettes.jellybeans]
+
+color_ok = '#98b67c'
+color_danger = '#cc4d4d'
+color_caution = '#d9a45a'
+
+color_os = '#cc4d4d'
+color_username = '#cc4d4d'
+color_hostname = '#617b87'
+color_directory = '#d9a45a'
+color_git = '#617b87'
+color_git_added = '#98b67c'
+color_git_deleted = '#cc4d4d'
+color_env = '#7db7cc'
+color_kubernetes = '#5c1e68'
+color_docker = '#7db7cc'
+color_nix = '#7db7cc'
+color_shell = '#bebebe'
+color_container = '#cc4d4d'
+color_other = '#bebebe'
+color_time = '#dad6c8'
+color_duration = '#dad6c8'
+
+color_vimcmd_ok = '#98b67c'
+color_vimcmd_replace = '#5c1e68'
+color_vimcmd_visual = '#d9a45a'
 
 [username]
 show_always = true
