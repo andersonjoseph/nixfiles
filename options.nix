@@ -16,6 +16,12 @@
       description = "Whether the system has an Nvidia GPU or not";
     };
 
+    isGaming = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to enable gaming-related programs (lutris, etc.)";
+    };
+
     xrandr = {
       startupCommand = lib.mkOption {
         type = lib.types.nullOr lib.types.str;

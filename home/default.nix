@@ -121,6 +121,10 @@
           );
         };
 
+        programs.lutris = lib.mkIf nixosConfig.custom.isGaming {
+          enable = true;
+        };
+
         programs.git = {
           enable = true;
           settings = {
