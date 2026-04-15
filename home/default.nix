@@ -189,6 +189,14 @@
         home.file.".config/nvim" = {
           source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/nvim";
         };
+
+        home.file.".pi/agent/AGENTS.md" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/pi/agent/AGENTS.md";
+        };
+
+        home.file.".pi/agent/prompts" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/pi/agent/prompts";
+        };
       };
   };
 }
