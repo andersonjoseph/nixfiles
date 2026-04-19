@@ -30,8 +30,8 @@ let
         tunnelblickSrc = fetchFromGitHub {
           owner = "Tunnelblick";
           repo = "Tunnelblick";
-          tag = "v8.0";
-          hash = "sha256-Kj/F7hI6E+giT+4iGDUjXCLgy/6jcohtTWtLXOpZfo0=";
+          tag = "v9.0beta02";
+          hash = "sha256-deSw7Oeq421acMRn11eiFoyuaHv8htvwX4np+nSHy1E=";
         };
 
         p = "third_party/sources/openvpn/openvpn-${old.version}/patches";
@@ -66,7 +66,7 @@ buildGoModule (finalAttrs: {
     sqlite
   ];
 
-  vendorHash = "sha256-outOvVAu76Pa9lQbiXQP2wA2cee3Ofq41SwfL6JEKs0=";
+  vendorHash = "sha256-oXSl3QuW8DN8N5WezQwIj1KjIXBMZWOb2vY+ct5AOYo=";
 
   preBuild = ''
     # use path $out/bin instead of /usr/lib

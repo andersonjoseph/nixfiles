@@ -23,15 +23,15 @@
         ...
       }: let
         lib = pkgs.lib;
-        version = "4.3.1";
+        version = "4.5.0";
         commonArgs = {
           myVersion = version;
 
-          mySrc = pkgs.fetchFromGitHub {
-            owner = "NordSecurity";
-            repo = "nordvpn-linux";
-            tag = version;
-            hash = "sha256-o9+9IiXV2CS/Zj3bDg8EJn/UidwA6Fwn4ySFbwyCp60=";
+          mySrc = pkgs.fetchgit {
+            url = "https://github.com/NordSecurity/nordvpn-linux.git";
+            rev = "refs/tags/${version}";
+            fetchSubmodules = false;
+            hash = "sha256-nxRKYKR4ZPBAhveyG2I5ZmbftYr4hliEcRaZdjd4Sj0=";
           };
 
           myMeta = rec {
@@ -96,15 +96,15 @@
           pkgs,
           ...
         }: let
-          version = "4.3.1";
+          version = "4.5.0";
           commonArgs = {
             myVersion = version;
 
-            mySrc = pkgs.fetchFromGitHub {
-              owner = "NordSecurity";
-              repo = "nordvpn-linux";
-              tag = version;
-              hash = "sha256-o9+9IiXV2CS/Zj3bDg8EJn/UidwA6Fwn4ySFbwyCp60=";
+            mySrc = pkgs.fetchgit {
+              url = "https://github.com/NordSecurity/nordvpn-linux.git";
+              rev = "refs/tags/${version}";
+              fetchSubmodules = false;
+              hash = "sha256-nxRKYKR4ZPBAhveyG2I5ZmbftYr4hliEcRaZdjd4Sj0=";
             };
 
             myMeta = rec {
