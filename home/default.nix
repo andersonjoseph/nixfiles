@@ -56,10 +56,10 @@
             slack
             thunderbird
 
-            xfce.thunar
-            xfce.thunar-volman
-            xfce.thunar-archive-plugin
-            xfce.xfconf
+            thunar
+            thunar-volman
+            thunar-archive-plugin
+            xfconf
 
             autotiling
             sysstat
@@ -96,18 +96,18 @@
         programs.ssh = {
           enable = true;
           enableDefaultConfig = false;
-          matchBlocks = {
+          settings = {
             "*" = {
-              forwardAgent = false;
-              hashKnownHosts = true;
-              addKeysToAgent = "yes";
+              ForwardAgent = false;
+              HashKnownHosts = true;
+              AddKeysToAgent = "yes";
             };
             "github.com" = {
-              identityFile = "~/.ssh/identity/anderson";
+              IdentityFile = "~/.ssh/identity/anderson";
             };
             "vondel-nord" = {
-              user = "anderson";
-              identityFile = "~/.ssh/access/vondel";
+              User = "anderson";
+              IdentityFile = "~/.ssh/access/vondel";
             };
           };
         };
