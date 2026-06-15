@@ -10,6 +10,7 @@
     networking.hostName = "ashika";
 
     custom.wallpaperFile = ./wallpaper;
+    custom.isGaming = true;
 
     # Bootloader.
     boot.loader.grub.enable = true;

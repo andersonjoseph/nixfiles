@@ -6,7 +6,7 @@
 }:
 
 let
-  isDesktopMachine = builtins.elem config.networking.hostName [ "almazrah" "ashika" ];
+  isDesktopMachine = builtins.elem config.networking.hostName [ "almazrah" "ashika" "lyndon" ];
 in
 {
   imports = [
