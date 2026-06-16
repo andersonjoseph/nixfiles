@@ -10,6 +10,11 @@
   custom.wallpaperFile = ../almazrah/wallpaper;
   custom.hasNvidia = true;
 
+  # External monitor: mirror the laptop, run at 100Hz with full RGB range.
+  custom.xrandr.startupCommand = ''
+    xrandr --output DP-1 --same-as eDP-1 --mode 1920x1080 --rate 99.93 --set "Broadcast RGB" "Full"
+  '';
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
