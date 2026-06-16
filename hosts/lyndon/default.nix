@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports = [
@@ -17,8 +17,20 @@
   # Nvidia
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
-    open = false;
     modesetting.enable = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = false;
+    open = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    prime = {
+      offload = {
+	enable = true;
+	enableOffloadCmd = true;
+      };
+      intelBusId  = "PCI:0:2:0";# from i915 0000:00:02.0
+      nvidiaBusId = "PCI:1:0:0";# from nvidia 0000:01:00.0
+    };
   };
 
   # Intel integrated graphics
