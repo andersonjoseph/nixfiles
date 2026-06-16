@@ -43,7 +43,7 @@ in
         interval = 60;
       };
     }
-    // lib.optionalAttrs (nixosConfig.networking.hostName == "ashika") {
+    // lib.optionalAttrs (builtins.elem nixosConfig.networking.hostName [ "ashika" "lyndon" ]) {
       battery = lib.hm.dag.entryAfter [ "time" ] {
         command = "${scripts.battery}/bin/battery";
         markup = "pango";
