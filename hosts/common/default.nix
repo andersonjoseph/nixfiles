@@ -136,58 +136,6 @@ in
 
   services.upower.enable = true;
 
-  environment.etc = lib.mkIf isDesktopMachine {
-    "libinput/local-overrides.quirks".text = ''
-      [Serial Keyboards]
-      MatchUdevType=keyboard
-        MatchName=keyd virtual keyboard
-        AttrKeyboardIntegration=internal
-    '';
-  };
-
-  services.keyd = lib.mkIf isDesktopMachine {
-    enable = true;
-    keyboards = {
-      default = {
-        ids = [ "*" ];
-        settings = {
-          main = lib.mkMerge [
-            {
-              capslock = "overload(capslock-layer, esc)";
-            }
-
-            (lib.mkIf (config.custom.hasNvidia) {
-              esc = "`";
-              backspace = "noop";
-            })
-
-            (lib.mkIf (config.networking.hostName == "ashika") {
-              delete = "noop";
-            })
-          ];
-
-          shift = {
-            esc = "~";
-          };
-
-          "capslock-layer:C" = {
-            space = "backspace";
-            h = "left";
-            k = "up";
-            j = "down";
-            l = "right";
-            backspace = "delete";
-          };
-        };
-
-        extraConfig = ''
-          [capslock-layer+shift]
-          space = C-backspace
-        '';
-      };
-    };
-  };
-
   services.xserver = lib.mkIf isDesktopMachine {
     enable = true;
     xkb = {
