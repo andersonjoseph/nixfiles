@@ -142,7 +142,7 @@
               }
           }
           shared_among "normal" "locked" {
-              bind "Ctrl Alt up" {
+              bind "Ctrl Alt k" {
                   MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
                       name "move_focus"
                       payload "up"
@@ -150,7 +150,7 @@
                       use_arrow_keys true
                   }
               }
-              bind "Ctrl Alt down" {
+              bind "Ctrl Alt j" {
                   MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
                       name "move_focus"
                       payload "down"
@@ -158,7 +158,7 @@
                       use_arrow_keys true
                   }
               }
-              bind "Ctrl Alt right" {
+              bind "Ctrl Alt l" {
                   MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
                       name "move_focus_or_tab"
                       payload "right"
@@ -166,7 +166,7 @@
                       use_arrow_keys true
                   }
               }
-              bind "Ctrl Alt left" {
+              bind "Ctrl Alt h {
                   MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
                       name "move_focus_or_tab"
                       payload "left"
