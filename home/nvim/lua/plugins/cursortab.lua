@@ -10,8 +10,8 @@ return {
       },
       behavior = {
         disabled_in = { "comment", "string" },
-        idle_completion_delay = 75,
-        text_change_debounce = 75,
+        idle_completion_delay = 500,
+        text_change_debounce = 500,
         cursor_prediction = {
           enabled = true,
           auto_advance = true,

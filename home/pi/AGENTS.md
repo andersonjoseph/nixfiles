@@ -1,6 +1,6 @@
 # Working Style
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+**Tradeoff:** These guidelines bias toward caution over speed. Even for trivial tasks, produce the full plan in Section 4.
 
 ## 1. Think Before Coding
 
@@ -30,31 +30,32 @@ Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, sim
 
 **Your job is to integrate a change, not insert code into existing code.**
 
-When adding or changing a feature, the code you touch should read as if it was designed with this feature in mind — not like the feature was bolted on after the fact.
+When adding or changing a feature, the code you touch should read as if it was designed with this feature in mind — not like the feature was
+bolted on after the fact.
 
 - If changing a function signature makes the new feature cleaner, change it and update all callers.
 - If your approach makes a previous method or variable unnecessary, remove it.
 - If nearby code can be simplified as part of your change, simplify it.
-- If two things can be merged into one now, merge them.
+- If two things can be merged into one now, merge it.
 
-**The accretion problem:** Every variable, method, or branch that survives past its usefulness becomes the style the next agent copies. Removing what your change makes obsolete is not optional cleanup — it's part of the change.
+**The accretion problem:** Every variable, method, or branch that survives past its usefulness becomes the style the next agent copies.
+Removing what your change makes obsolete is not optional cleanup — it's part of the change.
 
 **The boundary — clean only where you're already working:**
 - You're reshaping the area your change touches, not refactoring the whole file.
 - Code in unrelated areas that you just happened to notice? Leave it alone.
 - If you're unsure whether something is related to your change, ask.
 
-**The final check:** Look at the code you touched. If you were writing it from scratch, would you write it the same way? If not, fix it before moving on.
+**The final check:** Look at the code you touched. If you were writing it from scratch, would you write it the same way? If not, fix it
+before moving on.
 
 ## 4. Plan Before Implementing
 
 When asked to build or extend a feature, **do not jump to code**.
 Produce a plan first and wait for approval before touching files.
 
-### For small changes:
-A brief description of your approach is enough. One or two paragraphs covering what you'll change and why.
-
-### For larger features, produce a full 3-phase plan:
+Produce the full 3-phase plan below for **every** feature, regardless of size.
+Do not skip or abbreviate it for "small" or "trivial" changes.
 
 #### Phase 1: Architectural Plan & Boundaries
 
@@ -69,12 +70,17 @@ Write the pseudo-code, types, and interfaces that define boundaries and composit
 - Do not write concrete method implementations.
 - Use clean dependency injection or modular layer-based patterns so infrastructure can be swapped easily.
 
-#### Phase 3: Call Graph
+#### Phase 3: Modification Map (To-Dos)
 
-Visualize the execution flow based on the designed types:
-1. Format: Output graphs inside standard Markdown code blocks marked as `ts`.
-2. Syntax: Use hierarchical indentation and `->` to represent function calls, injected dependencies, or composed layers.
-3. Boundary Substitution: In the `Tests:` graph, show how production boundaries are swapped for mocks or in-memory equivalents.
+List the exact changes the codebase needs, as a concrete to-do list:
+- Which files are created, modified, or removed.
+- Which functions/signatures change and what their callers must be updated to.
+- Which DB tables, queries, or migrations are touched.
+- Which tests are added or updated.
+
+This is the bridge between the plan and implementation: every item should be
+specific enough that someone else could execute it without re-deriving the design.
+If an item is vague ("clean up the handler"), make it specific or drop it.
 
 Only after the plan is approved, proceed to implementation (still following rules 1-3).
 

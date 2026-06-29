@@ -166,7 +166,7 @@
                       use_arrow_keys true
                   }
               }
-              bind "Ctrl Alt h {
+              bind "Ctrl Alt h" {
                   MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
                       name "move_focus_or_tab"
                       payload "left"
