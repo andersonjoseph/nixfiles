@@ -8,14 +8,15 @@
   copyDesktopItems,
   e2fsprogs,
   fetchFromGitHub,
+  installShellFiles,
   iproute2,
-  iptables,
   lib,
   libdrop,
   libtelio,
   libxslt,
   makeDesktopItem,
   makeWrapper,
+  nftables,
   openvpn,
   pkg-config,
   procps,
@@ -30,11 +31,11 @@ let
         tunnelblickSrc = fetchFromGitHub {
           owner = "Tunnelblick";
           repo = "Tunnelblick";
-          tag = "v9.0beta02";
-          hash = "sha256-deSw7Oeq421acMRn11eiFoyuaHv8htvwX4np+nSHy1E=";
+          tag = "v9.0beta05";
+          hash = "sha256-KWEFZdmywURKx+DX81WKga2lYxfMUkYNAQ1u1oA6DPM=";
         };
 
-        p = "third_party/sources/openvpn/openvpn-${old.version}/patches";
+        p = "third_party/sources/openvpn/openvpn-2.6.20/patches";
         name2urlFtn = fname: "${tunnelblickSrc}/${p}/${fname}";
       in
       (old.patches or [ ])
@@ -56,6 +57,7 @@ buildGoModule (finalAttrs: {
 
   nativeBuildInputs = [
     copyDesktopItems
+    installShellFiles
     makeWrapper
     pkg-config
   ];
@@ -66,7 +68,7 @@ buildGoModule (finalAttrs: {
     sqlite
   ];
 
-  vendorHash = "sha256-oXSl3QuW8DN8N5WezQwIj1KjIXBMZWOb2vY+ct5AOYo=";
+  vendorHash = "sha256-I81sn+tHTny9bX5eNGQLPQtoabbaNZINMjYotCXt88A=";
 
   preBuild = ''
     # use path $out/bin instead of /usr/lib
@@ -120,24 +122,28 @@ buildGoModule (finalAttrs: {
     install $BIN_DIR/daemon $BIN_DIR/nordvpnd
     install $BIN_DIR/fileshare $BIN_DIR/nordfileshare
     install $BIN_DIR/norduser $BIN_DIR/norduserd
-    rm $BIN_DIR/{cli,daemon,nordfileshare,norduser}
+    rm $BIN_DIR/{cli,daemon,fileshare,norduser}
+
+    installShellCompletion \
+      --bash --name nordvpn ${./bash_autocomplete} \
+      --zsh --name _nordvpn ${./zsh_autocomplete}
 
     # nordvpn needs icons for the system tray and notifications
     ICONS_PATH=$out/share/icons/hicolor/scalable/apps
     install -d $ICONS_PATH
     install --mode=0444 assets/icon.svg $ICONS_PATH/nordvpn.svg
-    for file in assets/*; do
-        install --mode=0444 "$file" "$ICONS_PATH/nordvpn-$(basename $file)"
+    for file in assets/tray-*.svg; do
+        install --mode=0444 "$file" "$ICONS_PATH/nordvpn-$(basename "$file")"
     done
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/nordvpnd --set PATH ${
+    wrapProgram $out/bin/nordvpnd --prefix PATH : ${
       lib.makeBinPath [
         e2fsprogs
         iproute2
-        iptables
         libxslt
+        nftables
         patchedOpenvpn
         procps
         systemdMinimal

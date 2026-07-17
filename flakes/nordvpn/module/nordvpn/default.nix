@@ -44,6 +44,10 @@ let
     };
 in
 {
+  # the upstream nixos module (services/networking/nordvpn.nix) ships a
+  # meshnet-less build; this flake supersedes it with a meshnet-enabled one.
+  disabledModules = [ "services/networking/nordvpn.nix" ];
+
   options.services.nordvpn = {
     enable = lib.mkEnableOption ''
       Enable NordVPN service.
@@ -115,8 +119,8 @@ in
         [
           e2fsprogs
           iproute2
-          iptables
           libxslt
+          nftables
           procps
           wireguard-tools
         ]
@@ -176,7 +180,7 @@ in
       after = [ "norduserd.service" ];
       description = "NordVPN Fileshare Service";
       serviceConfig = {
-        ExecStart = lib.getExe' nordvpn-cli "fileshare";
+        ExecStart = lib.getExe' nordvpn-cli "nordfileshare";
         NonBlocking = true;
         Restart = "on-failure";
         RestartSec = 5;

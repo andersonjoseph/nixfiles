@@ -4,8 +4,10 @@
   mySrc,
   myVersion,
 
+  copyDesktopItems,
   flutter,
   lib,
+  libx11,
   makeDesktopItem,
 }:
 flutter.buildFlutterApplication {
@@ -16,6 +18,14 @@ flutter.buildFlutterApplication {
   sourceRoot = "${mySrc.name}/gui";
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
+
+  buildInputs = [
+    libx11
+  ];
+
+  nativeBuildInputs = [
+    copyDesktopItems
+  ];
 
   patches = [ ./linux-cmake.patch ];
 

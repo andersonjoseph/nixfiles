@@ -23,20 +23,20 @@
         ...
       }: let
         lib = pkgs.lib;
-        version = "4.5.0";
+        version = "5.2.0";
         commonArgs = {
           myVersion = version;
 
-          mySrc = pkgs.fetchgit {
-            url = "https://github.com/NordSecurity/nordvpn-linux.git";
-            rev = "refs/tags/${version}";
-            fetchSubmodules = false;
-            hash = "sha256-nxRKYKR4ZPBAhveyG2I5ZmbftYr4hliEcRaZdjd4Sj0=";
+          mySrc = pkgs.fetchFromGitHub {
+            owner = "NordSecurity";
+            repo = "nordvpn-linux";
+            tag = version;
+            hash = "sha256-F7iw856HVLbOz97j9sMkVwyZl0ZDwID1Tf0YwtdvZsU=";
           };
 
           myMeta = rec {
             homepage = "https://github.com/nordsecurity/nordvpn-linux";
-            changelog = "${homepage}/blob/main/contrib/changelog/prod/${version}.md";
+            changelog = "${homepage}/releases/tag/${version}";
             license = lib.licenses.gpl3Only;
             maintainers = with lib.maintainers; [ different-error ];
             platforms = lib.platforms.linux;
@@ -44,7 +44,7 @@
 
           myDesktopItemArgs = {
             categories = [ "Network" ];
-            genericName = "a vpn provider";
+            genericName = "VPN Client";
             icon = "nordvpn";
             type = "Application";
           };
@@ -96,20 +96,20 @@
           pkgs,
           ...
         }: let
-          version = "4.5.0";
+          version = "5.2.0";
           commonArgs = {
             myVersion = version;
 
-            mySrc = pkgs.fetchgit {
-              url = "https://github.com/NordSecurity/nordvpn-linux.git";
-              rev = "refs/tags/${version}";
-              fetchSubmodules = false;
-              hash = "sha256-nxRKYKR4ZPBAhveyG2I5ZmbftYr4hliEcRaZdjd4Sj0=";
+            mySrc = pkgs.fetchFromGitHub {
+              owner = "NordSecurity";
+              repo = "nordvpn-linux";
+              tag = version;
+              hash = "sha256-F7iw856HVLbOz97j9sMkVwyZl0ZDwID1Tf0YwtdvZsU=";
             };
 
             myMeta = rec {
               homepage = "https://github.com/nordsecurity/nordvpn-linux";
-              changelog = "${homepage}/blob/main/contrib/changelog/prod/${version}.md";
+              changelog = "${homepage}/releases/tag/${version}";
               license = lib.licenses.gpl3Only;
               maintainers = with lib.maintainers; [ different-error ];
               platforms = lib.platforms.linux;
@@ -117,7 +117,7 @@
 
             myDesktopItemArgs = {
               categories = [ "Network" ];
-              genericName = "a vpn provider";
+              genericName = "VPN Client";
               icon = "nordvpn";
               type = "Application";
             };
