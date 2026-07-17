@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nordvpn-flake.url = "path:./flakes/nordvpn";
+    jailed-agents.url = "github:andersonjoseph/jailed-agents";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -12,7 +13,7 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -29,9 +30,15 @@
 	    checkReversePath = "loose";
 	};
       });
+
+      pi = jailed-agents.lib.${system}.makeJailedPi {
+        name = "pi";
+        enableNix = true;
+      };
     in
     {
       devShells.${system}.default = pkgs.mkShell {
+        packages = [ pi ];
         buildInputs = with pkgs; [
           nixd
           nixfmt-rfc-style
