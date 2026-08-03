@@ -215,6 +215,17 @@
 	 $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
 	   ${config.home.homeDirectory}/configuration/home/pi/skills \
 	   ${config.home.homeDirectory}/.pi/agent/skills
+
+	 # Remove existing extensions dir so symlink replaces it, not nests inside
+	 if [ -d ${config.home.homeDirectory}/.pi/agent/extensions ] && \
+	    [ ! -L ${config.home.homeDirectory}/.pi/agent/extensions ]; then
+	   $DRY_RUN_CMD rm -rf $VERBOSE_ARG \
+	     ${config.home.homeDirectory}/.pi/agent/extensions
+	 fi
+
+	 $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
+	   ${config.home.homeDirectory}/configuration/home/pi/extensions \
+	   ${config.home.homeDirectory}/.pi/agent/extensions
        '';
 
       };
