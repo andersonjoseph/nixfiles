@@ -88,6 +88,10 @@ in
     "flakes"
   ];
   nix.settings.auto-optimise-store = true;
+  nix.settings.trusted-users = [
+    "root"
+    "anderson"
+  ];
 
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; [
