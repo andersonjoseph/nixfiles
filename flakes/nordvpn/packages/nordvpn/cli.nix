@@ -68,7 +68,7 @@ buildGoModule (finalAttrs: {
     sqlite
   ];
 
-  vendorHash = "sha256-I81sn+tHTny9bX5eNGQLPQtoabbaNZINMjYotCXt88A=";
+  vendorHash = "sha256-yNeoj4W/eFoycY4AfajF8FkpkCCcj6kRbfOjZObp+VE=";
 
   preBuild = ''
     # use path $out/bin instead of /usr/lib

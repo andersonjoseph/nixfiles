@@ -28,10 +28,10 @@
           myVersion = version;
 
           mySrc = pkgs.fetchFromGitHub {
-            owner = "NordSecurity";
+            owner = "different-error";
             repo = "nordvpn-linux";
-            tag = version;
-            hash = "sha256-F7iw856HVLbOz97j9sMkVwyZl0ZDwID1Tf0YwtdvZsU=";
+            rev = "8648697788c18fa5f8da8f9d3c8936bfd0ff2704";
+            hash = "sha256-gH6Zxt/DduY4xyh6hP2mrrNNCCxCWcJG/xZytFXZfuA=";
           };
 
           myMeta = rec {
@@ -101,10 +101,10 @@
             myVersion = version;
 
             mySrc = pkgs.fetchFromGitHub {
-              owner = "NordSecurity";
+              owner = "different-error";
               repo = "nordvpn-linux";
-              tag = version;
-              hash = "sha256-F7iw856HVLbOz97j9sMkVwyZl0ZDwID1Tf0YwtdvZsU=";
+              rev = "8648697788c18fa5f8da8f9d3c8936bfd0ff2704";
+              hash = "sha256-gH6Zxt/DduY4xyh6hP2mrrNNCCxCWcJG/xZytFXZfuA=";
             };
 
             myMeta = rec {

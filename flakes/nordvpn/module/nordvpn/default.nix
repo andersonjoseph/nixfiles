@@ -94,6 +94,10 @@ in
     # nordvpnd uses resolved to configure dns
     services.resolved.enable = true;
 
+    # trust the meshnet (nordlynx) interface so inbound meshnet traffic —
+    # e.g. fileshare transfers from peers — is accepted by the firewall
+    networking.firewall.trustedInterfaces = [ "nordlynx" ];
+
     # policy that allows nordvpnd to configure dns
     security.polkit = {
       enable = true;
