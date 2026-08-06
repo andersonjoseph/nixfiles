@@ -65,16 +65,6 @@
         ];
       };
 
-      nixosConfigurations.almazrah = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-	  nordvpn-module
-          ./hosts/almazrah
-          ./home
-          home-manager.nixosModules.home-manager
-        ];
-      };
-
       nixosConfigurations.lyndon = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [

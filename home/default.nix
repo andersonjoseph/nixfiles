@@ -14,7 +14,7 @@
         ...
       }:
       let
-        isDesktopMachine = builtins.elem nixosConfig.networking.hostName [ "almazrah" "ashika" "lyndon" ];
+        isDesktopMachine = builtins.elem nixosConfig.networking.hostName [ "ashika" "lyndon" ];
       in
       {
         imports =

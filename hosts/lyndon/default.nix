@@ -7,7 +7,7 @@
   ];
 
   networking.hostName = "lyndon";
-  custom.wallpaperFile = ../almazrah/wallpaper;
+  custom.wallpaperFile = ./wallpaper;
   custom.hasNvidia = true;
 
   # External monitor: mirror the laptop, run at 100Hz with full RGB range.
