@@ -38,7 +38,7 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
   - `vondel/` — Headless server (Caddy reverse proxy with internal TLS, Open
     WebUI, Eternal Terminal, Docker, firewall).
 - `home/` — home-manager user environment (`home/default.nix`).
-  - `alacritty.nix`, `starship.toml`, `zellij.nix` — terminal, prompt, and
+  - `alacritty.nix`, `starship.toml`, `herdr/` — terminal, prompt, and
     multiplexer config.
   - `i3/` — i3 window manager and bar setup.
   - `nvim/` — Neovim config (LSP, plugins), symlinked into `~/.config/nvim`.

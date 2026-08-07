@@ -19,7 +19,7 @@
       {
         imports =
           [
-            ./zellij.nix
+            ./herdr.nix
           ]
           ++ (lib.optionals isDesktopMachine [
             ./i3

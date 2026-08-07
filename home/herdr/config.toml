@@ -1,0 +1,36 @@
+onboarding = false
+[ui]
+status_indicators = "symbols"
+
+show_agent_labels_on_pane_borders = true
+[ui.toast]
+delivery = "herdr"
+
+[keys]
+prefix = "ctrl+f"
+
+# Your zellij direct chords — work without entering prefix mode.
+focus_pane_left   = "ctrl+alt+h"
+focus_pane_down   = "ctrl+alt+j"
+focus_pane_up     = "ctrl+alt+k"
+focus_pane_right  = "ctrl+alt+l"
+zoom              = "ctrl+alt+f"      # zellij ToggleFocusFullscreen
+toggle_sidebar    = "ctrl+alt+s"      # toggle sidebar collapse
+new_tab           = ["ctrl+shift+t", "prefix+t"]   # direct chord + prefix route
+rename_tab        = "prefix+r"      # rename active tab (prefix+r freed by resize→ctrl+alt+r)
+switch_tab        = "ctrl+alt+1..9"   # zellij Ctrl+Alt+1..4, extended to 9
+split_horizontal  = "ctrl+alt+n"      # ≈ zellij NewPane (herdr has no plain new-pane)
+split_vertical    = "ctrl+alt+v"      # pairs with horizontal split
+detach            = "ctrl+alt+d"      # zellij session-mode d (Detach)
+copy_mode         = "ctrl+alt+e"      # native copy mode (opens at the bottom, no editor)
+resize_mode       = "ctrl+alt+r"      # zellij r enters resize (herdr mode, then h/j/k/l)
+
+# Swap panes — prefix then your arrows (firmware sends clean arrow keys, no stacking).
+swap_pane_left    = "prefix+left"
+swap_pane_down    = "prefix+down"
+swap_pane_up      = "prefix+up"
+swap_pane_right   = "prefix+right"
+
+[theme]
+name = "vesper"
+auto_switch = false
