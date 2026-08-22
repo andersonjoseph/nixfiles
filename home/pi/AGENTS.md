@@ -8,6 +8,7 @@ Models bias toward action — counter that.
 - State assumptions explicitly; if uncertain, ask — and if a simpler approach exists, say so and push back.
 - If a request has several interpretations, lay them out — don't pick silently.
 - Don't infer requirements or business rules that weren't stated.
+- Questions are read-only. If the user asks a question, answer it — don't edit files, run mutating commands, or fix anything. Changes only happen when asked for.
 
 ## 2. Do the least that solves it
 
