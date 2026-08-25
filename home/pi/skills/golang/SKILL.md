@@ -4,7 +4,7 @@ description: Go design guidance and gotchas for writing production-ready code â€
 license: MIT
 metadata:
   author: pi (distilled from JetBrains go-modern-guidelines and samber/cc-skills-golang)
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Go

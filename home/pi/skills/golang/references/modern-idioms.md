@@ -12,32 +12,37 @@ grep '^go ' go.mod
 
 Use ALL features up to and including that version. Never use features from a newer Go version than the target, and never use an outdated pattern when a modern alternative exists. If there is no `go.mod` (or the version is unclear), ask which Go version to target.
 
-> Note: if you run the `modernize` analyzer / `golangci-lint` modernize linter, much of this is also flagged on existing code. This reference exists so new code is written modern the first time, avoiding rework — and several entries (e.g. `omitzero`, `wg.Go`, `new(val)`, `errors.AsType`) are too recent or too semantic for linters to enforce.
+## Annotations
+
+Entries marked with observed-frequency and tooling data from JetBrains' [go-modern-guidelines](https://github.com/JetBrains/go-modern-guidelines) catalog:
+
+- **Impact** — Critical / High / Medium / Low: how often the legacy pattern appears in a typical project (Critical = dozens of occurrences, Low = rare). When reviewing code, hunt the Critical and High ones first.
+- **`go fix`** — the modernize analyzer rewrites the legacy pattern automatically, so on existing code `go fix ./...` does the cleanup. This reference exists so new code is written modern the first time.
 
 ---
 
 ## Go 1.0+
 
-- `time.Since`: `time.Since(start)` instead of `time.Now().Sub(start)`
+- `time.Since` (High): `time.Since(start)` instead of `time.Now().Sub(start)`
 
 ## Go 1.8+
 
-- `time.Until`: `time.Until(deadline)` instead of `deadline.Sub(time.Now())`
+- `time.Until` (Medium): `time.Until(deadline)` instead of `deadline.Sub(time.Now())`
 
 ## Go 1.13+
 
-- `errors.Is`: `errors.Is(err, target)` instead of `err == target` (works with wrapped errors)
+- `errors.Is` (Critical): `errors.Is(err, target)` instead of `err == target` (works with wrapped errors)
 
 ## Go 1.18+
 
-- `any`: Use `any` instead of `interface{}`
-- `bytes.Cut`: `before, after, found := bytes.Cut(b, sep)` instead of Index+slice
+- `any` (Critical, `go fix`): Use `any` instead of `interface{}`
+- `bytes.Cut` (Medium): `before, after, found := bytes.Cut(b, sep)` instead of Index+slice
 - `strings.Cut`: `before, after, found := strings.Cut(s, sep)`
 
 ## Go 1.19+
 
-- `fmt.Appendf`: `buf = fmt.Appendf(buf, "x=%d", x)` instead of `[]byte(fmt.Sprintf(...))`
-- `atomic.Bool`/`atomic.Int64`/`atomic.Pointer[T]`: Type-safe atomics instead of `atomic.StoreInt32`
+- `fmt.Appendf` (Medium, `go fix`): `buf = fmt.Appendf(buf, "x=%d", x)` instead of `[]byte(fmt.Sprintf(...))`
+- `atomic.Bool`/`atomic.Int64`/`atomic.Pointer[T]` (Medium): Type-safe atomics instead of `atomic.Value` + type assertion (which can panic) or `atomic.StoreInt32`
 
 ```go
 var flag atomic.Bool
@@ -50,53 +55,51 @@ ptr.Store(cfg)
 
 ## Go 1.20+
 
-- `strings.Clone`: `strings.Clone(s)` to copy a string without sharing backing memory
-- `bytes.Clone`: `bytes.Clone(b)` to copy a byte slice
-- `strings.CutPrefix/CutSuffix`: `if rest, ok := strings.CutPrefix(s, "pre:"); ok { ... }`
-- `errors.Join`: `errors.Join(err1, err2)` to combine multiple errors
-- `context.WithCancelCause`: `ctx, cancel := context.WithCancelCause(parent)` then `cancel(err)`
-- `context.Cause`: `context.Cause(ctx)` to get the error that caused cancellation
+- `strings.Clone` / `bytes.Clone` (Medium): copy without sharing backing memory — replaces `string([]byte(s))` and `append([]byte(nil), b...)`
+- `strings.CutPrefix/CutSuffix` (High, `go fix`): `if rest, ok := strings.CutPrefix(s, "pre:"); ok { ... }` instead of `HasPrefix` + `TrimPrefix`
+- `errors.Join` (High): `errors.Join(err1, err2)` to combine multiple errors — `errors.Is`/`errors.As` check all wrapped errors
+- `context.WithCancelCause` (Medium): `ctx, cancel := context.WithCancelCause(parent)` then `cancel(err)` — `ctx.Err()` stays generic but `context.Cause(ctx)` returns the actual reason
+- `context.Cause` (Medium): `context.Cause(ctx)` to get the error that caused cancellation
 
 ## Go 1.21+
 
 **Built-ins:**
-- `min`/`max`: `max(a, b)` instead of if/else comparisons
-- `clear`: `clear(m)` to delete all map entries, `clear(s)` to zero slice elements
+- `min`/`max` (High, `go fix`): `max(a, b)` instead of if/else comparisons
+- `clear` (Medium): `clear(m)` to delete all map entries, `clear(s)` to zero slice elements
 
 **slices package:**
-- `slices.Contains`: `slices.Contains(items, x)` instead of manual loops
-- `slices.Index`: `slices.Index(items, x)` returns index (-1 if not found)
-- `slices.IndexFunc`: `slices.IndexFunc(items, func(item T) bool { return item.ID == id })`
-- `slices.SortFunc`: `slices.SortFunc(items, func(a, b T) int { return cmp.Compare(a.X, b.X) })`
+- `slices.Contains` (Critical, `go fix`): `slices.Contains(items, x)` instead of a search loop with a `found` flag
+- `slices.Index` (Medium): `slices.Index(items, x)` returns index (-1 if not found) instead of a manual index-search loop
+- `slices.SortFunc` (High, `go fix`): `slices.SortFunc(items, func(a, b T) int { return cmp.Compare(a.X, b.X) })` instead of `sort.Slice` — simpler and faster
 - `slices.Sort`: `slices.Sort(items)` for ordered types
-- `slices.Max`/`slices.Min`: `slices.Max(items)` instead of a manual loop
-- `slices.Reverse`: `slices.Reverse(items)` instead of a manual swap loop
-- `slices.Compact`: removes consecutive duplicates in-place
+- `slices.Max`/`slices.Min` (Medium): instead of a manual loop
+- `slices.Reverse` (Medium): instead of a manual swap loop
+- `slices.Compact` (Low): removes consecutive duplicates in-place
 - `slices.Clip`: `slices.Clip(s)` drops unused capacity
 - `slices.Clone`: `slices.Clone(s)` creates a copy
 
 **maps package:**
-- `maps.Clone`: `maps.Clone(m)` instead of manual map iteration
-- `maps.Copy`: `maps.Copy(dst, src)` copies entries from src to dst
-- `maps.DeleteFunc`: `maps.DeleteFunc(m, func(k K, v V) bool { return condition })`
+- `maps.Clone` (Medium): `maps.Clone(m)` instead of a manual copy loop
+- `maps.Copy` (Medium, `go fix`): `maps.Copy(dst, src)` replaces `for k, v := range src { dst[k] = v }`
+- `maps.DeleteFunc` (Low): `maps.DeleteFunc(m, func(k K, v V) bool { return condition })`
 
 **sync package:**
-- `sync.OnceFunc`: `f := sync.OnceFunc(func() { ... })` instead of `sync.Once` + wrapper
-- `sync.OnceValue`: `getter := sync.OnceValue(func() T { return computeValue() })`
+- `sync.OnceFunc` (Medium): `f := sync.OnceFunc(func() { ... })` instead of `sync.Once` + wrapper
+- `sync.OnceValue` (Medium): `var GetConfig = sync.OnceValue(loadConfig)` replaces the `once.Do` + package-var pattern
 
 **context package:**
-- `context.AfterFunc`: `stop := context.AfterFunc(ctx, cleanup)` runs cleanup on cancellation
-- `context.WithTimeoutCause`: `ctx, cancel := context.WithTimeoutCause(parent, d, err)`
+- `context.AfterFunc` (Medium): `stop := context.AfterFunc(ctx, cleanup)` instead of `go func() { <-ctx.Done(); cleanup() }()`
+- `context.WithTimeoutCause` (Low): `ctx, cancel := context.WithTimeoutCause(parent, d, err)`
 - `context.WithDeadlineCause`: similar, with an absolute deadline
 
 ## Go 1.22+
 
 **Loops:**
-- `for i := range n`: `for i := range len(items)` instead of `for i := 0; i < len(items); i++`
-- Loop variables are now safe to capture in goroutines (each iteration has its own copy)
+- `for i := range n` (Critical, `go fix`): instead of `for i := 0; i < n; i++`
+- Loop variables are safe to capture (High, `go fix`): each iteration has its own copy — delete any `v := v` shadow copies made before closures or goroutines
 
 **cmp package:**
-- `cmp.Or`: `cmp.Or(flag, env, config, "default")` returns first non-zero value
+- `cmp.Or` (High): `cmp.Or(flag, env, config, "default")` returns first non-zero value
 
 ```go
 // Instead of:
@@ -109,15 +112,15 @@ name := cmp.Or(os.Getenv("NAME"), "default")
 ```
 
 **reflect package:**
-- `reflect.TypeFor`: `reflect.TypeFor[T]()` instead of `reflect.TypeOf((*T)(nil)).Elem()`
+- `reflect.TypeFor` (Low): `reflect.TypeFor[T]()` instead of `reflect.TypeOf((*T)(nil)).Elem()`
 
 **net/http:**
-- Enhanced `http.ServeMux` patterns: `mux.HandleFunc("GET /api/{id}", handler)` with method and path params
+- Enhanced `http.ServeMux` patterns (Medium): `mux.HandleFunc("GET /api/{id}", handler)` with method and path params, replacing manual method checks and path trimming
 - `r.PathValue("id")` to read path parameters
 
 ## Go 1.23+
 
-- `maps.Keys(m)` / `maps.Values(m)` return iterators
+- `maps.Keys(m)` / `maps.Values(m)` (High) return iterators
 - `slices.Collect(iter)` to build a slice from an iterator (not a manual loop)
 - `slices.Sorted(iter)` to collect and sort in one step
 
@@ -132,7 +135,7 @@ for k := range maps.Keys(m) { process(k) } // iterate directly
 
 ## Go 1.24+
 
-- `t.Context()` instead of `context.WithCancel(context.Background())` in tests. ALWAYS use `t.Context()` when a test needs a context.
+- `t.Context()` (High, `go fix`) instead of `context.WithCancel(context.Background())` in tests. ALWAYS use `t.Context()` when a test needs a context.
 
 Before:
 ```go
@@ -150,7 +153,7 @@ func TestFoo(t *testing.T) {
 }
 ```
 
-- `omitzero` instead of `omitempty` in JSON struct tags. ALWAYS use `omitzero` for `time.Duration`, `time.Time`, structs, slices, maps — `omitempty` does not work for these.
+- `omitzero` (Medium, `go fix`) instead of `omitempty` in JSON struct tags. ALWAYS use `omitzero` for `time.Duration`, `time.Time`, structs, slices, maps — `omitempty` does not work for these.
 
 ```go
 type Config struct {
@@ -158,7 +161,7 @@ type Config struct {
 }
 ```
 
-- `b.Loop()` instead of `for i := 0; i < b.N; i++` in benchmarks. ALWAYS use `b.Loop()` for the main benchmark loop.
+- `b.Loop()` (Medium, `go fix`) instead of `for i := 0; i < b.N; i++` in benchmarks. ALWAYS use `b.Loop()` for the main benchmark loop.
 
 ```go
 func BenchmarkFoo(b *testing.B) {
@@ -168,7 +171,7 @@ func BenchmarkFoo(b *testing.B) {
 }
 ```
 
-- `strings.SplitSeq` / `strings.FieldsSeq` instead of `strings.Split` / `strings.Fields` when iterating over the results in a `for range` loop. (Also: `bytes.SplitSeq`, `bytes.FieldsSeq`.)
+- `strings.SplitSeq` / `strings.FieldsSeq` (High, `go fix`) instead of `strings.Split` / `strings.Fields` when iterating over the results in a `for range` loop — avoids the intermediate slice allocation. (Also: `bytes.SplitSeq`, `bytes.FieldsSeq`.)
 
 ```go
 for part := range strings.SplitSeq(s, ",") {
@@ -178,7 +181,7 @@ for part := range strings.SplitSeq(s, ",") {
 
 ## Go 1.25+
 
-- `wg.Go(fn)` instead of `wg.Add(1)` + `go func() { defer wg.Done(); ... }()`. ALWAYS use `wg.Go()` when spawning goroutines with a `sync.WaitGroup`.
+- `wg.Go(fn)` (High, `go fix`) instead of `wg.Add(1)` + `go func() { defer wg.Done(); ... }()`. ALWAYS use `wg.Go()` when spawning goroutines with a `sync.WaitGroup`.
 
 ```go
 var wg sync.WaitGroup
@@ -192,7 +195,7 @@ wg.Wait()
 
 ## Go 1.26+
 
-- `new(val)` instead of `x := val; &x` — `new()` now accepts expressions, not just types. Type is inferred: `new(0)` → `*int`, `new("s")` → `*string`, `new(T{})` → `*T`. Don't use redundant casts like `new(int(0))` — just `new(0)`.
+- `new(val)` (High, `go fix`) instead of `x := val; &x` — `new()` now accepts expressions, not just types. Type is inferred: `new(0)` → `*int`, `new("s")` → `*string`, `new(T{})` → `*T`. Don't use redundant casts like `new(int(0))` — just `new(0)`.
 
 ```go
 cfg := Config{
