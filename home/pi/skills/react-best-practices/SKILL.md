@@ -20,6 +20,14 @@ Reference these guidelines when:
 - Refactoring existing React code
 - Optimizing bundle size or load times
 
+## House Rules
+
+Non-negotiable, from explicit user feedback. Checked on every task, before the catalog below:
+
+- **Default to no new hooks.** Every `useMemo` / `useCallback` / `useEffect` a diff introduces must be justifiable in one phrase: referential identity a consumer actually needs, a genuinely expensive computation, or a sync that can't be an event handler or a derived value. Two `format()` calls is not a memo; apply `rerender-simple-expression-in-memo` strictly.
+- **Audit hooks before finishing.** List every hook your diff adds and justify each. If the justification is "just in case" or "reads nicer", replace with a plain const/function and delete the hook.
+- **Comments only where code can't speak.** One short comment for a non-obvious contract, guard, or why-decision. Never narrate what the code plainly does; no multi-line essays introducing a block; if the name says it, no comment.
+
 ## Rule Categories by Priority
 
 | Priority | Category | Impact | Prefix |
