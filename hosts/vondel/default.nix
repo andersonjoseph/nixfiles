@@ -14,6 +14,7 @@
 
   users.users.anderson.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC94m5sA5JJQ+n4UYoUCiT1YNYxsmTYFjk1wYupVesna ashika->vondel"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGsL1q7SJiMvj1pkm7d/lzX9hPhEa2wjkAi6rA/hN4Vo lyndon->vondel"
   ];
 
   services.open-webui = {
