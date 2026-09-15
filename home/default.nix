@@ -36,6 +36,7 @@
           with pkgs;
           [
             neovim
+            hunk
             jq
             ripgrep
             tree

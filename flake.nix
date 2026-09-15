@@ -6,6 +6,8 @@
     nordvpn-flake.url = "path:./flakes/nordvpn";
     jailed-agents.url = "github:andersonjoseph/jailed-agents";
     herdr.url = "github:herdrdev/herdr";
+    hunk.url = "github:modem-dev/hunk";
+    hunk.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -14,11 +16,17 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-      herdr-overlay = { nixpkgs.overlays = [ herdr.overlays.default ]; };
+      # Packages provided by flake inputs, exposed as pkgs.<name>.
+      overlays = {
+        nixpkgs.overlays = [
+          herdr.overlays.default
+          (_: _: { hunk = hunk.packages.${system}.hunk; })
+        ];
+      };
       nordvpn-module = ({...}: {
 	  imports = [
 	    nordvpn-flake.nixosModules.nordvpn
@@ -48,7 +56,7 @@
       nixosConfigurations.vondel = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 	modules = [
-	  herdr-overlay
+	  overlays
 	  nordvpn-module
 	  ./hosts/vondel
 	  ./home
@@ -59,7 +67,7 @@
       nixosConfigurations.ashika = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-	  herdr-overlay
+	  overlays
 	  nordvpn-module
           ./hosts/ashika
           ./home
@@ -70,7 +78,7 @@
       nixosConfigurations.lyndon = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-	  herdr-overlay
+	  overlays
 	  nordvpn-module
           ./hosts/lyndon
           ./home
