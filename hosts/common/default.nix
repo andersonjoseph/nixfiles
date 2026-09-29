@@ -6,7 +6,10 @@
 }:
 
 let
-  isDesktopMachine = builtins.elem config.networking.hostName [ "ashika" "lyndon" ];
+  isDesktopMachine = builtins.elem config.networking.hostName [
+    "ashika"
+    "lyndon"
+  ];
 in
 {
   imports = [
@@ -53,6 +56,8 @@ in
   services.blueman.enable = true;
 
   services.pulseaudio.enable = lib.mkIf isDesktopMachine false;
+  services.gnome.gnome-keyring.enable = lib.mkIf isDesktopMachine true;
+  services.gnome.gcr-ssh-agent.enable = lib.mkIf isDesktopMachine false;
   services.gvfs.enable = lib.mkIf isDesktopMachine true;
   services.tumbler.enable = lib.mkIf isDesktopMachine true;
 
@@ -151,6 +156,7 @@ in
   services.displayManager.defaultSession = lib.mkIf isDesktopMachine "none+i3";
   security.pam.services = lib.mkIf isDesktopMachine {
     i3lock.enable = true;
+    lightdm.enableGnomeKeyring = true;
   };
 
   nix.gc = {
