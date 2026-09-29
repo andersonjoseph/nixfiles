@@ -24,7 +24,7 @@
           ++ (lib.optionals isDesktopMachine [
             ./i3
             ./alacritty.nix
-            ./ghostty.nix
+            ./kitty.nix
           ]);
 
         home.stateVersion = "25.05";
@@ -170,6 +170,7 @@
           bashrcExtra = ''
             export MANPAGER='nvim +Man!'
             export PATH="$PATH:$HOME/go/bin"
+            [[ -n "$HERDR_ENV" ]] && export PI_IMAGE_PROTOCOL=kitty
           '';
         };
 
