@@ -31,6 +31,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             ketch = ketch-pkg;
+            pi = jailed-pi;
           })
         ];
       };
@@ -46,14 +47,18 @@
 	};
       });
 
-      pi = jailed-agents.lib.${system}.makeJailedPi {
+      jailed-pi = jailed-agents.lib.${system}.makeJailedPi {
         name = "pi";
         enableNix = true;
+        extraPkgs = [ ketch-pkg ];
+        extraReadwriteDirs = [
+          "~/.config/ketch"
+          "~/.cache/ketch"
+        ];
       };
     in
     {
       devShells.${system}.default = pkgs.mkShell {
-        packages = [ pi ];
         buildInputs = with pkgs; [
           nixd
           nixfmt-rfc-style

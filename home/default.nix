@@ -38,6 +38,7 @@
             neovim
             hunk
             ketch
+            pi
             jq
             ripgrep
             tree
