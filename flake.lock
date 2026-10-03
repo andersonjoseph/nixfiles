@@ -258,6 +258,23 @@
         "type": "github"
       }
     },
+    "ketch": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790133891,
+        "narHash": "sha256-vXSYQJBZ0Eypy3S0qvJUEEk9SZnnIWmQ5DU3TGyuwfk=",
+        "owner": "1broseidon",
+        "repo": "ketch",
+        "rev": "b381837390edac2ac4cd00a6eecca2983aba3d43",
+        "type": "github"
+      },
+      "original": {
+        "owner": "1broseidon",
+        "ref": "v0.18.1",
+        "repo": "ketch",
+        "type": "github"
+      }
+    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix_2",
@@ -396,6 +413,7 @@
         "home-manager": "home-manager",
         "hunk": "hunk",
         "jailed-agents": "jailed-agents",
+        "ketch": "ketch",
         "nixpkgs": "nixpkgs_4",
         "nordvpn-flake": "nordvpn-flake"
       }

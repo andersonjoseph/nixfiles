@@ -8,6 +8,8 @@
     herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
+    ketch.url = "github:1broseidon/ketch/v0.18.1";
+    ketch.flake = false;
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -16,15 +18,20 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, ketch, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
+      ketch-pkg = pkgs.callPackage ./packages/ketch.nix { ketch-src = ketch; };
+
       overlays = {
         nixpkgs.overlays = [
           herdr.overlays.default
-          (_: _: { hunk = hunk.packages.${system}.hunk; })
+          (_: _: {
+            hunk = hunk.packages.${system}.hunk;
+            ketch = ketch-pkg;
+          })
         ];
       };
       nordvpn-module = ({...}: {

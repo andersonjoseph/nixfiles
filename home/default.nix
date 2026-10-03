@@ -37,6 +37,7 @@
           [
             neovim
             hunk
+            ketch
             jq
             ripgrep
             tree
