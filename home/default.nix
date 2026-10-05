@@ -211,36 +211,6 @@
           source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/opencode/skills";
         };
 
-        # We use home.activation instead of home.file because pi's sandbox
-        # cannot follow symlinks through /nix/store/. Direct symlinks to
-        # ~/configuration/home/pi/ are required for sandbox accessibility.
-        home.activation.piAgent = config.lib.dag.entryAfter ["writeBoundary"] ''
-          $DRY_RUN_CMD mkdir -p $VERBOSE_ARG \
-            ${config.home.homeDirectory}/.pi/agent
-
-          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-            ${config.home.homeDirectory}/configuration/home/pi/AGENTS.md \
-            ${config.home.homeDirectory}/.pi/agent/AGENTS.md
-
-	 $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-	   ${config.home.homeDirectory}/configuration/home/pi/prompts \
-	   ${config.home.homeDirectory}/.pi/agent/prompts
-
-	 # skills is owned by the definitivo server (it installs and prunes the
-	 # hub's embedded set there); no symlink is created on purpose.
-
-	 # Remove existing extensions dir so symlink replaces it, not nests inside
-	 if [ -d ${config.home.homeDirectory}/.pi/agent/extensions ] && \
-	    [ ! -L ${config.home.homeDirectory}/.pi/agent/extensions ]; then
-	   $DRY_RUN_CMD rm -rf $VERBOSE_ARG \
-	     ${config.home.homeDirectory}/.pi/agent/extensions
-	 fi
-
-	 $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-	   ${config.home.homeDirectory}/configuration/home/pi/extensions \
-	   ${config.home.homeDirectory}/.pi/agent/extensions
-       '';
-
       };
   };
 }
