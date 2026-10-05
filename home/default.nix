@@ -195,6 +195,22 @@
           source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/nvim";
         };
 
+        # Global OpenCode config: personal AGENTS.md, agents, skills. The symlinks
+        # point into this repo so edits apply without a switch; the thermo-nuclear
+        # skill is a committed symlink inside home/opencode/skills/ to the samurai
+        # checkout.
+        home.file.".config/opencode/AGENTS.md" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/opencode/AGENTS.md";
+        };
+
+        home.file.".config/opencode/agents" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/opencode/agents";
+        };
+
+        home.file.".config/opencode/skills" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/opencode/skills";
+        };
+
         # We use home.activation instead of home.file because pi's sandbox
         # cannot follow symlinks through /nix/store/. Direct symlinks to
         # ~/configuration/home/pi/ are required for sandbox accessibility.
