@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nordvpn-flake.url = "path:./flakes/nordvpn";
-    jailed-agents.url = "github:andersonjoseph/jailed-agents";
+    definitivo.url = "git+ssh://git@github.com/andersonjoseph/jailed-pi-definitivo.git";
     herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
@@ -18,7 +18,7 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, ketch, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, definitivo, herdr, hunk, ketch, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -47,8 +47,8 @@
 	};
       });
 
-      jailed-pi = jailed-agents.lib.${system}.makeJailedPi {
-        name = "pi";
+      jailed-pi = definitivo.lib.${system}.mkPi {
+        name = "jailed-pi";
         enableNix = true;
         extraPkgs = [ ketch-pkg ];
         extraReadwriteDirs = [
