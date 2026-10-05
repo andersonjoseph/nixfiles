@@ -210,16 +210,8 @@
 	   ${config.home.homeDirectory}/configuration/home/pi/prompts \
 	   ${config.home.homeDirectory}/.pi/agent/prompts
 
-	 # Remove existing skills dir so symlink replaces it, not nests inside
-	 if [ -d ${config.home.homeDirectory}/.pi/agent/skills ] && \
-	    [ ! -L ${config.home.homeDirectory}/.pi/agent/skills ]; then
-	   $DRY_RUN_CMD rm -rf $VERBOSE_ARG \
-	     ${config.home.homeDirectory}/.pi/agent/skills
-	 fi
-
-	 $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-	   ${config.home.homeDirectory}/configuration/home/pi/skills \
-	   ${config.home.homeDirectory}/.pi/agent/skills
+	 # skills is owned by the definitivo server (it installs and prunes the
+	 # hub's embedded set there); no symlink is created on purpose.
 
 	 # Remove existing extensions dir so symlink replaces it, not nests inside
 	 if [ -d ${config.home.homeDirectory}/.pi/agent/extensions ] && \
