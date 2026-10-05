@@ -31,7 +31,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             ketch = ketch-pkg;
-            pi = jailed-pi;
+            inherit jailed-pi;
           })
         ];
       };

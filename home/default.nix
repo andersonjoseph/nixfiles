@@ -38,7 +38,7 @@
             neovim
             hunk
             ketch
-            pi
+            jailed-pi
             jq
             ripgrep
             tree
