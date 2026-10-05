@@ -75,14 +75,15 @@
         "flake-utils": "flake-utils",
         "herdr": "herdr",
         "jailed-agents": "jailed-agents",
+        "ketch": "ketch",
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1791207760,
-        "narHash": "sha256-Y3mUtI3vphQuJ5v78bqRuSfntChyfpM7PzFyFnyELjg=",
+        "lastModified": 1791211733,
+        "narHash": "sha256-3Hlg0VxNgEam5VIQrSShWa9LLMXfFX0Leittm9g/dDk=",
         "ref": "refs/heads/main",
-        "rev": "9ed0f3b1b4e3bf01125bab0e78bd32ef9259baa5",
-        "revCount": 55,
+        "rev": "1bacbd0b959e5bae38e3a83f5e2c62d64dc21417",
+        "revCount": 59,
         "type": "git",
         "url": "ssh://git@github.com/andersonjoseph/jailed-pi-definitivo.git"
       },
@@ -195,11 +196,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1790983284,
-        "narHash": "sha256-NHYZLfSrt582u7mwZSgaFYYr8LhYFK94HkGEpacLTgg=",
+        "lastModified": 1791210308,
+        "narHash": "sha256-CsDwRzmq8TXMyWwl17fBypFPDYtrs50YoZf7WZ/EjSE=",
         "owner": "herdrdev",
         "repo": "herdr",
-        "rev": "5da0a01e1eedda054db0c81dd3a780000c40d9f0",
+        "rev": "b06480673bee704d143f48962c288aa1512c316d",
         "type": "github"
       },
       "original": {
@@ -308,11 +309,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1790946606,
-        "narHash": "sha256-rvWfR2oNzCxcYaALVNqu7wfS4feX2ZTbJ4KUJZPwfKM=",
+        "lastModified": 1791205746,
+        "narHash": "sha256-UFquz3IczNQAy0gJv++r+lua6CABtBrXbYnJKVfy77E=",
         "owner": "andersonjoseph",
         "repo": "jailed-agents",
-        "rev": "c988dbc3e57d2425211e0d30116bb4c0f035e946",
+        "rev": "5a0d35136511082cbdd0227787f07a28f3fd5b4d",
         "type": "github"
       },
       "original": {
@@ -347,11 +348,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1790918187,
-        "narHash": "sha256-F3py52yPDHBSKKkx4CzpTMc5KxzCBT+jLUIRNOYpr4Q=",
+        "lastModified": 1791089625,
+        "narHash": "sha256-0MHqf09PIjbpfg7KhUN/r1vGJ9OS5A2TSMq99n+Y7XU=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "20762f12777a611184868a1a4408bc42a014adf1",
+        "rev": "372f0337e8170e55ff0c017cd43ab73b02a062ad",
         "type": "github"
       },
       "original": {
@@ -425,11 +426,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1790822859,
-        "narHash": "sha256-69xHQhAeMAD2wDXO7T2pcOZIF9Sga2W+JkmY2a11Ops=",
+        "lastModified": 1791048980,
+        "narHash": "sha256-KgItSKML8Xvte0B7/uGnBDsYzSnnKHcOaiUbgWBXLXw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c59305bab2065cfecc4944690d9eedbb56f3a9fa",
+        "rev": "a7868a727837f3c09cee2ce0ca671c76b1589fed",
         "type": "github"
       },
       "original": {
@@ -508,7 +509,6 @@
         "herdr": "herdr_2",
         "home-manager": "home-manager",
         "hunk": "hunk",
-        "ketch": "ketch",
         "nixpkgs": "nixpkgs_6",
         "nordvpn-flake": "nordvpn-flake"
       }

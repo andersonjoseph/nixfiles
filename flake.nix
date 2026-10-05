@@ -8,8 +8,6 @@
     herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
-    ketch.url = "github:1broseidon/ketch/v0.18.1";
-    ketch.flake = false;
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -18,12 +16,13 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, definitivo, herdr, hunk, ketch, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, definitivo, herdr, hunk, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
-      ketch-pkg = pkgs.callPackage ./packages/ketch.nix { ketch-src = ketch; };
+      # ketch ships from the definitivo hub now, same pin as its skill.
+      ketch-pkg = definitivo.packages.${system}.ketch;
 
       overlays = {
         nixpkgs.overlays = [
