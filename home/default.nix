@@ -24,7 +24,7 @@
           ++ (lib.optionals isDesktopMachine [
             ./i3
             ./alacritty.nix
-            ./kitty.nix
+            ./ghostty.nix
           ]);
 
         home.stateVersion = "25.05";
