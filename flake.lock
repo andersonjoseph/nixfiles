@@ -65,28 +65,6 @@
         "type": "github"
       }
     },
-    "definitivo": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "herdr": "herdr",
-        "jailed-agents": "jailed-agents",
-        "ketch": "ketch",
-        "nixpkgs": "nixpkgs_4"
-      },
-      "locked": {
-        "lastModified": 1791211733,
-        "narHash": "sha256-3Hlg0VxNgEam5VIQrSShWa9LLMXfFX0Leittm9g/dDk=",
-        "ref": "refs/heads/main",
-        "rev": "1bacbd0b959e5bae38e3a83f5e2c62d64dc21417",
-        "revCount": 59,
-        "type": "git",
-        "url": "ssh://git@github.com/andersonjoseph/jailed-pi-definitivo.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/andersonjoseph/jailed-pi-definitivo.git"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -185,25 +163,6 @@
         "type": "github"
       }
     },
-    "herdr_2": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_5",
-        "rust-overlay": "rust-overlay_2"
-      },
-      "locked": {
-        "lastModified": 1790725267,
-        "narHash": "sha256-ZzXxgyVewI43Y/5TlNmkNmHQbidltLlANCXb4Hk39Og=",
-        "owner": "herdrdev",
-        "repo": "herdr",
-        "rev": "331775c3e51e8cca4d122468180738101bd9e6b0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "herdrdev",
-        "repo": "herdr",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -285,12 +244,13 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1791205746,
-        "narHash": "sha256-UFquz3IczNQAy0gJv++r+lua6CABtBrXbYnJKVfy77E=",
-        "owner": "andersonjoseph",
-        "repo": "jailed-agents",
-        "rev": "5a0d35136511082cbdd0227787f07a28f3fd5b4d",
-        "type": "github"
+        "lastModified": 1791248452,
+        "narHash": "sha256-iqOk8NVIWPf3FuQ8A9w+6xP5d3KXmUFllTovSoe6zBY=",
+        "ref": "refs/heads/main",
+        "rev": "2c3898bdbee5bef591b518f6c1ef298927d4025d",
+        "revCount": 198,
+        "type": "git",
+        "url": "file:///home/anderson/projects/jailed-agents"
       },
       "original": {
         "type": "git",
@@ -323,11 +283,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1791089625,
-        "narHash": "sha256-0MHqf09PIjbpfg7KhUN/r1vGJ9OS5A2TSMq99n+Y7XU=",
+        "lastModified": 1784877872,
+        "narHash": "sha256-Y270/EgraTJpT4uI84YJKpcqOcVFJwDBZpHYT4Ydtpw=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "372f0337e8170e55ff0c017cd43ab73b02a062ad",
+        "rev": "f9a30d16da12fcf83886b66d3df9b1b8c168a3f7",
         "type": "github"
       },
       "original": {
@@ -401,38 +361,6 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1791048980,
-        "narHash": "sha256-KgItSKML8Xvte0B7/uGnBDsYzSnnKHcOaiUbgWBXLXw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "a7868a727837f3c09cee2ce0ca671c76b1589fed",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_5": {
-      "locked": {
-        "lastModified": 1779911860,
-        "narHash": "sha256-ubcLAcKBDCZjhxw/kH5DL5GdBZQdzLqpkTe7HonvJVs=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c0a89c379b4ac67c7b13b051ddbd4e0dbc9b0eaf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_6": {
-      "locked": {
         "lastModified": 1790635395,
         "narHash": "sha256-bNyvoIyOCu7lzoCpWKWGIsHpTtERUWzqYWFPlN++WTw=",
         "owner": "NixOS",
@@ -483,7 +411,9 @@
         "herdr": "herdr",
         "home-manager": "home-manager",
         "hunk": "hunk",
-        "nixpkgs": "nixpkgs_6",
+        "jailed-agents": "jailed-agents",
+        "ketch": "ketch",
+        "nixpkgs": "nixpkgs_4",
         "nordvpn-flake": "nordvpn-flake"
       }
     },

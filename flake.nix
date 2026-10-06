@@ -16,13 +16,12 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, definitivo, herdr, hunk, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, ketch, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
-      # ketch ships from the definitivo hub now, same pin as its skill.
-      ketch-pkg = definitivo.packages.${system}.ketch;
+      ketch-pkg = pkgs.callPackage ./packages/ketch.nix { ketch-src = ketch; };
 
       overlays = {
         nixpkgs.overlays = [
