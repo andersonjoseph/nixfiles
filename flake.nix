@@ -47,7 +47,7 @@
 	};
       });
 
-      jailed-opencode = jailed-agents.lib.${system}.makeJailedOpencode {
+      jailed-opencode = jailed-agents.lib.${system}.makeJailedOpencode2 {
         enableNix = true;
         extraPkgs = [
           ketch-pkg
