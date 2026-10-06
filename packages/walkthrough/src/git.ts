@@ -54,7 +54,12 @@ export function numstat(sha: string, cwd: string): Numstat {
 }
 
 export function fileAt(sha: string, path: string, cwd: string): string {
-  return git(['show', `${sha}:${path}`], cwd)
+  return execFileSync('git', ['show', `${sha}:${path}`], {
+    encoding: 'utf8',
+    maxBuffer: MAX_BUFFER,
+    cwd,
+    stdio: ['ignore', 'pipe', 'ignore'],
+  })
 }
 
 export function diffFor(sha: string, path: string, cwd: string): string {

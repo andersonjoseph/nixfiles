@@ -6,7 +6,7 @@ buildNpmPackage {
   pname = "walkthrough";
   version = "0.1.0";
   src = ./walkthrough;
-  npmDepsHash = "sha256-nGYiRwyhrzTtlGnpwiuWS5icmn/5iW6fqp7Q0LXzFZs=";
+  npmDepsHash = "sha256-H4SOieq4BetUKi6wdK8Fwh8xwUlsI5s/mvX7Jdg5wj8=";
 
   buildPhase = ''
     runHook preBuild
