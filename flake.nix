@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nordvpn-flake.url = "path:./flakes/nordvpn";
+    ketch.url = "github:1broseidon/ketch/v0.18.1";
+    ketch.flake = false;
     jailed-agents.url = "git+file:///home/anderson/projects/jailed-agents";
     herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
