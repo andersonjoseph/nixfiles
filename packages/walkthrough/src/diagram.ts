@@ -115,7 +115,7 @@ function seqSvg(d: SeqDiagram, uid: string): string {
   const out: string[] = []
   out.push(`<svg class="seq" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img">`)
   for (const tone of ['', '-bad', '-good']) {
-    const fill = tone === '-bad' ? '#f85149' : tone === '-good' ? '#3fb950' : '#388bfd'
+    const fill = tone === '-bad' ? '#f63d68' : tone === '-good' ? '#6fae54' : '#5fc2a4'
     out.push(
       `  <defs><marker id="ah${tone}-${uid}" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="${fill}"/></marker></defs>`,
     )
