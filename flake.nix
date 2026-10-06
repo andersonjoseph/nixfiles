@@ -24,6 +24,7 @@
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
       ketch-pkg = pkgs.callPackage ./packages/ketch.nix { ketch-src = ketch; };
+      walkthrough-pkg = pkgs.callPackage ./packages/walkthrough.nix { };
 
       overlays = {
         nixpkgs.overlays = [
@@ -31,6 +32,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             ketch = ketch-pkg;
+            walkthrough = walkthrough-pkg;
             inherit jailed-opencode;
           })
         ];
@@ -51,6 +53,7 @@
         enableNix = true;
         extraPkgs = [
           ketch-pkg
+          walkthrough-pkg
           pkgs.nodejs
         ];
         extraReadwriteDirs = [
@@ -69,6 +72,8 @@
           nixfmt-rfc-style
         ];
       };
+
+      packages.${system}.walkthrough = walkthrough-pkg;
 
       nixosConfigurations.vondel = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
