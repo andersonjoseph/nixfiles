@@ -11,6 +11,12 @@ ALWAYS ALWAYS ALWAYS SPEAK IN ASD-STE100.
 - Read the exact block before an edit; prefer a whole-file write for new
   or heavily edited files.
 
+## Git
+
+- NEVER push to a remote. No `git push`, no force variants, nothing to origin
+  or any other remote — not even when a plan step says to ship. Commit and
+  branch locally at most, then hand me the exact push command to run myself.
+
 ## Comments
 
 - No code comments except one explaining the body of a function (why the body does

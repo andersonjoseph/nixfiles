@@ -29,3 +29,10 @@ the go-ahead before writing code.
 7. Then generate a commit walkthrough of the commits (the
    `commit-walkthrough` skill when available) and post the page for the
    user to review.
+
+## Landing (jungle-rabbit)
+
+Every branch comes off `master`. The user opens the PR against `master`,
+and the same branch is then merged into `develop` to keep `develop` in
+sync with `master`. Never commit straight to `develop`. Do not ask which
+way to land — this is the answer.

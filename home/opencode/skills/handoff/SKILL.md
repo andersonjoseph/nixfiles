@@ -5,7 +5,7 @@ argument-hint: "What will the next session be used for?"
 disable-model-invocation: true
 ---
 
-Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save it to `/tmp/opencode` — never the current workspace.
+Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save it to the project's `.opencode/` directory as `.opencode/handoff-<topic>.md` — it stays local (`.git/info/exclude` covers `.opencode/`), never elsewhere in the workspace.
 
 Include a "suggested skills" section in the document, naming which skills the next agent should load via the `skill` tool.
 
