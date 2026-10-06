@@ -42,9 +42,8 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
     multiplexer config.
   - `i3/` — i3 window manager and bar setup.
   - `nvim/` — Neovim config (LSP, plugins), symlinked into `~/.config/nvim`.
-  - `pi/` — `pi` agent config (`AGENTS.md`, `skills/`, `extensions/`,
-    `prompts/`), symlinked into `~/.pi/agent` via a home-manager activation
-    script.
+  - `opencode/` — global OpenCode config (personal `AGENTS.md`, agents,
+    skills), symlinked into `~/.config/opencode` via `home.file`.
 - `flakes/nordvpn/` — Vendored standalone flake providing the NordVPN CLI/GUI
   packages and a NixOS module; consumed by `flake.nix` as `nordvpn-flake`.
 - `scripts/` — Utility scripts (e.g., `change-audio-port`).

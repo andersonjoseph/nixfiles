@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nordvpn-flake.url = "path:./flakes/nordvpn";
-    definitivo.url = "git+ssh://git@github.com/andersonjoseph/jailed-pi-definitivo.git";
+    jailed-agents.url = "git+file:///home/anderson/projects/jailed-agents";
     herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +30,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             ketch = ketch-pkg;
-            inherit jailed-pi;
+            inherit jailed-opencode;
           })
         ];
       };
@@ -46,14 +46,23 @@
 	};
       });
 
-      jailed-pi = definitivo.lib.${system}.mkPi {
-        name = "jailed-pi";
+      jailed-opencode = jailed-agents.lib.${system}.makeJailedOpencode {
         enableNix = true;
-        extraPkgs = [ ketch-pkg ];
+        extraPkgs = [
+          ketch-pkg
+          pkgs.nodejs
+        ];
         extraReadwriteDirs = [
           "~/.config/ketch"
           "~/.cache/ketch"
+          "~/.local/share/opencode-jail"
         ];
+        extraReadonlyDirs = [
+          "~/configuration/home/opencode"
+        ];
+        env = {
+          XDG_DATA_HOME = "/home/anderson/.local/share/opencode-jail";
+        };
       };
     in
     {
