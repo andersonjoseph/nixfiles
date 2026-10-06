@@ -56,14 +56,10 @@
         extraReadwriteDirs = [
           "~/.config/ketch"
           "~/.cache/ketch"
-          "~/.local/share/opencode-jail"
         ];
         extraReadonlyDirs = [
           "~/configuration/home/opencode"
         ];
-        env = {
-          XDG_DATA_HOME = "/home/anderson/.local/share/opencode-jail";
-        };
       };
     in
     {
