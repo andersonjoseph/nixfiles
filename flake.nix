@@ -6,7 +6,7 @@
     nordvpn-flake.url = "path:./flakes/nordvpn";
     ketch.url = "github:1broseidon/ketch/v0.18.1";
     ketch.flake = false;
-    jailed-agents.url = "git+file:///home/anderson/projects/jailed-agents";
+    jailed-agents.url = "github:andersonjoseph/jailed-agents";
     herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
