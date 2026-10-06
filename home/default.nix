@@ -195,21 +195,22 @@
           source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/nvim";
         };
 
-        # Global OpenCode config: personal AGENTS.md, agents, skills. The symlinks
-        # point into this repo so edits apply without a switch; the thermo-nuclear
-        # skill is a committed symlink inside home/opencode/skills/ to the samurai
-        # checkout.
-        home.file.".config/opencode/AGENTS.md" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/opencode/AGENTS.md";
-        };
-
-        home.file.".config/opencode/agents" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/opencode/agents";
-        };
-
-        home.file.".config/opencode/skills" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/opencode/skills";
-        };
+        # Global OpenCode config, linked directly instead of through the
+        # home-manager store tree: jails that bind /nix per-path cannot follow
+        # the store hop, and this repo is read-only-bound into every one of
+        # them. The thermo-nuclear skill is a committed symlink inside
+        # home/opencode/skills/ to the samurai checkout.
+        home.activation.opencodeGlobal = config.lib.dag.entryAfter ["writeBoundary"] ''
+          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
+            ${config.home.homeDirectory}/configuration/home/opencode/AGENTS.md \
+            ${config.home.homeDirectory}/.config/opencode/AGENTS.md
+          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
+            ${config.home.homeDirectory}/configuration/home/opencode/agents \
+            ${config.home.homeDirectory}/.config/opencode/agents
+          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
+            ${config.home.homeDirectory}/configuration/home/opencode/skills \
+            ${config.home.homeDirectory}/.config/opencode/skills
+        '';
 
       };
   };
