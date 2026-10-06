@@ -1,15 +1,23 @@
 import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, join } from 'node:path'
-import { git, repoRoot, revList, shortSha } from './git'
+import { changedFiles, git, repoRoot, revList, shortSha } from './git'
 import { renderPage, type CommitEntry, type Sidecar } from './render'
 import { isV1, migrateV1 } from './migrate'
+import { draftGroups } from './groups'
 
 const USAGE = 'usage: wt init <range> [subtitle] | render <range>'
 
 function sidecarPath(root: string, range: string): string {
   const name = range.replace(/[^A-Za-z0-9]/g, '_') + '.json'
   return join(root, '.opencode', 'walkthroughs', name)
+}
+
+function assertRange(range: string): void {
+  if (range.includes('...')) {
+    console.error(`symmetric ranges are not supported: ${range}`)
+    process.exit(2)
+  }
 }
 
 function emptyCommit(sha: string): CommitEntry {
@@ -29,11 +37,10 @@ function fingerprint(range: string, cwd: string): string | undefined {
   }
 }
 
-function readSidecar(path: string, range: string, cwd: string): Sidecar {
+function readSidecar(path: string): Sidecar {
   const raw: unknown = JSON.parse(readFileSync(path, 'utf8'))
   const sidecar: Sidecar = isV1(raw) ? migrateV1(raw) : (raw as Sidecar)
   sidecar.schemaVersion = 2
-  sidecar.fingerprint ??= fingerprint(range, cwd)
   return sidecar
 }
 
@@ -57,7 +64,16 @@ async function doInit(range: string, subtitle: string): Promise<void> {
       commits: shas.map((s) => emptyCommit(shortSha(s, root))),
     }
   } else {
-    sidecar = readSidecar(path, range, root)
+    sidecar = readSidecar(path)
+    const fp = fingerprint(range, root)
+    if (sidecar.fingerprint && fp && sidecar.fingerprint !== fp) {
+      console.error(
+        `sidecar fingerprint mismatch for range ${range}: the range endpoints moved since this sidecar was written.`,
+        `Start a new range, or delete ${path} to curate from scratch.`,
+      )
+      process.exit(1)
+    }
+    sidecar.fingerprint = fp ?? sidecar.fingerprint
     sidecar.repo = sidecar.repo ?? basename(root)
     sidecar.range = range
     if (subtitle) sidecar.subtitle = subtitle
@@ -65,6 +81,11 @@ async function doInit(range: string, subtitle: string): Promise<void> {
     for (const s of shas) {
       const short = shortSha(s, root)
       if (!known.has(short)) sidecar.commits.push(emptyCommit(short))
+    }
+  }
+  for (const c of sidecar.commits) {
+    if (!c.why?.length && !c.groups?.length) {
+      c.groups = draftGroups(changedFiles(c.sha, root))
     }
   }
   writeSidecar(path, sidecar)
@@ -81,7 +102,7 @@ async function doRender(range: string): Promise<void> {
     console.error(`no sidecar for range ${range} at ${path}`)
     process.exit(1)
   }
-  const sidecar = readSidecar(path, range, root)
+  const sidecar = readSidecar(path)
   const page = join(root, 'commit-walk.html')
   writeFileSync(page, await renderPage(root, sidecar))
   const total = sidecar.commits.length
@@ -95,6 +116,7 @@ async function main(): Promise<void> {
     console.error(USAGE)
     process.exit(2)
   }
+  assertRange(range)
   if (cmd === 'init') await doInit(range, subtitle ?? '')
   else await doRender(range)
 }

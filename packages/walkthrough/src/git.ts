@@ -73,3 +73,11 @@ export function diffFor(sha: string, path: string, cwd: string): string {
     return ''
   }
 }
+
+export function changedFiles(sha: string, cwd: string): string[] {
+  const out = git(['show', '--numstat', '--format=', sha], cwd)
+  return out
+    .split('\n')
+    .filter((l) => l.trim())
+    .map((l) => l.split('\t').slice(2).join('\t'))
+}
