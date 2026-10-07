@@ -33,6 +33,12 @@ and a commit curated once is never curated again.
    It creates `.opencode/walkthroughs/<range>.json` when missing, adds
    commits that are not in it yet, renders `commit-walk.html`, and prints
    the uncurated commit ids.
+   Every added commit arrives as a stub
+   `{sha, touches: null, why: [], items: []}` — curate by REPLACING that
+   stub object, never by appending a second entry for the same sha
+   (duplicates break jq parsing), and keep the `items: []` key present
+   even for prose-only commits (render iterates it). Render right after
+   each curation to validate the JSON.
 3. Make sure `.git/info/exclude` lists `commit-walk.html` and the sidecar
    dir `.opencode/walkthroughs/`; add the missing lines.
 4. Post the page path in chat and tell the user to open it in a browser.

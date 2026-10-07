@@ -70,6 +70,5 @@ inferred.
 
 ## 4. Present and decide
 
-- List findings ordered by friction cost.
-- Save the list to `.opencode/retros/<YYYY-MM-DD>-<slug>.md`.
+- Present the findings in chat, ordered by friction cost. Write no files.
 - Ask the user which findings to act on. Act only on the chosen ones.

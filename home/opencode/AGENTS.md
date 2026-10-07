@@ -16,6 +16,8 @@ ALWAYS ALWAYS ALWAYS SPEAK IN ASD-STE100.
 - NEVER push to a remote. No `git push`, no force variants, nothing to origin
   or any other remote — not even when a plan step says to ship. Commit and
   branch locally at most, then hand me the exact push command to run myself.
+- Run `git branch --show-current` before every commit. A merge or checkout by
+  someone else moves the worktree under you between my commands.
 
 ## Comments
 

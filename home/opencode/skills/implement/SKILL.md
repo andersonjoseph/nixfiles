@@ -30,6 +30,19 @@ the go-ahead before writing code.
    `commit-walkthrough` skill when available) and post the page for the
    user to review.
 
+## UI components
+
+- Build new components decomposed from the first commit: a shell (state,
+  data, layout) plus a parts module for the visual regions. Landing a
+  200-line single component and splitting it after review costs two review
+  cycles that the first shape avoids.
+- Conditional JSX belongs in small named components or helpers with early
+  returns, not in nested ternaries inside markup.
+- When a new component copies a neighbour's chrome (tab groups, stat cells,
+  card shells), put the share-or-duplicate decision in the plan.
+- A refactor review brief asks about shape too: flag remaining nested
+  ternaries and duplicated chrome, not only behavior equivalence.
+
 ## Landing (jungle-rabbit)
 
 Every branch comes off `master`. The user opens the PR against `master`,
