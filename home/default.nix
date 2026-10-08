@@ -20,6 +20,7 @@
         imports =
           [
             ./herdr.nix
+            ./url-open.nix
           ]
           ++ (lib.optionals isDesktopMachine [
             ./i3
@@ -113,6 +114,7 @@
             "vondel-nord" = {
               User = "anderson";
               IdentityFile = "~/.ssh/access/vondel";
+              RemoteForward = "127.0.0.1:61413 127.0.0.1:61413";
             };
           };
         };
