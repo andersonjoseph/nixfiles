@@ -10,6 +10,7 @@
     herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
+    commit-walkthrough.url = "git+file:///home/anderson/projects/commit-walkthrough";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -18,12 +19,13 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, ketch, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, ketch, commit-walkthrough, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
       ketch-pkg = pkgs.callPackage ./packages/ketch.nix { ketch-src = ketch; };
+      commit-walkthrough-pkg = commit-walkthrough.packages.${system}.commit-walkthrough;
 
       overlays = {
         nixpkgs.overlays = [
@@ -31,6 +33,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             ketch = ketch-pkg;
+            commit-walkthrough = commit-walkthrough-pkg;
             inherit jailed-opencode;
           })
         ];
@@ -51,6 +54,7 @@
         enableNix = true;
         extraPkgs = [
           ketch-pkg
+          commit-walkthrough-pkg
           pkgs.nodejs
         ];
         extraReadwriteDirs = [
@@ -59,6 +63,7 @@
         ];
         extraReadonlyDirs = [
           "~/configuration/home/opencode"
+          "~/projects/commit-walkthrough"
         ];
       };
     in
@@ -69,6 +74,8 @@
           nixfmt-rfc-style
         ];
       };
+
+      packages.${system}.commit-walkthrough = commit-walkthrough-pkg;
 
       nixosConfigurations.vondel = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

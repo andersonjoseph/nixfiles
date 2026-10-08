@@ -20,11 +20,12 @@
         imports =
           [
             ./herdr.nix
+            ./url-open.nix
           ]
           ++ (lib.optionals isDesktopMachine [
             ./i3
             ./alacritty.nix
-            ./kitty.nix
+            ./ghostty.nix
           ]);
 
         home.stateVersion = "25.05";
@@ -38,6 +39,7 @@
             neovim
             hunk
             ketch
+            commit-walkthrough
             jailed-opencode
             jq
             ripgrep
@@ -112,6 +114,7 @@
             "vondel-nord" = {
               User = "anderson";
               IdentityFile = "~/.ssh/access/vondel";
+              RemoteForward = "127.0.0.1:61413 127.0.0.1:61413";
             };
           };
         };

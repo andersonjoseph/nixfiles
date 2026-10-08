@@ -34,3 +34,6 @@ swap_pane_right   = "prefix+right"
 [theme]
 name = "vesper"
 auto_switch = false
+
+[experimental]
+kitty_graphics = true
