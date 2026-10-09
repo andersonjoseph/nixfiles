@@ -1,0 +1,23 @@
+id = "anderson.html-open"
+name = "HTML Open"
+version = "0.1.0"
+min_herdr_version = "0.9.3"
+description = "Open agent-written html pages from .opencode/html-open in terminal-browser panes"
+platforms = ["linux"]
+
+[[startup]]
+command = ["sh", "start-watch.sh"]
+
+[[actions]]
+id = "pick"
+title = "Pick an html page to open"
+contexts = ["workspace"]
+command = ["sh", "open-picker.sh"]
+
+[[panes]]
+id = "picker"
+title = "Pick an html page"
+placement = "popup"
+width = "60%"
+height = 20
+command = ["sh", "pick.sh"]

@@ -14,19 +14,18 @@
         ...
       }:
       let
-        isDesktopMachine = builtins.elem nixosConfig.networking.hostName [ "ashika" "lyndon" ];
+        isDesktopMachine = builtins.elem nixosConfig.networking.hostName (import ./desktop-hosts.nix);
       in
       {
-        imports =
-          [
-            ./herdr.nix
-            ./url-open.nix
-          ]
-          ++ (lib.optionals isDesktopMachine [
-            ./i3
-            ./alacritty.nix
-            ./ghostty.nix
-          ]);
+        imports = [
+          ./herdr.nix
+          ./url-open.nix
+        ]
+        ++ (lib.optionals isDesktopMachine [
+          ./i3
+          ./alacritty.nix
+          ./ghostty.nix
+        ]);
 
         home.stateVersion = "25.05";
 
@@ -201,9 +200,9 @@
         # Global OpenCode config, linked directly instead of through the
         # home-manager store tree: jails that bind /nix per-path cannot follow
         # the store hop, and this repo is read-only-bound into every one of
-        # them. The thermo-nuclear skill is a committed symlink inside
-        # home/opencode/skills/ to the samurai checkout.
-        home.activation.opencodeGlobal = config.lib.dag.entryAfter ["writeBoundary"] ''
+        # them. The thermo-nuclear skill is vendored under
+        # home/opencode/skills/ so it exists on every host.
+        home.activation.opencodeGlobal = config.lib.dag.entryAfter [ "writeBoundary" ] ''
           $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
             ${config.home.homeDirectory}/configuration/home/opencode/AGENTS.md \
             ${config.home.homeDirectory}/.config/opencode/AGENTS.md

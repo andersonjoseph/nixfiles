@@ -113,11 +113,7 @@ function expandSkill(command: string): string {
 }
 ```
 
-- For a visual UI, layout, state comparison, or concept too dense for ASCII, write one focused HTML file — a diagram, an infographic, or a short slide deck, whichever fits the point. Match the product's colors, type, spacing, and components; use real labels and data; support desktop and mobile. Save it to the repo root as `show-me-<description>.html` (git-excluded), then open it for the user and post the path:
-
-```
-xdg-open show-me-<description>.html
-```
+- For a visual UI, layout, state comparison, or concept too dense for ASCII, write one focused HTML file — a diagram, an infographic, or a short slide deck, whichever fits the point. Match the product's colors, type, spacing, and components; use real labels and data; support desktop and mobile. Save it as `.opencode/html-open/show-me-<description>.html` (git-excluded) and post the path. Never open it yourself: the herdr html-open plugin opens the page in a terminal-browser pane the moment the file lands there. If the file already existed before this write, append its basename to `.opencode/html-open/.requests` so the pane opens again.
 
 - Place each visual next to the short text it supports. Keep only the calls, files, props, states, and boundaries needed to answer the user's current question.
 

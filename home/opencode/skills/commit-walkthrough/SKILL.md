@@ -24,7 +24,9 @@ curated again.
    never the natural language words, so the sidecar filename stays stable.
    The range lists commits with `--no-merges`: merge commits get no
    section.
-2. Run `wt init <range> [subtitle]`. The `wt` binary comes from nix and
+2. Note whether `.opencode/html-open/commit-walk.html` already exists;
+   step 6 needs the answer. Then run `wt init <range> [subtitle]`. The
+   `wt` binary comes from nix and
    sits on PATH. It migrates a v1 sidecar in place when one exists,
    creates or extends `.opencode/walkthroughs/<range>.json`, renders the
    page to `.opencode/html-open/commit-walk.html`, and prints the
@@ -32,10 +34,8 @@ curated again.
 3. Make sure `.git/info/exclude` lists the sidecar dir
    `.opencode/walkthroughs/` and `.opencode/html-open/`; add the missing
    lines.
-4. End the reply with a fenced code block tagged `open` that holds the
-   absolute path of `.opencode/html-open/commit-walk.html`. The chat
-   turns it into a clickable badge that opens the page in a terminal
-   browser split. Stay silent in chat until the walk is done.
+4. Stay silent in chat until the walk is done. The herdr html-open
+   plugin opens the page in a terminal-browser pane on its own.
 5. For each uncurated commit, oldest first:
    a. Read the commit: `git show <sha>` for message, diffstat, and diff.
    b. Fill that commit's entry in the sidecar, following the schema and
@@ -43,8 +43,10 @@ curated again.
    c. Run `wt render <range>` so a browser refresh shows the new section.
 6. When the last commit is curated, write `overallSummary`: two or three
    short lines that state what the walk as a whole changes. Render once
-   more, then post one final line in chat: the `open` fence with the page
-   path and the number of commits.
+   more, then post one final line in chat: the number of commits. If
+   `.opencode/html-open/commit-walk.html` already existed at step 2,
+   append its basename to `.opencode/html-open/.requests`
+   after the final render, so the pane opens again.
 
 ## Sidecar schema, version 2
 

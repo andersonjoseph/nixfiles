@@ -6,10 +6,7 @@
 }:
 let
   port = 61413;
-  isDesktopMachine = builtins.elem nixosConfig.networking.hostName [
-    "ashika"
-    "lyndon"
-  ];
+  isDesktopMachine = builtins.elem nixosConfig.networking.hostName (import ./desktop-hosts.nix);
 
   url-open = pkgs.writeShellScriptBin "url-open" ''
     url="$1"

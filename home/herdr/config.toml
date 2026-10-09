@@ -31,6 +31,12 @@ swap_pane_down    = "prefix+down"
 swap_pane_up      = "prefix+up"
 swap_pane_right   = "prefix+right"
 
+[[keys.command]]
+key = "prefix+h"
+type = "plugin_action"
+command = "anderson.html-open.pick"
+description = "pick an html page to open in terminal-browser"
+
 [theme]
 name = "vesper"
 auto_switch = false
