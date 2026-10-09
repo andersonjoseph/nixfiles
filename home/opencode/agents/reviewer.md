@@ -5,24 +5,18 @@ permissions:
   - action: edit
     resource: "*"
     effect: deny
-  - action: shell
+  - action: write
     resource: "*"
     effect: deny
-  - action: shell
-    resource: "git diff*"
-    effect: allow
-  - action: shell
-    resource: "git log*"
-    effect: allow
-  - action: shell
-    resource: "git show*"
-    effect: allow
-  - action: shell
-    resource: "git status*"
-    effect: allow
   - action: subagent
     resource: "*"
     effect: deny
+  - action: shell
+    resource: "*"
+    effect: allow
+  - action: webfetch
+    resource: "*"
+    effect: allow
   - action: skill
     resource: "thermo-nuclear-code-quality-review"
     effect: allow
@@ -36,6 +30,11 @@ approval bar.
 
 Scope: the current branch's changes (`git diff` against the base branch). Read
 any surrounding code you need.
+
+Verify, do not guess: run any probe you need — `bash -n` on scripts, `jq` on
+real payloads, `nix eval` or `nix flake check` on nix changes, webfetch for
+upstream docs. Mutating commands stay forbidden; findings are yours, fixes are
+the parent's.
 
 ## Verdict protocol (every response ends with exactly one)
 
