@@ -6,19 +6,9 @@ return {
     require('blink-cmp').setup {
       keymap = {
         preset = 'enter',
-        ['<C-y>'] = { function(cmp) cmp.show { providers = { 'minuet' } } end },
       },
       sources = {
         default = { 'lsp', 'path', 'buffer', 'snippets' },
-        providers = {
-          minuet = {
-            name = 'minuet',
-            module = 'minuet.blink',
-            async = true,
-            timeout_ms = 3000,
-            score_offset = 100,
-          },
-        },
       },
       completion = {
         documentation = { auto_show = true },

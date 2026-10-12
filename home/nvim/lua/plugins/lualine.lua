@@ -20,7 +20,6 @@ return {
 	  }
 	},
 	lualine_c = {'diagnostics'},
-	lualine_x = { require 'minuet.lualine', 'branch', 'diagnostics' },
       }
     }
   end;
