@@ -47,7 +47,7 @@ in
         "${mod}+Shift+f" = "exec --no-startup-id thunar";
         "${mod}+Shift+p" = "exec --no-startup-id keepassxc";
         "floating_modifier" = "${mod}";
-        "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+        "${mod}+Return" = "exec --no-startup-id ${pkgs.ghostty}/bin/ghostty";
 
         "Print" = "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
         "${mod}+grave" =
