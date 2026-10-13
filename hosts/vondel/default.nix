@@ -17,11 +17,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGsL1q7SJiMvj1pkm7d/lzX9hPhEa2wjkAi6rA/hN4Vo lyndon->vondel"
   ];
 
-  services.open-webui = {
-    enable = true;
-    port = 3000;
-  };
-
   services.logrotate = {
     enable = true;
     settings = {
@@ -36,14 +31,6 @@
     };
   };
 
-  services.caddy = {
-    enable = true;
-    virtualHosts."vondel-nord.nord:8000".extraConfig = ''
-      tls internal
-      reverse_proxy localhost:3000
-    '';
-  };
-
   services.journald.extraConfig = "SystemMaxUse=1G";
 
   services.eternal-terminal.enable = true;
@@ -52,8 +39,6 @@
 
   networking.firewall.allowedTCPPorts = [
     22
-    80
-    443
 
     8000
     2022
