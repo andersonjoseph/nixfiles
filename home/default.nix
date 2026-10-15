@@ -92,10 +92,8 @@
           };
         };
 
-        programs.delta = {
-          enable = true;
-          enableGitIntegration = true;
-        };
+        # delta stays installed for the lazygit pager; git itself pages through hunk.
+        programs.delta.enable = true;
 
         programs.ssh = {
           enable = true;
@@ -133,6 +131,7 @@
         programs.git = {
           enable = true;
           settings = {
+            core.pager = "hunk pager";
             user = {
               name = "anderson";
               email = "andersonjoseph@mailfence.com";
