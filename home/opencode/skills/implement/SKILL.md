@@ -11,10 +11,7 @@ the go-ahead before writing code.
 
 1. Load the relevant skills for the work — whichever match the files you are
    going to modify.
-2. Comments: near zero, self-documenting code, no inline comments. The only
-   allowed comment sits at the top of a function body or package definition
-   when the why is not obvious. No redundant, AI-slop, or LLM-verbatim
-   comments. All prose in ASD-STE100.
+2. Zero Comments: Comments are banned in this session. 
 3. Tests: only when they are worth it and necessary. No redundant tests, no
    tests for the sake of it, no AI-slop tests.
 4. Build on what exists. Search for existing helpers before writing new ones.
