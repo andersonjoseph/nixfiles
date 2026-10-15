@@ -10,6 +10,8 @@
     herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
+    sideshow.url = "github:modem-dev/sideshow";
+    sideshow.flake = false;
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -18,12 +20,13 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, ketch, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, ketch, sideshow, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
       ketch-pkg = pkgs.callPackage ./packages/ketch.nix { ketch-src = ketch; };
+      sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
 
       overlays = {
         nixpkgs.overlays = [
@@ -31,6 +34,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             ketch = ketch-pkg;
+            sideshow = sideshow-pkg;
             inherit jailed-opencode;
           })
         ];
@@ -51,6 +55,7 @@
         enableNix = true;
         extraPkgs = [
           ketch-pkg
+          sideshow-pkg
           pkgs.nodejs
         ];
         extraReadwriteDirs = [

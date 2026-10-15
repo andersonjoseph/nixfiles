@@ -415,7 +415,8 @@
         "jailed-agents": "jailed-agents",
         "ketch": "ketch",
         "nixpkgs": "nixpkgs_4",
-        "nordvpn-flake": "nordvpn-flake"
+        "nordvpn-flake": "nordvpn-flake",
+        "sideshow": "sideshow"
       }
     },
     "rust-overlay": {
@@ -436,6 +437,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sideshow": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788789587,
+        "narHash": "sha256-TuqRIm0q/1UEXGmSRFs69Vf6HBGmU22kHdGdZNUCIHI=",
+        "owner": "modem-dev",
+        "repo": "sideshow",
+        "rev": "a3b18af5a77f40889ec1f06359a277ccc61310ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "modem-dev",
+        "repo": "sideshow",
         "type": "github"
       }
     },

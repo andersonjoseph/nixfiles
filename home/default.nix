@@ -20,6 +20,7 @@
         imports = [
           ./herdr.nix
           ./url-open.nix
+          ./sideshow.nix
         ]
         ++ (lib.optionals isDesktopMachine [
           ./i3
@@ -111,6 +112,7 @@
               User = "anderson";
               IdentityFile = "~/.ssh/access/vondel";
               RemoteForward = "127.0.0.1:61413 127.0.0.1:61413";
+              LocalForward = "18228 localhost:8228";
             };
           };
         };
@@ -210,6 +212,9 @@
           $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
             ${config.home.homeDirectory}/configuration/home/opencode/skills \
             ${config.home.homeDirectory}/.config/opencode/skills
+          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
+            ${config.home.homeDirectory}/configuration/home/opencode/opencode.jsonc \
+            ${config.home.homeDirectory}/.config/opencode/opencode.jsonc
         '';
 
       };

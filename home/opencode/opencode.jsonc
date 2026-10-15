@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugins": [],
+  "mcp": {
+    "sideshow": {
+      "type": "local",
+      "command": ["sideshow", "mcp"],
+      "enabled": true
+    }
+  }
+}
