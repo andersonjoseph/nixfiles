@@ -1,6 +1,6 @@
 ---
 name: show-me
-description: Help the user understand the current topic visually with concise diagrams and code-shape sketches.
+description: Help the user understand the current topic visually with concise diagrams, code-shape sketches, and rich visuals on the sideshow board.
 disable-model-invocation: true
 ---
 
@@ -112,5 +112,7 @@ function expandSkill(command: string): string {
   return `use the ${skillName} skill`
 }
 ```
+
+- For a visual UI, layout, state comparison, or concept too dense for ASCII, draw it on the sideshow board (the `sideshow` skill): an html surface for mockups and dense explainers, mermaid for structure. Never write an HTML file — the board is the canvas. Standalone HTML only when the user explicitly asks for a file.
 
 You may use one of these, you may use several, it is unlikely you will use all of them. Use your judgement and don't overwhelm the user.

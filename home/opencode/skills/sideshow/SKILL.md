@@ -63,5 +63,7 @@ sideshow carries the picture. Publish the overview first, then offer hunk.
 
 ## Rich visuals
 
-A raw html file published as the post argument covers mockups, charts, and dense
-explainers beyond ASCII. Show the thing; the viewer supplies the chrome.
+Sideshow is the default visual channel: whenever output would be a web page —
+mockups, dashboards, charts, explainer pages — publish it here as an html
+surface. Standalone HTML files are off the table unless the user explicitly
+asks for one. Show the thing; the viewer supplies the chrome.
