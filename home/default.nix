@@ -38,6 +38,7 @@
           [
             neovim
             hunk
+            hunk-notes
             ketch
             jailed-opencode
             jq
