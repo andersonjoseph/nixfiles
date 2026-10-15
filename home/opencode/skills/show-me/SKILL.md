@@ -4,9 +4,9 @@ description: Help the user understand the current topic visually with concise di
 disable-model-invocation: true
 ---
 
-Help the user understand the current topic of conversation visually. Skip the preamble and keep prose brief. Pick the smallest view that makes the key point clear.
+Help the user understand the current topic visually. Skip the preamble, keep prose brief, pick the smallest view that makes the point. One example per shape — match the shape to the topic, not the other way around.
 
-- Show logic or an algorithm as pseudocode:
+Logic or algorithm — pseudocode:
 
 ```text
 on(save)
@@ -16,7 +16,7 @@ on(save)
   return fresh result
 ```
 
-- Show runtime control flow as a call tree:
+Runtime control flow — call tree:
 
 ```text
 submitForm
@@ -26,7 +26,7 @@ submitForm
   navigateToSession
 ```
 
-- Show UI structure as a component tree, including state and module boundaries that matter:
+UI structure — component tree with the state and module boundaries that matter:
 
 ```tsx
 <SessionPage> (apps/example/src/routes/session.tsx)
@@ -35,7 +35,7 @@ submitForm
     <RunSkillButton> (packages/ui)
 ```
 
-- Show file responsibility or a broad refactor as a shallow file tree:
+File responsibility or a broad refactor — shallow file tree:
 
 ```text
 src/
@@ -44,7 +44,7 @@ src/
 `-- transport/      # sends API requests
 ```
 
-- Show component interaction, control flow, or data flow with ASCII:
+Interaction or data flow across actors — ASCII sequence:
 
 ```text
 User        UI         Daemon
@@ -54,65 +54,16 @@ User        UI         Daemon
   |          |<--stream--|
 ```
 
-- Use `diff` when the point is what changes and the surrounding shape already exists. Match the diff shape to the topic.
-
-For a component change:
+What changes inside an existing shape — diff:
 
 ```diff
- <SessionPage>
-   useSessionEvents()
-   <SessionToolbar>
-+    <RunSkillButton />
-   <SessionTimeline>
-+    <SkillResultCard />
+  submitForm
+    createSession
+      persistPrompt
++     expandSkillMention
+      launchAgent
 ```
 
-For a file-layout change:
+Show the whole block only when it is mostly new or the user needs a copyable target — otherwise excerpt.
 
-```diff
- src/
- |-- commands/
-+|   `-- show-me.ts       # expands the slash command
- |-- sessions/
--`-- transport.ts
-+`-- transport/
-+    |-- client.ts
-+    `-- stream.ts
-```
-
-For a call-tree or call-stack change:
-
-```diff
- submitForm
-   createSession
-     persistPrompt
-+    expandSkillMention
-     launchAgent
--  navigateToSession
-+  navigateToSession
-+    subscribeToEvents
-```
-
-For a state or control-flow change:
-
-```diff
- on(save)
--  write content
-+  if content is unchanged
-+    return cached result
-+  write new content
-+  invalidate cache
-```
-
-- Show the whole block when most of it is new, when omitted context would hide ownership or order, or when the user needs a copyable target shape:
-
-```ts
-function expandSkill(command: string): string {
-  const skillName = command.slice(1)
-  return `use the ${skillName} skill`
-}
-```
-
-- For a visual UI, layout, state comparison, or concept too dense for ASCII, draw it on the sideshow board (the `sideshow` skill): an html surface for mockups and dense explainers, mermaid for structure. Never write an HTML file — the board is the canvas. Standalone HTML only when the user explicitly asks for a file.
-
-You may use one of these, you may use several, it is unlikely you will use all of them. Use your judgement and don't overwhelm the user.
+For anything too dense for ASCII — UI, layout, state comparison, concept — draw it on the sideshow board (the `sideshow` skill): html surfaces for mockups and dense explainers, mermaid for structure. Never write an HTML file; standalone HTML only when the user explicitly asks for a file.
