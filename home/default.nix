@@ -212,9 +212,6 @@
           $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
             ${config.home.homeDirectory}/configuration/home/opencode/skills \
             ${config.home.homeDirectory}/.config/opencode/skills
-          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-            ${config.home.homeDirectory}/configuration/home/opencode/opencode.jsonc \
-            ${config.home.homeDirectory}/.config/opencode/opencode.jsonc
         '';
 
       };
