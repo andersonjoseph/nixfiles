@@ -27,7 +27,6 @@
       # Packages provided by flake inputs, exposed as pkgs.<name>.
       ketch-pkg = pkgs.callPackage ./packages/ketch.nix { ketch-src = ketch; };
       sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
-      hunk-notes-pkg = pkgs.callPackage ./packages/hunk-notes.nix { hunk = hunk.packages.${system}.hunk; };
 
       overlays = {
         nixpkgs.overlays = [
@@ -36,7 +35,6 @@
             hunk = hunk.packages.${system}.hunk;
             ketch = ketch-pkg;
             sideshow = sideshow-pkg;
-            hunk-notes = hunk-notes-pkg;
             inherit jailed-opencode;
           })
         ];
