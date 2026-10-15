@@ -1,11 +1,7 @@
 {
   pkgs,
-  nixosConfig,
   ...
 }:
-let
-  isDesktopMachine = builtins.elem nixosConfig.networking.hostName (import ./desktop-hosts.nix);
-in
 {
   home.packages = [ pkgs.sideshow ];
 
@@ -15,8 +11,7 @@ in
       ExecStart = "${pkgs.sideshow}/bin/sideshow serve";
       Restart = "on-failure";
       RestartSec = 5;
-      # Desktops serve the LAN; headless hosts stay loopback behind the ssh forward.
-      Environment = [ "SIDESHOW_HOST=${if isDesktopMachine then "0.0.0.0" else "127.0.0.1"}" ];
+      Environment = [ "SIDESHOW_HOST=0.0.0.0" ];
     };
     Install.WantedBy = [ "default.target" ];
   };
