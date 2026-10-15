@@ -9,6 +9,8 @@
     Unit.Description = "Sideshow agent visual surface";
     Service = {
       ExecStart = "${pkgs.sideshow}/bin/sideshow serve";
+      Restart = "on-failure";
+      RestartSec = 5;
       Environment = [ "SIDESHOW_HOST=127.0.0.1" ];
     };
     Install.WantedBy = [ "default.target" ];
