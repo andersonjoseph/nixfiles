@@ -38,7 +38,6 @@
             neovim
             hunk
             ketch
-            commit-walkthrough
             jailed-opencode
             jq
             ripgrep

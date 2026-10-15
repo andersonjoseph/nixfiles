@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Implement a plan end to end — relevant skills, minimal comments and tests, unit-of-work commits, reviewer ping-pong, commit walkthrough.
+description: Implement a plan end to end — relevant skills, minimal comments and tests, unit-of-work commits, reviewer ping-pong, hunk review walkthrough.
 argument-hint: "The plan to implement (path or pasted)"
 disable-model-invocation: true
 ---
@@ -23,9 +23,9 @@ the go-ahead before writing code.
    findings are addressed, max 3 rounds without greenlight (Reviewer
    ping-pong rules in the personal AGENTS.md). Amend fixes into the relevant
    commits instead of creating new ones.
-7. Then generate a commit walkthrough of the commits (the
-   `commit-walkthrough` skill when available) and post the page for the
-   user to review.
+7. Then walk the user through the commits: ask them to open `hunk show`
+   (or `hunk diff`) in a terminal and use the `hunk-review` skill to
+   navigate, comment, and highlight.
 
 ## UI components
 
