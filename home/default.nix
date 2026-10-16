@@ -59,6 +59,8 @@
             darktable
             slack
             thunderbird
+            t3
+            t3-jailed
 
             thunar
             thunar-volman
