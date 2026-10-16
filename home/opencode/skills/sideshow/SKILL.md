@@ -1,6 +1,6 @@
 ---
 name: sideshow
-description: Draw the high-level picture of a change on the user's sideshow board — architecture and data-flow diagrams, end-to-end narratives, per-commit diffs, rich visuals — and read their comments back. Use when the user asks to visualize, sketch, or get an overview of work, or after implementing a plan.
+description: Draw on the user's sideshow board when the user asks to explain, visualize, or sketch something, or when a diagram, table, diff, or other structured surface would clearly beat prose — architecture and data-flow diagrams, state machines, before/after code, per-commit diffs, rich visuals — and read their comments back.
 ---
 
 # sideshow
@@ -19,6 +19,14 @@ The server runs as the `sideshow` user systemd service on 127.0.0.1:8228 —
 never start one yourself. If the board is unreachable, report
 `systemctl --user status sideshow`.
 
+## When to publish
+
+Default to plain chat replies. Publish only when the user asks for an
+explanation, overview, or visual, or when the content is genuinely clearer
+as a structured surface — flow with branches, state, before/after code,
+review diffs. Do not mirror chat prose onto the board, and do not open a
+card per plan or per change by default.
+
 ## Publishing
 
 Surfaces appear in flag order; `-` reads a surface from stdin. Per-commit
@@ -29,11 +37,12 @@ sideshow publish --title "Auth refactor" --session-title "Auth refactor" \
   --md notes.md --mermaid arch.mmd --diff first.patch --diff second.patch
 ```
 
-For a finished change, the overview board carries: a mermaid of the architecture
-and data flow (entry point to end), a markdown narrative of what changed and
-why, one diff surface per unit-of-work commit in landing order. The
-`hunk-review` skill carries the code-level walkthrough — publish the overview
-first, then offer hunk.
+When the user asks for an overview of a finished change (or one is genuinely
+clearer as a board post), it carries: a mermaid of the architecture and data
+flow (entry point to end), a markdown narrative of what changed and why, one
+diff surface per unit-of-work commit in landing order. The `hunk-review`
+skill carries the code-level walkthrough — publish the overview first, then
+offer hunk.
 
 ## Feedback loop
 
@@ -43,6 +52,7 @@ them; `sideshow comment "text" --post <id>` replies in the thread;
 
 ## Rich visuals
 
-Sideshow is the default visual channel: any output that would be a web page —
-mockups, dashboards, charts, explainers — publishes here as an html surface.
+When a visual is warranted, sideshow is the channel: any output that would be
+a web page — mockups, dashboards, charts, explainers — publishes here as an
+html surface.
 Standalone HTML files only when the user explicitly asks for one.

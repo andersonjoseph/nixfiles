@@ -38,14 +38,15 @@ small tasks into ceremony.
 **Plan format** — whenever you present a plan (proposing one, or as the output of
 a grilling session):
 
-- **One diagram that carries the logic** — entry point, calls and branches,
-  decision points and exit conditions — published to the user's sideshow
-  board as a mermaid surface (the `sideshow` skill), piped from stdin:
-  `sideshow mermaid - --title "<plan>"`. No file is written. The graph *is*
-  the key logic; don't add a separate pseudocode block. Publish it right
-  before presenting the plan — every plan, no exceptions. If the user
-  comments on the card, read them with `sideshow wait` and treat them as
-  plan feedback.
+- **One diagram that carries the logic** — publish it to the user's sideshow
+  board as a mermaid surface (the `sideshow` skill, piped from stdin:
+  `sideshow mermaid - --title "<plan>"`) only when the plan's shape earns
+  it: the user asked for a visual, or the logic has real flow, branching, or
+  state that prose carries poorly — pipelines, decision trees, state
+  machines. Otherwise skip the card; the plan lives in chat. When you do
+  publish, the graph *is* the key logic; don't add a separate pseudocode
+  block. If the user comments on the card, read them with `sideshow wait`
+  and treat them as plan feedback.
 - **Types & interfaces** to add or change, when they clarify.
 - **Files to touch**, one line each, marked `NEW`/`EDIT` with the intent.
 - **Open questions**, if any.
