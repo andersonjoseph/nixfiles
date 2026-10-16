@@ -4,8 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nordvpn-flake.url = "path:./flakes/nordvpn";
-    ketch.url = "github:1broseidon/ketch/v0.18.1";
-    ketch.flake = false;
     jailed-agents.url = "github:andersonjoseph/jailed-agents";
     herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
@@ -20,12 +18,11 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, ketch, sideshow, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, sideshow, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
-      ketch-pkg = pkgs.callPackage ./packages/ketch.nix { ketch-src = ketch; };
       sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
 
       overlays = {
@@ -33,7 +30,6 @@
           herdr.overlays.default
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
-            ketch = ketch-pkg;
             sideshow = sideshow-pkg;
             inherit jailed-opencode;
           })
@@ -54,13 +50,8 @@
       jailed-opencode = jailed-agents.lib.${system}.makeJailedOpencode2 {
         enableNix = true;
         extraPkgs = [
-          ketch-pkg
           sideshow-pkg
           pkgs.nodejs
-        ];
-        extraReadwriteDirs = [
-          "~/.config/ketch"
-          "~/.cache/ketch"
         ];
         extraReadonlyDirs = [
           "~/configuration/home/opencode"
