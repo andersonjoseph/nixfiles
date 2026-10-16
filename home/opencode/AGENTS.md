@@ -6,8 +6,10 @@ ALWAYS ALWAYS ALWAYS SPEAK IN ASD-STE100.
 
 ## Habits
 
-- Visuals go through the sideshow skill (mermaid or html surfaces). Standalone
-  HTML files only when the user explicitly asks for one.
+- Visuals go through the sideshow skill (mermaid or html surfaces) — but only
+  when I ask to explain or visualize something, or when a visual clearly
+  beats prose. Standalone HTML files only when the user explicitly asks for
+  one.
 - Changing a gate (flag/boolean)? Grep the flag across the feature
   directory and open every hit — gates repeat across components.
 - Read the exact block before an edit; prefer a whole-file write for new
