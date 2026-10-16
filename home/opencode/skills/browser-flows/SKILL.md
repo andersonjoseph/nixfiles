@@ -17,7 +17,9 @@ before any browser interaction. Never explore a page blind when a flow exists.
 3. Debug red flows and unknown pages with the `chrome-devtools` MCP tools
    (take_snapshot, list_console_messages, list_network_requests). They attach
    to the same :9222 Chrome. Prefer snapshot over screenshot; read console
-   stacks before guessing.
+   stacks before guessing. If a site shows a bot check, run the flow attached
+   so the check lands in the user's window; once cleared, the shared profile
+   keeps the clearance.
 4. No flow for the task? Ask the user to teach it, then stop and wait:
    - user records in DevTools (F12) → Recorder panel → exports JSON, then
      `nix develop ~/projects/browser-flows -c node scripts/convert-replay.mjs <export.json> flows/<name>.mjs`
@@ -29,6 +31,9 @@ before any browser interaction. Never explore a page blind when a flow exists.
    regression check.
 6. After adding or editing any flow, regenerate the index:
    `nix develop ~/projects/browser-flows -c node scripts/index.mjs`
+7. Parameterized flows take `--var name=value`; reports carry keys only, so
+   secrets stay out. A write flow — post, send, reply, submit — runs only
+   when the user asked for that run and supplied the values.
 
 ## Remote agent, local browser
 
