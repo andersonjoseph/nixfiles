@@ -24,12 +24,6 @@
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
       sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
-      t3-pkgs = pkgs.callPackage ./packages/t3.nix {
-        agentsLib = jailed-agents.lib.${system};
-        # The llm-agents instance jailed-agents pins, so the un-jailed bin
-        # matches the versions the jails wrap.
-        llmAgentsPackages = jailed-agents.inputs.llm-agents.packages.${system};
-      };
 
       overlays = {
         nixpkgs.overlays = [
@@ -37,7 +31,6 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
-            inherit (t3-pkgs) t3 t3-jailed t3-cli t3-serve;
             inherit jailed-opencode;
           })
         ];

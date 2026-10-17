@@ -21,7 +21,6 @@
           ./herdr.nix
           ./url-open.nix
           ./sideshow.nix
-          ./t3code
         ]
         ++ (lib.optionals isDesktopMachine [
           ./i3
@@ -60,8 +59,6 @@
             darktable
             slack
             thunderbird
-            t3
-            t3-jailed
 
             thunar
             thunar-volman

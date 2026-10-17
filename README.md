@@ -35,10 +35,7 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
   - `ashika/` — Laptop (Intel graphics, battery tuning, gaming enabled).
   - `lyndon/` — Laptop (hybrid NVIDIA/Intel PRIME offload, external monitor via
     xrandr, battery tuning, Thunderbolt).
-  - `vondel/` — Headless server (Eternal Terminal, Docker, firewall). Runs
-    the always-on T3 Code server through `home/t3code`, exposed on the
-    NordVPN meshnet (port 45860, nordlynx-scoped firewall rule in
-    `hosts/common`).
+  - `vondel/` — Headless server (Eternal Terminal, Docker, firewall).
 - `home/` — home-manager user environment (`home/default.nix`).
   - `alacritty.nix`, `starship.toml`, `herdr/` — terminal, prompt, and
     multiplexer config.
@@ -46,8 +43,6 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
   - `nvim/` — Neovim config (LSP, plugins), symlinked into `~/.config/nvim`.
   - `opencode/` — global OpenCode config (personal `AGENTS.md`, agents,
     skills), symlinked into `~/.config/opencode` via `home.file`.
-  - `t3code/` — T3 Code on vondel: `t3` CLI plus a `t3-serve` systemd user
-    service; desktops use the AppImage's own network-access toggle.
 - `flakes/nordvpn/` — Vendored standalone flake providing the NordVPN CLI/GUI
   packages and a NixOS module; consumed by `flake.nix` as `nordvpn-flake`.
 - `scripts/` — Utility scripts (e.g., `change-audio-port`).
