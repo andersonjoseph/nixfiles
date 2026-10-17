@@ -184,11 +184,16 @@ let
         libXrender
         libxcb
         libxkbcommon
+        # T3's browser preflight names these when absent: libudev.so.1
+        # (systemd) and libgbm.so.1 (libgbm, falling back to mesa where the
+        # split-out package does not exist).
+        (p.libgbm or mesa)
         mesa
         nspr
         nss
         pango
         stdenv.cc.cc.lib
+        systemd
       ];
     runScript = "${t3-cli}/bin/t3";
   };
