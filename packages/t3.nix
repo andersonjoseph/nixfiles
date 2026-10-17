@@ -34,12 +34,14 @@ let
     sourceRoot = "package";
     # The blob links against a plain-FHS interpreter (/lib64/ld-linux) that
     # bare NixOS lacks — the unpatched binary dies with exec ENOENT (shell
-    # exit 127) outside an appimage-run env. autoPatchelf rewires it onto
-    # nixpkgs' glibc.
+    # exit 127) outside an appimage-run env. autoPatchelf rewires it and the
+    # bundled node_modules natives onto nixpkgs' glibc/gcc runtimes
+    # (libstdc++/libatomic come from gcc's lib output).
     nativeBuildInputs = [ pkgs.autoPatchelfHook ];
     buildInputs = [
       pkgs.stdenv.cc.libc
       pkgs.libgcc
+      pkgs.stdenv.cc.cc.lib
     ];
     dontConfigure = true;
     dontBuild = true;
