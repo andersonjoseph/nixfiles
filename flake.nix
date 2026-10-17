@@ -37,7 +37,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
-            inherit (t3-pkgs) t3 t3-jailed;
+            inherit (t3-pkgs) t3 t3-jailed t3-cli t3-serve;
             inherit jailed-opencode;
           })
         ];

@@ -24,6 +24,9 @@ in
 
   networking.networkmanager.enable = true;
   networking.firewall.allowedTCPPorts = [ 8228 ];
+  # T3 Code remote access, scoped to the NordVPN meshnet interface: vondel's
+  # t3-serve service and the desktop app's network toggle both use 45860.
+  networking.firewall.interfaces.nordlynx.allowedTCPPorts = [ 45860 ];
   time.timeZone = "America/Caracas";
   i18n.defaultLocale = "en_US.UTF-8";
 

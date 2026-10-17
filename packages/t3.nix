@@ -4,9 +4,15 @@
 # every provider T3 spawns runs in a bubblewrap sandbox; `t3` is the un-jailed
 # variant with the same pinned agent CLIs prepended to PATH.
 #
-# Upgrading T3 Code: bump t3Version and the t3AppImage hash (release-asset URL
-# is derived from the version):
+# `t3-cli` is the headless npm CLI (self-contained native binary plus the
+# bundled web client) for hosts where the desktop AppImage does not apply;
+# `t3-serve` wraps it with the jailed provider shims on PATH for the vondel
+# systemd service (home/t3code).
+#
+# Upgrading T3 Code: bump t3Version plus the t3AppImage and t3-cli hashes
+# (both URLs are derived from the version):
 #   nix store prefetch-file <release-asset-url> --hash-type sha256
+#   nix store prefetch-file <npm-tarball-url> --hash-type sha256
 {
   pkgs,
   agentsLib,
@@ -18,6 +24,31 @@ let
   t3AppImage = pkgs.fetchurl {
     url = "https://github.com/pingdotgg/t3code/releases/download/v${t3Version}/T3-Code-${t3Version}-x86_64.AppImage";
     hash = "sha256-442cX7UTsezgpwi5BtM4O1tH7RmVdbOaMeQauINOt0Q=";
+  };
+
+  # `t3` CLI from the npm distribution: a self-contained native binary (no
+  # node at runtime) with the web client assets next to it, so install the
+  # whole package dir and link only the binary into bin.
+  t3-cli = pkgs.stdenv.mkDerivation {
+    pname = "t3-cli";
+    version = t3Version;
+    src = pkgs.fetchurl {
+      url = "https://registry.npmjs.org/@t3code/t3-linux-x64/-/t3-linux-x64-${t3Version}.tgz";
+      hash = "sha256-IcRU3DOoOiwOnrpak3L7W4Ao2VhGM5Wi1RVpwTEfCXE=";
+    };
+    sourceRoot = "package";
+    dontConfigure = true;
+    dontBuild = true;
+    # Prebuilt blob: stripping or ELF patching would only risk breaking it.
+    dontFixup = true;
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/libexec/t3-cli $out/bin
+      cp -r . $out/libexec/t3-cli/
+      chmod +x $out/libexec/t3-cli/t3
+      ln -s $out/libexec/t3-cli/t3 $out/bin/t3
+      runHook postInstall
+    '';
   };
 
   # Env vars T3 sets on its provider spawns; forwarded into the jails.
@@ -111,7 +142,24 @@ let
     export TERM="''${TERM:-xterm-256color}"
     exec ${launchApp}
   '';
+
+  # Headless server launcher: same jailed provider shims t3-jailed puts on
+  # PATH (and, like it, execs the target directly instead of routing through
+  # another wrapper), plus git and the system profile for the server's own
+  # tooling — systemd user services start with a minimal PATH. Serve flags
+  # come from the systemd unit, not from here.
+  t3-serve = pkgs.writeShellScriptBin "t3-serve" ''
+    export PATH="${agentsBin}/bin:${pkgs.git}/bin:/run/current-system/sw/bin:$PATH"
+    export LANG="''${LANG:-C.UTF-8}"
+    export TERM="''${TERM:-xterm-256color}"
+    exec ${t3-cli}/bin/t3 serve "$@"
+  '';
 in
 {
-  inherit t3 t3-jailed;
+  inherit
+    t3
+    t3-jailed
+    t3-cli
+    t3-serve
+    ;
 }

@@ -21,6 +21,7 @@
           ./herdr.nix
           ./url-open.nix
           ./sideshow.nix
+          ./t3code
         ]
         ++ (lib.optionals isDesktopMachine [
           ./i3
