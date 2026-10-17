@@ -64,6 +64,8 @@ let
 
   # T3 spawns provider CLIs with a controlled environment; the jail wrappers
   # abort on unset LANG/TERM, so default them before exec'ing.
+  # NOTE: keep these shims ahead of t3-plain-agents-bin on PATH, else T3
+  # resolves the un-jailed CLIs and the jails never run.
   makeAgentShim =
     name: pkg:
     pkgs.writeShellScriptBin name ''
@@ -91,16 +93,23 @@ let
     pathsToLink = [ "/bin" ];
   };
 
+  # Shared app launcher; each wrapper prepends its own agent bin FIRST.
+  # t3-jailed must not exec t3: t3 prepends the un-jailed bin, which would
+  # shadow the jailed shims (that bug let T3 spawn agents un-jailed).
+  launchApp = "${pkgs.appimage-run}/bin/appimage-run ${t3AppImage} \"$@\"";
+
   t3 = pkgs.writeShellScriptBin "t3" ''
     export PATH="${unjailedBin}/bin:$PATH"
-    exec ${pkgs.appimage-run}/bin/appimage-run ${t3AppImage} "$@"
+    export LANG="''${LANG:-C.UTF-8}"
+    export TERM="''${TERM:-xterm-256color}"
+    exec ${launchApp}
   '';
 
   t3-jailed = pkgs.writeShellScriptBin "t3-jailed" ''
     export PATH="${agentsBin}/bin:$PATH"
     export LANG="''${LANG:-C.UTF-8}"
     export TERM="''${TERM:-xterm-256color}"
-    exec ${t3}/bin/t3 "$@"
+    exec ${launchApp}
   '';
 in
 {
