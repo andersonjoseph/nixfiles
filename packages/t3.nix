@@ -21,9 +21,9 @@ let
     hash = "sha256-442cX7UTsezgpwi5BtM4O1tH7RmVdbOaMeQauINOt0Q=";
   };
 
-  # `t3` CLI from the npm distribution: a self-contained native binary (no
-  # node at runtime) with the web client assets next to it, so install the
-  # whole package dir and link only the binary into bin.
+  # `t3` CLI from the npm distribution: a prebuilt native binary (no node
+  # at runtime) with the web client assets next to it, so install the whole
+  # package dir and link only the binary into bin.
   t3-cli = pkgs.stdenv.mkDerivation {
     pname = "t3-cli";
     version = t3Version;
@@ -32,10 +32,19 @@ let
       hash = "sha256-IcRU3DOoOiwOnrpak3L7W4Ao2VhGM5Wi1RVpwTEfCXE=";
     };
     sourceRoot = "package";
+    # The blob links against a plain-FHS interpreter (/lib64/ld-linux) that
+    # bare NixOS lacks — the unpatched binary dies with exec ENOENT (shell
+    # exit 127) outside an appimage-run env. autoPatchelf rewires it onto
+    # nixpkgs' glibc.
+    nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+    buildInputs = [
+      pkgs.stdenv.cc.libc
+      pkgs.libgcc
+    ];
     dontConfigure = true;
     dontBuild = true;
-    # Prebuilt blob: stripping or ELF patching would only risk breaking it.
-    dontFixup = true;
+    # Keep the 166 MB blob byte-intact apart from the interpreter/rpath fix.
+    dontStrip = true;
     installPhase = ''
       runHook preInstall
       mkdir -p $out/libexec/t3-cli $out/bin
