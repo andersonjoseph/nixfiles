@@ -17,7 +17,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGsL1q7SJiMvj1pkm7d/lzX9hPhEa2wjkAi6rA/hN4Vo lyndon->vondel"
   ];
 
-  # Keep `systemd --user` (t3-serve) alive without an interactive login.
+  # For the t3-serve user service (home/t3code).
   users.users.anderson.linger = true;
 
   services.logrotate = {

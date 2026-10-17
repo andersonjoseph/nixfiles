@@ -4,11 +4,6 @@
 # every provider T3 spawns runs in a bubblewrap sandbox; `t3` is the un-jailed
 # variant with the same pinned agent CLIs prepended to PATH.
 #
-# `t3-cli` is the headless npm CLI (self-contained native binary plus the
-# bundled web client) for hosts where the desktop AppImage does not apply;
-# `t3-serve` wraps it with the jailed provider shims on PATH for the vondel
-# systemd service (home/t3code).
-#
 # Upgrading T3 Code: bump t3Version plus the t3AppImage and t3-cli hashes
 # (both URLs are derived from the version):
 #   nix store prefetch-file <release-asset-url> --hash-type sha256
@@ -124,7 +119,6 @@ let
     pathsToLink = [ "/bin" ];
   };
 
-  # Shared app launcher; each wrapper prepends its own agent bin FIRST.
   # t3-jailed must not exec t3: t3 prepends the un-jailed bin, which would
   # shadow the jailed shims (that bug let T3 spawn agents un-jailed).
   launchApp = "${pkgs.appimage-run}/bin/appimage-run ${t3AppImage} \"$@\"";
@@ -143,11 +137,9 @@ let
     exec ${launchApp}
   '';
 
-  # Headless server launcher: same jailed provider shims t3-jailed puts on
-  # PATH (and, like it, execs the target directly instead of routing through
-  # another wrapper), plus git and the system profile for the server's own
-  # tooling — systemd user services start with a minimal PATH. Serve flags
-  # come from the systemd unit, not from here.
+  # Headless server launcher for the vondel service: jailed provider shims,
+  # git, and the system profile on PATH — systemd user services start with
+  # a minimal PATH.
   t3-serve = pkgs.writeShellScriptBin "t3-serve" ''
     export PATH="${agentsBin}/bin:${pkgs.git}/bin:/run/current-system/sw/bin:$PATH"
     export LANG="''${LANG:-C.UTF-8}"

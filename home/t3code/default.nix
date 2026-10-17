@@ -1,8 +1,6 @@
-# T3 Code on the headless vondel server: CLI tools for pairing/auth plus an
-# always-on `t3 serve` systemd user service, exposed on the NordVPN meshnet
-# (port 45860; the nordlynx-scoped firewall rule lives in hosts/common).
-# Desktop hosts keep using the AppImage with its Settings > Connections
-# network-access toggle instead of this service.
+# T3 Code on vondel: an always-on `t3 serve` systemd user service on the
+# NordVPN meshnet, port 45860 (nordlynx firewall rule in hosts/common).
+# Desktop hosts use the AppImage's network-access toggle instead.
 {
   pkgs,
   lib,
@@ -12,13 +10,12 @@
 {
   config = lib.mkIf (nixosConfig.networking.hostName == "vondel") {
     home.packages = with pkgs; [
-      t3-cli # `t3` binary: t3 pair / t3 auth / t3 app
-      t3-serve # PATH-fixing launcher the service below runs
+      t3-cli
+      t3-serve
     ];
 
-    # Kept alive across logouts/reboots via users.users.anderson.linger
-    # (hosts/vondel). Providers are the jailed claude/pi shims t3-serve puts
-    # on PATH; state lives in ~/.t3/userdata.
+    # Runs across logouts/reboots via users.users.anderson.linger
+    # (hosts/vondel); state lives in ~/.t3/userdata.
     systemd.user.services.t3-serve = {
       Unit.Description = "T3 Code headless server";
       Service = {
