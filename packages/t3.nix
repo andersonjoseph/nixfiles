@@ -148,6 +148,51 @@ let
     exec ${launchApp}
   '';
 
+  # T3 downloads its preview browser (chrome-headless-shell) at runtime into
+  # ~/.t3/tools — a plain-FHS prebuilt that bare NixOS cannot exec (no
+  # /lib64 loader, no nss/x11 libs) and whose version-stamped path makes
+  # per-download patchelf a treadmill. Run the server inside an FHS env so
+  # runtime downloads just work — the same /lib64 the desktop AppImage gets
+  # from appimage-run, made explicit. The autoPatchelf'd t3 binary keeps its
+  # store interpreter (FHS binds /nix read-only), and the jailed provider
+  # shims on PATH still exec their own bwrap from inside it.
+  t3-fhs = pkgs.buildFHSEnv {
+    name = "t3-fhs";
+    targetPkgs =
+      p: with p; [
+        # chrome-headless-shell runtime
+        alsa-lib
+        at-spi2-atk
+        at-spi2-core
+        atk
+        cairo
+        cups
+        dbus
+        expat
+        fontconfig
+        freetype
+        gdk-pixbuf
+        glib
+        liberation_ttf
+        libdrm
+        libX11
+        libXcomposite
+        libXdamage
+        libXext
+        libXfixes
+        libXrandr
+        libXrender
+        libxcb
+        libxkbcommon
+        mesa
+        nspr
+        nss
+        pango
+        stdenv.cc.cc.lib
+      ];
+    runScript = "${t3-cli}/bin/t3";
+  };
+
   # Headless server launcher for the vondel service: jailed provider shims,
   # git, and the system profile on PATH — systemd user services start with
   # a minimal PATH.
@@ -155,7 +200,7 @@ let
     export PATH="${agentsBin}/bin:${pkgs.git}/bin:/run/current-system/sw/bin:$PATH"
     export LANG="''${LANG:-C.UTF-8}"
     export TERM="''${TERM:-xterm-256color}"
-    exec ${t3-cli}/bin/t3 serve "$@"
+    exec ${t3-fhs}/bin/t3-fhs serve "$@"
   '';
 in
 {
