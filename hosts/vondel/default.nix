@@ -38,6 +38,7 @@
   services.eternal-terminal.enable = true;
 
   networking.firewall.trustedInterfaces = [ "docker0" ];
+  networking.firewall.interfaces.nordlynx.allowedTCPPorts = [ 3773 ];
 
   networking.firewall.allowedTCPPorts = [
     22

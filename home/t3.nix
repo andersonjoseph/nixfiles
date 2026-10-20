@@ -20,7 +20,7 @@ in
     };
     Install.WantedBy = [ "default.target" ];
     Service = {
-      ExecStart = "${pkgs.t3-server}/bin/t3 serve";
+      ExecStart = "${pkgs.t3-server}/bin/t3 serve --host 100.88.47.99 --port 3773";
       Restart = "on-failure";
     };
   };
