@@ -311,22 +311,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-t3": {
-      "locked": {
-        "lastModified": 1792212597,
-        "narHash": "sha256-DVyX/Yh1vTNFZAMYR+N35+gTb7RFtar9ds7XaaXj+Ss=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "30548c3d1361282ba37b469a9544eaef9964a306",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "30548c3d1361282ba37b469a9544eaef9964a306",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1790600678,
@@ -413,7 +397,6 @@
         "hunk": "hunk",
         "jailed-agents": "jailed-agents",
         "nixpkgs": "nixpkgs_4",
-        "nixpkgs-t3": "nixpkgs-t3",
         "nordvpn-flake": "nordvpn-flake",
         "sideshow": "sideshow"
       }
