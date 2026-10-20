@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-t3.url = "github:NixOS/nixpkgs/30548c3d1361282ba37b469a9544eaef9964a306";
     nordvpn-flake.url = "path:./flakes/nordvpn";
     jailed-agents.url = "github:andersonjoseph/jailed-agents";
     herdr.url = "github:herdrdev/herdr";
@@ -18,12 +19,13 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, sideshow, ... }:
+    { nixpkgs, nixpkgs-t3, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, sideshow, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
       sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
+      t3-server = (import nixpkgs-t3 { inherit system; }).t3code;
 
       overlays = {
         nixpkgs.overlays = [
@@ -31,7 +33,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
-            inherit jailed-opencode;
+            inherit jailed-opencode t3-server;
           })
         ];
       };

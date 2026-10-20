@@ -17,6 +17,8 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGsL1q7SJiMvj1pkm7d/lzX9hPhEa2wjkAi6rA/hN4Vo lyndon->vondel"
   ];
 
+  users.users.anderson.linger = true;
+
   services.logrotate = {
     enable = true;
     settings = {
