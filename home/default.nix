@@ -18,7 +18,6 @@
       in
       {
         imports = [
-          ./herdr.nix
           ./url-open.nix
           ./sideshow.nix
           ./t3.nix

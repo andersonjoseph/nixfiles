@@ -7,7 +7,6 @@
     jailed-agents.url = "github:andersonjoseph/jailed-agents";
     jailed-agents.inputs.llm-agents.follows = "llm-agents";
     llm-agents.url = "github:numtide/llm-agents.nix/2109db8971dc18137ff1ac9393627c761609600d";
-    herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
     sideshow.url = "github:modem-dev/sideshow";
@@ -20,7 +19,7 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, llm-agents, herdr, hunk, sideshow, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, llm-agents, hunk, sideshow, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -30,7 +29,6 @@
 
       overlays = {
         nixpkgs.overlays = [
-          herdr.overlays.default
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
