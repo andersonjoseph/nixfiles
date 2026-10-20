@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nordvpn-flake.url = "path:./flakes/nordvpn";
     jailed-agents.url = "github:andersonjoseph/jailed-agents";
+    jailed-agents.inputs.llm-agents.follows = "llm-agents";
+    llm-agents.url = "github:numtide/llm-agents.nix/2109db8971dc18137ff1ac9393627c761609600d";
     herdr.url = "github:herdrdev/herdr";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
@@ -18,7 +20,7 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, herdr, hunk, sideshow, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, llm-agents, herdr, hunk, sideshow, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -32,7 +34,13 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
-            inherit jailed-opencode t3-server;
+            opencode = free-opencode;
+            claude-code = free-claude-code;
+            inherit
+              jailed-opencode
+              jailed-claude-code
+              t3-server
+              ;
           })
         ];
       };
@@ -49,6 +57,7 @@
       });
 
       jailed-opencode = jailed-agents.lib.${system}.makeJailedOpencode2 {
+        name = "jailed-opencode";
         enableNix = true;
         extraPkgs = [
           sideshow-pkg
@@ -58,6 +67,25 @@
           "~/configuration/home/opencode"
         ];
       };
+
+      jailed-claude-code = jailed-agents.lib.${system}.makeJailedClaudeCode {
+        name = "jailed-claude-code";
+        enableNix = true;
+        extraPkgs = [
+          sideshow-pkg
+          pkgs.nodejs
+        ];
+      };
+
+      free-opencode = pkgs.symlinkJoin {
+        name = "opencode";
+        paths = [ llm-agents.packages.${system}.opencode2 ];
+        postBuild = ''
+          mv $out/bin/opencode2 $out/bin/opencode
+        '';
+      };
+
+      free-claude-code = llm-agents.packages.${system}.claude-code;
     in
     {
       devShells.${system}.default = pkgs.mkShell {

@@ -39,7 +39,10 @@
           [
             neovim
             hunk
+            opencode
+            claude-code
             jailed-opencode
+            jailed-claude-code
             jq
             ripgrep
             tree
