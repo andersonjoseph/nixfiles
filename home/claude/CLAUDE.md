@@ -50,7 +50,8 @@ Rules:
   parent orchestrating it. Name the skills in the delegation; the child
   reads them. Keep skill bodies out of the orchestrator's context.
 - Keep the hardest parts for yourself: tricky concurrency,
-  security-sensitive code, core architecture changes.
+  security-sensitive code, core architecture changes. When the implementer
+  escalates one back, take it over.
 
 Reviews: run in a fresh thread with effort max. Load your review skills
 before starting — `thermo-nuclear-code-quality-review` plus any matching

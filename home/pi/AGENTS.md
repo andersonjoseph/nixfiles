@@ -51,7 +51,8 @@ Rules:
   parent orchestrating it. Name the skills in the delegation; the child
   reads them. Keep skill bodies out of the orchestrator's context.
 - Tricky concurrency, security-sensitive code, core architecture changes:
-  always Opus. Flag them, never improvise.
+  always Opus. Delegate the hard part to Opus as a sub-task (same
+  `delegate_task` params as planning) or stop and ask me. Never improvise.
 - A step that turns out underspecified is a plan bug — stop and get it
   fixed instead of guessing.
 
