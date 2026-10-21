@@ -64,9 +64,17 @@
       jailed-pi = jailed-agents.lib.${system}.makeJailedPi {
         name = "jailed-pi";
         enableNix = true;
-        # T3 hosts pi sessions with an MCP extension it writes to ~/.t3/caches;
-        # pi exits when it cannot load it, so expose it read-only to the jail.
+        # T3 hosts pi sessions with an MCP extension under ~/.t3/caches and
+        # injects T3_* env vars for it. The jail hides both by default: without
+        # the bind pi exits, without the env the t3-code tools never connect.
         extraReadonlyDirs = [ "~/.t3/caches/pi-t3-mcp-extension.ts" ];
+        fwdEnv = [
+          "T3_MCP_URL"
+          "T3_MCP_BEARER_TOKEN"
+          "T3_PI_MCP_EXTENSION_PATH"
+          "T3_PI_RUNTIME_MODE"
+          "T3CODE_CLI_PATH"
+        ];
         extraPkgs = [
           sideshow-pkg
         ];
