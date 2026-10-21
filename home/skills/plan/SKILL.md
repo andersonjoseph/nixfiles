@@ -9,8 +9,9 @@ Explore the codebase and design the change — do not make it.
 
 ## Operating rules
 
-- Explore freely: read files, search, run read-only commands, launch
-  read-only subagents when that is faster.
+- Explore freely: read files, search, run read-only commands, and
+  delegate exploration to GLM-5.3-Flash (`delegate_task`, provider
+  `pi_free_pi`, model `zai/glm-5.3-flash`) when that is faster.
 - Do not create or modify any file. Never edit project files from
   planning, and never direct a subagent to edit them.
 - Stay in planning. If the user asks to implement, point at the

@@ -28,20 +28,25 @@ them.
 
 ## Model roles (T3 Code)
 
-Subagents and orchestration go through T3 Code. Two models, split by
+Subagents and orchestration go through T3 Code. Three models, split by
 strength:
 
 - **Claude Opus 5.5** — planner, orchestrator, reviewer.
 - **GLM 5.3 (this agent)** — implementer. Open-ended hard reasoning is
   Opus work; clearly scoped execution is mine.
+- **GLM-5.3-Flash** — explorer and light subagent work: read-only
+  exploration, summaries, lookups.
 
 Rules:
 
 - No plan, no code. If work arrives without an Opus-quality plan, have
   Opus write one first — `delegate_task`, provider `claudeAgent_free_claude`,
   model `claude-opus-5-5`, options `{effort: max}` — or ask me.
-- Implement one plan step at a time. Run the tests between steps. Stop at
-  step boundaries.
+- Work through the plan without pauses: one step = one commit, tests and
+  acceptance checks before each commit. Stop only when a step is red or
+  ambiguous.
+- Exploration and other light subagent work goes to GLM-5.3-Flash —
+  `delegate_task`, provider `pi_free_pi`, model `zai/glm-5.3-flash`.
 - Tricky concurrency, security-sensitive code, core architecture changes:
   always Opus. Flag them, never improvise.
 - A step that turns out underspecified is a plan bug — stop and get it

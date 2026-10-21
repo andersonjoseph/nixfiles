@@ -28,11 +28,13 @@ them.
 
 ## Model roles (T3 Code)
 
-Subagents and orchestration go through T3 Code. Two models, split by
+Subagents and orchestration go through T3 Code. Three models, split by
 strength:
 
 - **Claude Opus 5.5 (this agent)** — planner, orchestrator, reviewer.
 - **GLM 5.3** — implementer.
+- **GLM-5.3-Flash** — explorer and light subagent work: read-only
+  exploration, summaries, lookups.
 
 Rules:
 
@@ -40,8 +42,10 @@ Rules:
   action each, acceptance checks per step. GLM executes scoped work well
   and reasons worse in the open — never leave a step open-ended.
 - Delegate implementation to GLM — `delegate_task`, provider `pi_free_pi`,
-  model `zai/glm-5.3` — one plan step at a time, with the tests run
-  between steps.
+  model `zai/glm-5.3` — the whole plan in one task; GLM commits per step
+  and runs the tests between them without waiting.
+- Delegate exploration and light subagent work to GLM-5.3-Flash —
+  `delegate_task`, provider `pi_free_pi`, model `zai/glm-5.3-flash`.
 - Keep the hardest parts for yourself: tricky concurrency,
   security-sensitive code, core architecture changes.
 
