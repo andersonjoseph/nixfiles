@@ -64,6 +64,9 @@
       jailed-pi = jailed-agents.lib.${system}.makeJailedPi {
         name = "jailed-pi";
         enableNix = true;
+        # T3 hosts pi sessions with an MCP extension it writes to ~/.t3/caches;
+        # pi exits when it cannot load it, so expose it read-only to the jail.
+        extraReadonlyDirs = [ "~/.t3/caches/pi-t3-mcp-extension.ts" ];
         extraPkgs = [
           sideshow-pkg
         ];
