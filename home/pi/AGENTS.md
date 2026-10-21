@@ -26,6 +26,32 @@ is not a request for changes: do not edit files, run mutating commands, or
 start fixing things because of one. Changes happen only when I ask for
 them.
 
+## Model roles (T3 Code)
+
+Subagents and orchestration go through T3 Code. Two models, split by
+strength:
+
+- **Claude Opus 5.5** — planner, orchestrator, reviewer.
+- **GLM 5.3 (this agent)** — implementer. Open-ended hard reasoning is
+  Opus work; clearly scoped execution is mine.
+
+Rules:
+
+- No plan, no code. If work arrives without an Opus-quality plan, have
+  Opus write one first — `delegate_task`, provider `claudeAgent_free_claude`,
+  model `claude-opus-5-5`, options `{effort: max}` — or ask me.
+- Implement one plan step at a time. Run the tests between steps. Stop at
+  step boundaries.
+- Tricky concurrency, security-sensitive code, core architecture changes:
+  always Opus. Flag them, never improvise.
+- A step that turns out underspecified is a plan bug — stop and get it
+  fixed instead of guessing.
+
+Reviews: Opus reviews the finished diff in a fresh thread (effort max),
+checks it against the plan, and confirms each finding before reporting it.
+Ping-pong fixes in the same reviewer thread until it returns GREENLIGHT;
+after 3 rounds without greenlight, stop and report what remains.
+
 ## Habits
 
 - Visuals go through the sideshow skill (mermaid or html surfaces) — but only

@@ -43,6 +43,8 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
   - `skills/` — agent skills for pi, each symlinked into `~/.pi/agent/skills/`
     by a home-manager activation script.
   - `pi/AGENTS.md` — global pi instructions, symlinked into `~/.pi/agent/`.
+  - `claude/CLAUDE.md` — global Claude instructions, symlinked into
+    `~/.claude/`.
 - `flakes/nordvpn/` — Vendored standalone flake providing the NordVPN CLI/GUI
   packages and a NixOS module; consumed by `flake.nix` as `nordvpn-flake`.
 - `scripts/` — Utility scripts (e.g., `change-audio-port`).
