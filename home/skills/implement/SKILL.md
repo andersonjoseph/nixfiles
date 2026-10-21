@@ -22,10 +22,10 @@ go-ahead before writing code.
 4. Build on what exists. Search for existing helpers before writing new ones.
    Three functions doing the same job across the codebase is a failure.
 5. One commit = one unit of work to review.
-6. Work one plan step at a time: implement the step, run the tests, check
-   the step's acceptance checks, commit, stop at the step boundary. Do not
-   start the next step until the current one is green — or until I say to
-   continue.
+6. Work through every plan step without waiting for me between steps: one
+   step = one commit, and the tests plus the step's acceptance checks run
+   before that step's commit. Stop only when a step is red or ambiguous —
+   otherwise keep going to the end of the plan.
 7. A step that turns out underspecified or ambiguous is a plan bug — stop
    and get it fixed by Opus (or me) instead of guessing.
 8. Tricky concurrency, security-sensitive code, core architecture changes:
