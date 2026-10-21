@@ -23,12 +23,7 @@
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
       sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
-      t3-server = pkgs.callPackage ./packages/t3code/package.nix {
-        enableClaude = true;
-        enablePi = true;
-        pi = free-pi;
-        claude-code = free-claude-code;
-      };
+      t3-server = pkgs.callPackage ./packages/t3code/package.nix { };
 
       overlays = {
         nixpkgs.overlays = [

@@ -26,8 +26,6 @@
   jujutsu,
   enableOpencode ? false,
   opencode,
-  enablePi ? false,
-  pi,
   enableResourceMonitor ? true,
   t3code-unwrapped ? callPackage ./unwrapped.nix { },
   t3code-resource-monitor ? callPackage ./resource-monitor.nix { inherit t3code-unwrapped; },
@@ -47,8 +45,7 @@ let
     ++ lib.optionals enableGit [ git ]
     ++ lib.optionals enableGitLab [ glab ]
     ++ lib.optionals enableJujutsu [ jujutsu ]
-    ++ lib.optionals enableOpencode [ opencode ]
-    ++ lib.optionals enablePi [ pi ];
+    ++ lib.optionals enableOpencode [ opencode ];
 
   # The resource monitor sidecar is a separate Rust binary that upstream only
   # builds in its electron-builder pipeline, not in `build:desktop`. The server
