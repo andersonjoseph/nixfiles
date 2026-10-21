@@ -14,12 +14,9 @@ let
   t3-cli = pkgs.runCommand "t3-cli" { } ''
     mkdir -p $out/bin $out/share
     ln -s ${pkgs.t3-server}/bin/t3 $out/bin/t3
-    for dir in bash-completion/completions fish/vendor_completions.d zsh; do
-      if [ -e "${pkgs.t3-server}/share/$dir" ]; then
-        mkdir -p "$out/share/$dir"
-        ln -s "${pkgs.t3-server}/share/$dir/." "$out/share/$dir/"
-      fi
-    done
+    ln -s ${pkgs.t3-server}/share/bash-completion $out/share/bash-completion
+    ln -s ${pkgs.t3-server}/share/fish $out/share/fish
+    ln -s ${pkgs.t3-server}/share/zsh $out/share/zsh
   '';
 in
 {
