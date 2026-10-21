@@ -47,6 +47,9 @@ Rules:
   ambiguous.
 - Exploration and other light subagent work goes to GLM-5.3-Flash —
   `delegate_task`, provider `pi_free_pi`, model `zai/glm-5.3-flash`.
+- Skills load in the agent doing the work — the subagent — never in the
+  parent orchestrating it. Name the skills in the delegation; the child
+  reads them. Keep skill bodies out of the orchestrator's context.
 - Tricky concurrency, security-sensitive code, core architecture changes:
   always Opus. Flag them, never improvise.
 - A step that turns out underspecified is a plan bug — stop and get it

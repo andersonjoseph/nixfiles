@@ -46,6 +46,9 @@ Rules:
   and runs the tests between them without waiting.
 - Delegate exploration and light subagent work to GLM-5.3-Flash —
   `delegate_task`, provider `pi_free_pi`, model `zai/glm-5.3-flash`.
+- Skills load in the agent doing the work — the subagent — never in the
+  parent orchestrating it. Name the skills in the delegation; the child
+  reads them. Keep skill bodies out of the orchestrator's context.
 - Keep the hardest parts for yourself: tricky concurrency,
   security-sensitive code, core architecture changes.
 
