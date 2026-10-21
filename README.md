@@ -40,8 +40,8 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
   - `alacritty.nix`, `starship.toml` — terminal and prompt config.
   - `i3/` — i3 window manager and bar setup.
   - `nvim/` — Neovim config (LSP, plugins), symlinked into `~/.config/nvim`.
-  - `skills/` — agent skills for pi, each symlinked into `~/.pi/agent/skills/`
-    by a home-manager activation script.
+  - `skills/` — agent skills, each symlinked into `~/.pi/agent/skills/`
+    and `~/.claude/skills/` by a home-manager activation script.
   - `pi/AGENTS.md` — global pi instructions, symlinked into `~/.pi/agent/`.
   - `claude/CLAUDE.md` — global Claude instructions, symlinked into
     `~/.claude/`.

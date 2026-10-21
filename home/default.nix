@@ -198,8 +198,8 @@
         # Agent skills and global instructions for pi and claude, linked
         # directly instead of through the home-manager store tree so edits
         # in this checkout are picked up without a rebuild. Each skill
-        # under home/skills/ links into pi's user skills directory,
-        # replacing any real directory of the same name.
+        # under home/skills/ links into both agents' user skills
+        # directories, replacing any real directory of the same name.
         home.activation.piSkills = config.lib.dag.entryAfter [ "writeBoundary" ] ''
           $DRY_RUN_CMD mkdir -p $VERBOSE_ARG \
             ${config.home.homeDirectory}/.pi/agent/skills
@@ -207,17 +207,22 @@
             ${config.home.homeDirectory}/configuration/home/pi/AGENTS.md \
             ${config.home.homeDirectory}/.pi/agent/AGENTS.md
           $DRY_RUN_CMD mkdir -p $VERBOSE_ARG \
-            ${config.home.homeDirectory}/.claude
+            ${config.home.homeDirectory}/.claude \
+            ${config.home.homeDirectory}/.claude/skills
           $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
             ${config.home.homeDirectory}/configuration/home/claude/CLAUDE.md \
             ${config.home.homeDirectory}/.claude/CLAUDE.md
           for skill in ${config.home.homeDirectory}/configuration/home/skills/*; do
             name=$(basename "$skill")
-            dest="${config.home.homeDirectory}/.pi/agent/skills/$name"
-            if [ -d "$dest" ] && [ ! -L "$dest" ]; then
-              $DRY_RUN_CMD rm -rf $VERBOSE_ARG "$dest"
-            fi
-            $DRY_RUN_CMD ln -sfn $VERBOSE_ARG "$skill" "$dest"
+            for skillsdir in \
+              ${config.home.homeDirectory}/.pi/agent/skills \
+              ${config.home.homeDirectory}/.claude/skills; do
+              dest="$skillsdir/$name"
+              if [ -d "$dest" ] && [ ! -L "$dest" ]; then
+                $DRY_RUN_CMD rm -rf $VERBOSE_ARG "$dest"
+              fi
+              $DRY_RUN_CMD ln -sfn $VERBOSE_ARG "$skill" "$dest"
+            done
           done
         '';
 

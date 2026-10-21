@@ -24,6 +24,9 @@ no blame. Decisions stay with the user.
 - Use token-heavy stretches, repeated file reads, and long back-and-forth
   as friction signals; dig where they are out of line.
 - Never write to anything under `~/.pi/agent/sessions/`.
+- Under claude, transcripts live in `~/.claude/projects/<workspace>/` instead
+  — same JSONL idea, different schema; read a few lines to learn the shape
+  before mining.
 
 ## 2. Mine for friction
 
