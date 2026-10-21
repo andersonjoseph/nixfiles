@@ -6,7 +6,7 @@
     nordvpn-flake.url = "path:./flakes/nordvpn";
     jailed-agents.url = "github:andersonjoseph/jailed-agents";
     jailed-agents.inputs.llm-agents.follows = "llm-agents";
-    llm-agents.url = "github:numtide/llm-agents.nix/2109db8971dc18137ff1ac9393627c761609600d";
+    llm-agents.url = "github:numtide/llm-agents.nix/04f4e45f5be619f430cb5be5c0f579b8ecb27324";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
     sideshow.url = "github:modem-dev/sideshow";
