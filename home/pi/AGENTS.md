@@ -1,0 +1,32 @@
+# Personal guidance for every pi session (anderson). pi loads this global
+# file together with each repo's AGENTS.md — where they disagree, the repo's
+# wins.
+
+ALWAYS ALWAYS ALWAYS SPEAK IN ASD-STE100.
+
+## Habits
+
+- Visuals go through the sideshow skill (mermaid or html surfaces) — but only
+  when I ask to explain or visualize something, or when a visual clearly
+  beats prose. Standalone HTML files only when the user explicitly asks for
+  one.
+- Changing a gate (flag/boolean)? Grep the flag across the feature
+  directory and open every hit — gates repeat across components.
+- Read the exact block before an edit; prefer a whole-file write for new
+  or heavily edited files.
+
+## Git
+
+- NEVER push to a remote. No `git push`, no force variants, nothing to origin
+  or any other remote — not even when a plan step says to ship. Commit and
+  branch locally at most, then hand me the exact push command to run myself.
+- Run `git branch --show-current` before every commit. A merge or checkout by
+  someone else moves the worktree under you between my commands.
+
+## Comments
+
+- No code comments except one explaining the body of a function (why the body does
+  what it does, or what it does when that isn't obvious from the code).
+- No inline comments at all — nothing trailing or mid-line.
+- Cap at ~3 lines. If it needs more, fix the code or naming instead.
+- Match the density of nearby comments, and that's the ceiling, not the floor.
