@@ -40,6 +40,8 @@
             hunk
             pi
             claude-code
+            jailed-pi
+            jailed-claude-code
             jq
             ripgrep
             tree
