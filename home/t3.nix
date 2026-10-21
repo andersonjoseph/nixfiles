@@ -9,11 +9,17 @@ let
   isVondel = nixosConfig.networking.hostName == "vondel";
 
   # The AppImage ships only the desktop app; the CLI and server come from the
-  # source build, exposed without its duplicate desktop entry.
+  # source build, linked one binary at a time so its desktop entry and
+  # t3code-desktop binary stay out of the environment.
   t3-cli = pkgs.runCommand "t3-cli" { } ''
-    mkdir -p $out
-    ln -s ${pkgs.t3-server}/bin $out/bin
-    ln -s ${pkgs.t3-server}/share $out/share
+    mkdir -p $out/bin $out/share
+    ln -s ${pkgs.t3-server}/bin/t3 $out/bin/t3
+    for dir in bash-completion/completions fish/vendor_completions.d zsh; do
+      if [ -e "${pkgs.t3-server}/share/$dir" ]; then
+        mkdir -p "$out/share/$dir"
+        ln -s "${pkgs.t3-server}/share/$dir/." "$out/share/$dir/"
+      fi
+    done
   '';
 in
 {
