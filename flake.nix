@@ -27,6 +27,7 @@
       # Packages provided by flake inputs, exposed as pkgs.<name>.
       sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
       t3-server = pkgs.callPackage ./packages/t3code/package.nix { };
+      t3-desktop = pkgs.callPackage ./packages/t3code/appimage.nix { };
 
       overlays = {
         nixpkgs.overlays = [
@@ -40,6 +41,7 @@
               jailed-pi
               jailed-claude-code
               t3-server
+              t3-desktop
               ;
           })
         ];

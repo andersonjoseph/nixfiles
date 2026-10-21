@@ -7,12 +7,20 @@
 let
   isDesktopMachine = builtins.elem nixosConfig.networking.hostName (import ./desktop-hosts.nix);
   isVondel = nixosConfig.networking.hostName == "vondel";
+
+  # The AppImage ships only the desktop app; the CLI and server come from the
+  # source build, exposed without its duplicate desktop entry.
+  t3-cli = pkgs.runCommand "t3-cli" { } ''
+    mkdir -p $out
+    ln -s ${pkgs.t3-server}/bin $out/bin
+    ln -s ${pkgs.t3-server}/share $out/share
+  '';
 in
 {
-  programs.t3code = lib.mkIf isDesktopMachine {
-    enable = true;
-    package = pkgs.t3-server;
-  };
+  home.packages = lib.optionals isDesktopMachine [
+    pkgs.t3-desktop
+    t3-cli
+  ];
 
   systemd.user.services.t3code = lib.mkIf isVondel {
     Unit = {
