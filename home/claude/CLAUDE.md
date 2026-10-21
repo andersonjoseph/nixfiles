@@ -49,10 +49,12 @@ Rules:
 - Keep the hardest parts for yourself: tricky concurrency,
   security-sensitive code, core architecture changes.
 
-Reviews: run in a fresh thread with effort max. Check the result against
-the plan, confirm each finding against the code before reporting it, and
-ping-pong with the implementer in the same review thread until GREENLIGHT;
-after 3 rounds without greenlight, stop and report what remains.
+Reviews: run in a fresh thread with effort max. Load your review skills
+before starting — `thermo-nuclear-code-quality-review` plus any matching
+the touched files. Check the result against the plan, confirm each finding
+against the code before reporting it, and ping-pong with the implementer
+in the same review thread until GREENLIGHT; after 3 rounds without
+greenlight, stop and report what remains.
 
 ## Habits
 

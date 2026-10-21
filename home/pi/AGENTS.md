@@ -53,9 +53,12 @@ Rules:
   fixed instead of guessing.
 
 Reviews: Opus reviews the finished diff in a fresh thread (effort max),
-checks it against the plan, and confirms each finding before reporting it.
-Ping-pong fixes in the same reviewer thread until it returns GREENLIGHT;
-after 3 rounds without greenlight, stop and report what remains.
+loads its review skills before starting —
+`thermo-nuclear-code-quality-review` plus any matching the touched files —
+then checks the diff against the plan and confirms each finding before
+reporting it. Ping-pong fixes in the same reviewer thread until it returns
+GREENLIGHT; after 3 rounds without greenlight, stop and report what
+remains.
 
 ## Habits
 

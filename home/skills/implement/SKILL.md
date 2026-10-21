@@ -33,7 +33,9 @@ go-ahead before writing code.
 9. When the whole plan is done, launch the reviewer — Opus 5.5, effort max,
    fresh thread (`delegate_task`, provider `claudeAgent_free_claude`, model
    `claude-opus-5-5`, options `{effort: max}`) — with the diff scope and the
-   plan it was implemented against. Ping-pong: fix every finding or answer
+   plan it was implemented against. The reviewer loads its review skills
+   before starting — `thermo-nuclear-code-quality-review` plus any matching
+   the touched files. Ping-pong: fix every finding or answer
    with a disagreement; keep every round in the same reviewer thread until
    GREENLIGHT, max 3 rounds without it. Amend fixes into the relevant
    commits instead of creating new ones.
