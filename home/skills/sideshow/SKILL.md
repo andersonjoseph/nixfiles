@@ -49,6 +49,16 @@ on the diff surfaces carry the code-level walkthrough.
 them; `sideshow comment "text" --post <id>` replies in the thread;
 `sideshow update <id> <file>` revises a post in place.
 
+## Statecharts
+
+Anything with states — auth, onboarding, request lifecycles, UI modes —
+explains best as a statechart: mermaid `stateDiagram-v2` with named states,
+transitions, and the events that trigger them. Draw one when explaining
+stateful code, when planning a user flow, or when a flow misbehaves. An
+honest statechart surfaces impossible states, missing transitions, and
+dead ends before users find them — treat every gap it reveals as a
+finding to fix, not just to draw.
+
 ## Rich visuals
 
 When a visual is warranted, sideshow is the channel: any output that would be

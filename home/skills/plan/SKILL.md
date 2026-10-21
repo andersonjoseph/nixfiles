@@ -31,7 +31,7 @@ for that reader.
   stdin: `sideshow mermaid - --title "<plan>"`) only when the plan's shape
   earns it: the user asked for a visual, or the logic has real flow,
   branching, or state that prose carries poorly — pipelines, decision
-  trees, state machines. Otherwise skip the card; the plan lives in chat.
+  trees, statecharts. Otherwise skip the card; the plan lives in chat.
   When you do publish, the graph *is* the key logic; don't add a
   separate pseudocode block. If the user comments on the card, read them
   with `sideshow wait` and treat them as plan feedback.
