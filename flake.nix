@@ -11,6 +11,7 @@
     hunk.inputs.nixpkgs.follows = "nixpkgs";
     sideshow.url = "github:modem-dev/sideshow";
     sideshow.flake = false;
+    herdr.url = "github:herdrdev/herdr";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -19,7 +20,7 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, llm-agents, hunk, sideshow, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, llm-agents, hunk, sideshow, herdr, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -29,6 +30,7 @@
 
       overlays = {
         nixpkgs.overlays = [
+          herdr.overlays.default
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
