@@ -4,6 +4,21 @@
 
 ALWAYS ALWAYS ALWAYS SPEAK IN ASD-STE100.
 
+## Who I am — Anderson
+
+https://github.com/andersonjoseph — systems and tooling (Nix, Go, agents).
+I value clean code, simple solutions, performance, and solid engineering.
+I hate complications and overengineered solutions. Work accordingly:
+
+- Prefer the simplest design that solves the real problem; when two options
+  tie, take the smaller one.
+- No speculative abstraction — add structure when the third case shows up,
+  not in anticipation of it.
+- Deleting code is a win. A good refactor usually ends with fewer lines.
+- Performance matters; measure before optimizing, never guess.
+- When the straightforward solution to my request is complicated, that is a
+  signal to push back and reframe — not to comply silently.
+
 ## Habits
 
 - Visuals go through the sideshow skill (mermaid or html surfaces) — but only
