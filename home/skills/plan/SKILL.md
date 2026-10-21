@@ -11,9 +11,8 @@ Explore the codebase and design the change — do not make it.
 
 - Explore freely: read files, search, run read-only commands, launch
   read-only subagents when that is faster.
-- Do not create or modify any file. One exception: the plan file itself,
-  when the user asks for one. Never edit project files from planning, and
-  never direct a subagent to edit them.
+- Do not create or modify any file. Never edit project files from
+  planning, and never direct a subagent to edit them.
 - Stay in planning. If the user asks to implement, point at the
   `implement` skill — do not start implementing.
 - Scale the plan to the job: a one-line fix needs none; a new feature
@@ -31,8 +30,8 @@ for that reader.
   stdin: `sideshow mermaid - --title "<plan>"`) only when the plan's shape
   earns it: the user asked for a visual, or the logic has real flow,
   branching, or state that prose carries poorly — pipelines, decision
-  trees, state machines. Otherwise skip the card; the plan lives in the
-  file. When you do publish, the graph *is* the key logic; don't add a
+  trees, state machines. Otherwise skip the card; the plan lives in chat.
+  When you do publish, the graph *is* the key logic; don't add a
   separate pseudocode block. If the user comments on the card, read them
   with `sideshow wait` and treat them as plan feedback.
 - **Types & interfaces** to add or change, when they clarify.
@@ -46,10 +45,3 @@ for that reader.
 - **Files to touch**, one line each, marked `NEW`/`EDIT` with the intent.
 - **Open questions**, if any — resolve them before implementation starts,
   not during.
-
-## Saving
-
-When the user asks for a file, or implementation will happen in another
-session, save the plan as `plans/<topic>.md` in the repo root — one
-artifact feeds `implement` and the reviewer. Add `plans/` to
-`.git/info/exclude` when the repo should not carry it.
