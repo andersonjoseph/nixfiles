@@ -4,8 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nordvpn-flake.url = "path:./flakes/nordvpn";
-    jailed-agents.url = "github:andersonjoseph/jailed-agents";
-    jailed-agents.inputs.llm-agents.follows = "llm-agents";
     llm-agents.url = "github:numtide/llm-agents.nix/04f4e45f5be619f430cb5be5c0f579b8ecb27324";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +17,7 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, llm-agents, hunk, sideshow, ... }:
+    { nixpkgs, home-manager, nordvpn-flake, llm-agents, hunk, sideshow, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -40,8 +38,6 @@
             pi = free-pi;
             claude-code = free-claude-code;
             inherit
-              jailed-pi
-              jailed-claude-code
               t3-server
               ;
           })
@@ -58,23 +54,6 @@
 	    checkReversePath = "loose";
 	};
       });
-
-      jailed-pi = jailed-agents.lib.${system}.makeJailedPi {
-        name = "jailed-pi";
-        enableNix = true;
-        extraPkgs = [
-          sideshow-pkg
-        ];
-      };
-
-      jailed-claude-code = jailed-agents.lib.${system}.makeJailedClaudeCode {
-        name = "jailed-claude-code";
-        enableNix = true;
-        extraPkgs = [
-          sideshow-pkg
-          pkgs.nodejs
-        ];
-      };
 
       free-pi = llm-agents.packages.${system}.pi;
       free-claude-code = llm-agents.packages.${system}.claude-code;

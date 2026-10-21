@@ -37,8 +37,7 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
     xrandr, battery tuning, Thunderbolt).
   - `vondel/` — Headless server (Eternal Terminal, Docker, firewall).
 - `home/` — home-manager user environment (`home/default.nix`).
-  - `alacritty.nix`, `starship.toml`, `herdr/` — terminal, prompt, and
-    multiplexer config.
+  - `alacritty.nix`, `starship.toml` — terminal and prompt config.
   - `i3/` — i3 window manager and bar setup.
   - `nvim/` — Neovim config (LSP, plugins), symlinked into `~/.config/nvim`.
   - `skills/` — agent skills for pi, each symlinked into `~/.pi/agent/skills/`

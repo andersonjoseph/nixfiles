@@ -40,8 +40,6 @@
             hunk
             pi
             claude-code
-            jailed-pi
-            jailed-claude-code
             jq
             ripgrep
             tree
@@ -175,7 +173,6 @@
           bashrcExtra = ''
             export MANPAGER='nvim +Man!'
             export PATH="$PATH:$HOME/go/bin"
-            [[ -n "$HERDR_ENV" ]] && export PI_IMAGE_PROTOCOL=kitty
           '';
         };
 
@@ -199,10 +196,10 @@
         };
 
         # Agent skills for pi, linked directly instead of through the
-        # home-manager store tree: jails that bind /nix per-path cannot follow
-        # the store hop, and this repo is read-only-bound into every one of
-        # them. Each skill under home/skills/ links into pi's user skills
-        # directory, replacing any real directory of the same name.
+        # home-manager store tree so edits in this checkout are picked up
+        # without a rebuild. Each skill under home/skills/ links into pi's
+        # user skills directory, replacing any real directory of the same
+        # name.
         home.activation.piSkills = config.lib.dag.entryAfter [ "writeBoundary" ] ''
           $DRY_RUN_CMD mkdir -p $VERBOSE_ARG \
             ${config.home.homeDirectory}/.pi/agent/skills
