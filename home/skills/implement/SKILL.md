@@ -17,12 +17,13 @@ the go-ahead before writing code.
 4. Build on what exists. Search for existing helpers before writing new ones.
    Three functions doing the same job across the codebase is a failure.
 5. One commit = one unit of work to review.
-6. When done, launch the reviewer subagent with the diff scope. Ping-pong:
-   fix every finding or answer with a disagreement and reach agreement.
-   Continue the same reviewer session (sessionID) until it confirms all
-   findings are addressed, max 3 rounds without greenlight (Reviewer
-   ping-pong rules in the personal AGENTS.md). Amend fixes into the relevant
-   commits instead of creating new ones.
+6. When done, launch a reviewer subagent (`delegate_task`, review role) with
+   the diff scope. Ping-pong: fix every finding or answer with a
+   disagreement and reach agreement. Keep every follow-up round in the same
+   reviewer thread until it confirms all findings are addressed, max 3
+   rounds without greenlight (Reviewer ping-pong rules in the personal
+   AGENTS.md). Amend fixes into the relevant commits instead of creating
+   new ones.
 7. Publish a sideshow overview board of the finished change (the `sideshow`
    skill): mermaid architecture and data flow, an end-to-end markdown
    narrative, one diff part per commit. Wait for the user's comments and

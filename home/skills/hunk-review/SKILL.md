@@ -7,6 +7,8 @@ description: Interacts with live Hunk diff review sessions via CLI. Inspects rev
 
 Hunk is an interactive terminal diff viewer. The TUI is for the user -- do NOT run `hunk diff`, `hunk show`, or other interactive commands directly. Use `hunk session *` CLI commands to inspect and control live sessions through the local daemon.
 
+> Synced with hunk v0.23.0. Update when bumping hunk.
+
 If no session exists, ask the user to launch Hunk in their terminal first.
 
 ## Workflow

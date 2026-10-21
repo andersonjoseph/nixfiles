@@ -30,7 +30,7 @@ card per plan or per change by default.
 ## Publishing
 
 Surfaces appear in flag order; `-` reads a surface from stdin. Per-commit
-patches: `git show --format= <sha> > /tmp/opencode/<sha>.patch`.
+patches: `git show --format= <sha> > /tmp/sideshow/<sha>.patch`.
 
 ```sh
 sideshow publish --title "Auth refactor" --session-title "Auth refactor" \

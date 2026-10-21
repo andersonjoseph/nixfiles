@@ -11,28 +11,19 @@ no blame. Decisions stay with the user.
 ## 1. Gather sources
 
 - Current session: already in context — do not re-read it.
-- Subagent sessions: the session store, read-only. Node 24 ships `node:sqlite`:
-
-  ```bash
-  node -e '
-    const {DatabaseSync} = require("node:sqlite");
-    const db = new DatabaseSync(
-      process.env.HOME + "/.local/share/opencode/opencode.db",
-      {readOnly: true},
-    );
-    console.log(db.prepare(
-      "SELECT id, parent_id, title, agent, cost, tokens_input, tokens_output" +
-      " FROM session WHERE directory = ? ORDER BY time_updated DESC LIMIT 20",
-    ).all(process.cwd()));
-  '
-  ```
-
-- Child transcripts: `SELECT data FROM message WHERE session_id = ?` — rows are
-  JSON, ordered by `time_created`.
-- Use `cost` and token totals per session as a friction signal; dig where they
-  are out of line.
-- Large tool results: `~/.local/share/opencode/tool-output/`.
-- Never write to the database or anything under `~/.local/share/opencode/`.
+- Session transcripts: `~/.pi/agent/sessions/<workspace>/`, read-only, where
+  `<workspace>` is the cwd with every `/` replaced by `-`
+  (`/home/anderson/configuration` → `--home-anderson-configuration--`).
+  Files are JSONL named by start timestamp; read the most recent ones for
+  this directory. Each line is one JSON object with a `type` discriminator
+  (`session`, `message`, `model_change`, `session_info`); messages carry the
+  conversation, tool calls, and results.
+- Delegated subagent threads (T3 `delegate_task`) are separate — pull their
+  transcripts from the child threads when the work under review was
+  delegated.
+- Use token-heavy stretches, repeated file reads, and long back-and-forth
+  as friction signals; dig where they are out of line.
+- Never write to anything under `~/.pi/agent/sessions/`.
 
 ## 2. Mine for friction
 

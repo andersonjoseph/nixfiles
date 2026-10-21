@@ -92,7 +92,7 @@ Escalate findings when you see:
 
 - A complicated implementation where a cleaner reframing could delete whole categories of complexity.
 - Refactors that move code around but fail to reduce the number of concepts a reader must hold in their head.
-- A file crossing 1000 lines due to the PR, especially when the new code could be split out.
+- A file crossing 1000 lines due to the PR, especially if the new code could be split out.
 - New conditionals bolted onto unrelated code paths.
 - One-off booleans, nullable modes, or flags that complicate existing control flow.
 - Feature-specific logic leaking into general-purpose modules.
@@ -127,7 +127,7 @@ When you identify a code-quality problem, prefer suggestions like:
 - Make type boundaries more explicit so the control flow gets simpler.
 - Move the logic to the package/module/layer that already owns the concept.
 - Parallelize independent work when that also simplifies the orchestration.
-- Restructure related updates into an more atomic flow when partial state would be harder to reason about.
+- Restructure related updates into a more atomic flow when partial state would be harder to reason about.
 
 Do not be satisfied with "maybe rename this" feedback when the real issue is structural.
 Do not be satisfied with a merely cleaner version of the same messy idea if there is a plausible path to a much simpler idea.

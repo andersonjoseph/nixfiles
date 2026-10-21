@@ -198,21 +198,22 @@
           source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/nvim";
         };
 
-        # Global OpenCode config, linked directly instead of through the
+        # Agent skills for pi, linked directly instead of through the
         # home-manager store tree: jails that bind /nix per-path cannot follow
         # the store hop, and this repo is read-only-bound into every one of
-        # them. The thermo-nuclear skill is vendored under
-        # home/opencode/skills/ so it exists on every host.
-        home.activation.opencodeGlobal = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-            ${config.home.homeDirectory}/configuration/home/opencode/AGENTS.md \
-            ${config.home.homeDirectory}/.config/opencode/AGENTS.md
-          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-            ${config.home.homeDirectory}/configuration/home/opencode/agents \
-            ${config.home.homeDirectory}/.config/opencode/agents
-          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-            ${config.home.homeDirectory}/configuration/home/opencode/skills \
-            ${config.home.homeDirectory}/.config/opencode/skills
+        # them. Each skill under home/skills/ links into pi's user skills
+        # directory, replacing any real directory of the same name.
+        home.activation.piSkills = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+          $DRY_RUN_CMD mkdir -p $VERBOSE_ARG \
+            ${config.home.homeDirectory}/.pi/agent/skills
+          for skill in ${config.home.homeDirectory}/configuration/home/skills/*; do
+            name=$(basename "$skill")
+            dest="${config.home.homeDirectory}/.pi/agent/skills/$name"
+            if [ -d "$dest" ] && [ ! -L "$dest" ]; then
+              $DRY_RUN_CMD rm -rf $VERBOSE_ARG "$dest"
+            fi
+            $DRY_RUN_CMD ln -sfn $VERBOSE_ARG "$skill" "$dest"
+          done
         '';
 
       };
