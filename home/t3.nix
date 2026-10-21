@@ -5,10 +5,11 @@
   ...
 }:
 let
+  isDesktopMachine = builtins.elem nixosConfig.networking.hostName (import ./desktop-hosts.nix);
   isVondel = nixosConfig.networking.hostName == "vondel";
 in
 {
-  programs.t3code = lib.mkIf isVondel {
+  programs.t3code = lib.mkIf isDesktopMachine {
     enable = true;
     package = pkgs.t3-server;
   };

@@ -1,4 +1,5 @@
 {
+  lib,
   rustPlatform,
   t3code-unwrapped,
 }:
