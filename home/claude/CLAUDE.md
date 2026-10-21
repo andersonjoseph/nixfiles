@@ -57,8 +57,17 @@ Reviews: run in a fresh thread with effort max. Load your review skills
 before starting — `thermo-nuclear-code-quality-review` plus any matching
 the touched files. Check the result against the plan, confirm each finding
 against the code before reporting it, and ping-pong with the implementer
-in the same review thread until GREENLIGHT; after 3 rounds without
-greenlight, stop and report what remains.
+until GREENLIGHT; after 3 rounds without greenlight, stop and report what
+remains.
+
+- T3 starts every review round as a new `delegate_task`. Carry the
+  ping-pong in its prompt: the brief, each earlier finding, the answer to
+  it, and what is still open.
+- Round 2 onward is scoped to the fixes and what they touch, at effort
+  high; it does not re-review code an earlier round marked correct.
+- The reviewer checks HEAD only. The implementer already ran the checks
+  on each commit — neither the reviewer nor the orchestrator repeats them.
+- Tests: only the packages the change touches, never the whole suite.
 
 ## Habits
 

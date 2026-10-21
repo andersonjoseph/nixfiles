@@ -25,7 +25,9 @@ go-ahead before writing code.
 6. Work through every plan step without waiting for me between steps: one
    step = one commit, and the tests plus the step's acceptance checks run
    before that step's commit. Stop only when a step is red or ambiguous —
-   otherwise keep going to the end of the plan.
+   otherwise keep going to the end of the plan. Tests cover only the
+   packages the step touches, never the whole suite; run them once per
+   commit, and run full builds (e.g. Vite bundles) once, on the last commit.
 7. A step that turns out underspecified or ambiguous is a plan bug — stop
    and get it fixed by Opus (or me) instead of guessing.
 8. Tricky concurrency, security-sensitive code, core architecture changes:
@@ -36,9 +38,14 @@ go-ahead before writing code.
    plan it was implemented against. The reviewer loads its review skills
    before starting — `thermo-nuclear-code-quality-review` plus any matching
    the touched files. Ping-pong: fix every finding or answer
-   with a disagreement; keep every round in the same reviewer thread until
-   GREENLIGHT, max 3 rounds without it. Amend fixes into the relevant
-   commits instead of creating new ones.
+   with a disagreement until GREENLIGHT, max 3 rounds without it. Amend
+   fixes into the relevant commits instead of creating new ones.
+   - Each round is a new `delegate_task` (T3 rule). Its prompt carries the
+     ping-pong so far: brief, findings, answers, open objections.
+   - Round 2 onward checks only the fixes and what they touch, at effort
+     high.
+   - The reviewer checks HEAD only; the per-commit checks already ran and
+     are not repeated by the reviewer or the orchestrator.
 10. Publish a sideshow overview board of the finished change (the `sideshow`
     skill): mermaid architecture and data flow, an end-to-end markdown
     narrative, one diff part per commit. Wait for my comments and reply or

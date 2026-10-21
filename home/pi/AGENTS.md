@@ -45,6 +45,9 @@ Rules:
 - Work through the plan without pauses: one step = one commit, tests and
   acceptance checks before each commit. Stop only when a step is red or
   ambiguous.
+- Checks before a commit: the tests of the packages the step touches, never
+  the whole suite, plus the type check. Run them once; a green run is not
+  repeated. Full builds (e.g. Vite bundles) run once, on the last commit.
 - Exploration and other light subagent work goes to GLM-5.3-Flash —
   `delegate_task`, provider `pi_free_pi`, model `zai/glm-5.3-flash`.
 - Skills load in the agent doing the work — the subagent — never in the
@@ -60,9 +63,10 @@ Reviews: Opus reviews the finished diff in a fresh thread (effort max),
 loads its review skills before starting —
 `thermo-nuclear-code-quality-review` plus any matching the touched files —
 then checks the diff against the plan and confirms each finding before
-reporting it. Ping-pong fixes in the same reviewer thread until it returns
+reporting it. Ping-pong fixes with the reviewer until it returns
 GREENLIGHT; after 3 rounds without greenlight, stop and report what
-remains.
+remains. Review fixes go in as `git commit --fixup=<sha>` commits; the
+orchestrator squashes them.
 
 ## Habits
 

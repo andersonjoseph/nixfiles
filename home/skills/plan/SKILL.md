@@ -35,6 +35,11 @@ for that reader.
   When you do publish, the graph *is* the key logic; don't add a
   separate pseudocode block. If the user comments on the card, read them
   with `sideshow wait` and treat them as plan feedback.
+- **Statechart first for stateful work** — UI modes, loading/error/drill
+  states, request lifecycles: draw the states and transitions
+  (`stateDiagram-v2`) before writing steps, and make every state and
+  transition land in a step or an acceptance check. Missing states are
+  what review rounds find late.
 - **Types & interfaces** to add or change, when they clarify.
 - **Ordered steps**, one bounded action each, file-level: which files, what
   change. One step = one commit. Every step carries its acceptance check —
