@@ -38,9 +38,9 @@
           [
             neovim
             hunk
-            opencode
+            pi
             claude-code
-            jailed-opencode
+            jailed-pi
             jailed-claude-code
             jq
             ripgrep

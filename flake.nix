@@ -32,10 +32,10 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
-            opencode = free-opencode;
+            pi = free-pi;
             claude-code = free-claude-code;
             inherit
-              jailed-opencode
+              jailed-pi
               jailed-claude-code
               t3-server
               ;
@@ -54,15 +54,11 @@
 	};
       });
 
-      jailed-opencode = jailed-agents.lib.${system}.makeJailedOpencode2 {
-        name = "jailed-opencode";
+      jailed-pi = jailed-agents.lib.${system}.makeJailedPi {
+        name = "jailed-pi";
         enableNix = true;
         extraPkgs = [
           sideshow-pkg
-          pkgs.nodejs
-        ];
-        extraReadonlyDirs = [
-          "~/configuration/home/opencode"
         ];
       };
 
@@ -75,14 +71,7 @@
         ];
       };
 
-      free-opencode = pkgs.symlinkJoin {
-        name = "opencode";
-        paths = [ llm-agents.packages.${system}.opencode2 ];
-        postBuild = ''
-          mv $out/bin/opencode2 $out/bin/opencode
-        '';
-      };
-
+      free-pi = llm-agents.packages.${system}.pi;
       free-claude-code = llm-agents.packages.${system}.claude-code;
     in
     {
