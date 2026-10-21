@@ -40,9 +40,8 @@ sideshow publish --title "Auth refactor" --session-title "Auth refactor" \
 When the user asks for an overview of a finished change (or one is genuinely
 clearer as a board post), it carries: a mermaid of the architecture and data
 flow (entry point to end), a markdown narrative of what changed and why, one
-diff surface per unit-of-work commit in landing order. The `hunk-review`
-skill carries the code-level walkthrough — publish the overview first, then
-offer hunk.
+diff surface per unit-of-work commit in landing order. Comment threads
+on the diff surfaces carry the code-level walkthrough.
 
 ## Feedback loop
 

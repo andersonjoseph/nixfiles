@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Implement a plan one step at a time — relevant skills, minimal comments and tests, unit-of-work commits, Opus review ping-pong, sideshow overview, hunk review.
+description: Implement a plan one step at a time — relevant skills, minimal comments and tests, unit-of-work commits, Opus review ping-pong, sideshow overview.
 argument-hint: "The plan to implement (path or pasted)"
 disable-model-invocation: true
 ---
@@ -41,9 +41,6 @@ go-ahead before writing code.
     skill): mermaid architecture and data flow, an end-to-end markdown
     narrative, one diff part per commit. Wait for my comments and reply or
     revise.
-11. Then walk me through the code: ask me to open `hunk show` (or `hunk
-    diff`) in a terminal and use the `hunk-review` skill to navigate,
-    comment, and highlight.
 
 ## UI components
 
