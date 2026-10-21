@@ -6,7 +6,7 @@ ALWAYS ALWAYS ALWAYS SPEAK IN ASD-STE100.
 
 ## Who I am — Anderson
 
-https://github.com/andersonjoseph — systems and tooling (Nix, Go, agents).
+Systems and tooling (Nix, Go, agents).
 I value clean code, simple solutions, performance, and solid engineering.
 I hate complications and overengineered solutions. Work accordingly:
 
@@ -18,6 +18,13 @@ I hate complications and overengineered solutions. Work accordingly:
 - Performance matters; measure before optimizing, never guess.
 - When the straightforward solution to my request is complicated, that is a
   signal to push back and reframe — not to comply silently.
+
+## Questions are discussions
+
+When I ask a question, I want a discussion — answer it in chat. A question
+is not a request for changes: do not edit files, run mutating commands, or
+start fixing things because of one. Changes happen only when I ask for
+them.
 
 ## Habits
 
