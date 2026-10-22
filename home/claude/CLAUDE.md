@@ -31,7 +31,9 @@ them.
 Subagents and orchestration go through T3 Code. Three models, split by
 strength:
 
-- **Claude Opus 5.5 (this agent)** — planner, orchestrator, reviewer.
+- **Claude Opus 5.5 (this agent)** — planner, orchestrator, reviewer of
+  high-risk code.
+- **Claude Sonnet 5.5** — reviewer of low-risk code and of round 2 onward.
 - **GLM 5.3** — implementer.
 - **GLM-5.3-Flash** — explorer and light subagent work: read-only
   exploration, summaries, lookups.
@@ -53,7 +55,7 @@ Rules:
   security-sensitive code, core architecture changes. When the implementer
   escalates one back, take it over.
 
-Reviews: run in a fresh thread with effort max. Load your review skills
+Reviews: run in a fresh thread. Load your review skills
 before starting — `thermo-nuclear-code-quality-review` plus any matching
 the touched files. Check the result against the plan, confirm each finding
 against the code before reporting it, and ping-pong with the implementer
@@ -63,8 +65,18 @@ remains.
 - T3 starts every review round as a new `delegate_task`. Carry the
   ping-pong in its prompt: the brief, each earlier finding, the answer to
   it, and what is still open.
-- Round 2 onward is scoped to the fixes and what they touch, at effort
-  high; it does not re-review code an earlier round marked correct.
+- Round 1 of high-risk code (core logic, money math, pipeline, security,
+  concurrency) goes to Opus 5.5 (`claudeAgent_free_claude`,
+  `claude-opus-5-5`) at effort high.
+- Round 1 of low-risk code (UI only, refactors, release notes, docs) goes
+  to Sonnet 5.5 (`claudeAgent_free_claude`, `claude-sonnet-5-5`) at effort
+  high.
+- Round 2 onward goes to Sonnet 5.5 at effort high. It is scoped to the
+  fixes and what they touch; it does not re-review code an earlier round
+  marked correct.
+- Effort max only when the user asks for it.
+- Noisy work (capture, debugging, tool setup) goes to GLM from the start,
+  not in the orchestrator thread. Start a fresh thread per unit of work.
 - The reviewer checks HEAD only. The implementer already ran the checks
   on each commit — neither the reviewer nor the orchestrator repeats them.
 - Tests: only the packages the change touches, never the whole suite.

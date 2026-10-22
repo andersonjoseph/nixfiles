@@ -32,10 +32,12 @@ go-ahead before writing code.
    and get it fixed by Opus (or me) instead of guessing.
 8. Tricky concurrency, security-sensitive code, core architecture changes:
    flag them for Opus, never improvise.
-9. When the whole plan is done, launch the reviewer — Opus 5.5, effort max,
-   fresh thread (`delegate_task`, provider `claudeAgent_free_claude`, model
-   `claude-opus-5-5`, options `{effort: max}`) — with the diff scope and the
-   plan it was implemented against. The reviewer loads its review skills
+9. When the whole plan is done, launch the reviewer — fresh thread
+   (`delegate_task`, provider `claudeAgent_free_claude`, options
+   `{effort: high}`) — with the diff scope and the plan it was implemented
+   against. Round 1 of high-risk code (core logic, money math, pipeline,
+   security, concurrency) uses model `claude-opus-5-5`; round 1 of low-risk
+   code and every round 2 onward use `claude-sonnet-5-5`. The reviewer loads its review skills
    before starting — `thermo-nuclear-code-quality-review` plus any matching
    the touched files. Ping-pong: fix every finding or answer
    with a disagreement until GREENLIGHT, max 3 rounds without it. Amend
