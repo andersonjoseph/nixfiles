@@ -8,11 +8,9 @@ disable-model-invocation: true
 Implement the plan as the implementer of the Model roles flow (personal
 AGENTS.md). First restate it in your own words and confirm you have
 everything needed. Stop and ask about anything missing or ambiguous. A
-plan that is not Opus-quality — file-level steps, acceptance checks per
-step — does not get implemented as-is: have Opus 5.5 write or fix it first
-(`delegate_task`, provider `claudeAgent_free_claude`, model
-`claude-opus-5-5`, options `{effort: max}`), or ask me. Wait for the
-go-ahead before writing code.
+plan that is not step-complete — file-level steps, acceptance checks per
+step — does not get implemented as-is: have the orchestrator write or fix
+it first, or ask me. Wait for the go-ahead before writing code.
 
 1. Load the relevant skills for the work — whichever match the files you are
    going to modify.
@@ -29,21 +27,18 @@ go-ahead before writing code.
    packages the step touches, never the whole suite; run them once per
    commit, and run full builds (e.g. Vite bundles) once, on the last commit.
 7. A step that turns out underspecified or ambiguous is a plan bug — stop
-   and get it fixed by Opus (or me) instead of guessing.
+   and get it fixed by the orchestrator (or me) instead of guessing.
 8. Tricky concurrency, security-sensitive code, core architecture changes:
-   flag them for Opus, never improvise.
-9. When the whole plan is done, launch the reviewer — fresh thread
-   (`delegate_task`, provider `claudeAgent_free_claude`, options
-   `{effort: high}`) — with the diff scope and the plan it was implemented
-   against. Round 1 of high-risk code (core logic, money math, pipeline,
-   security, concurrency) uses model `claude-opus-5-5`; round 1 of low-risk
-   code and every round 2 onward use `claude-sonnet-5-5`. The reviewer loads its review skills
-   before starting — `thermo-nuclear-code-quality-review` plus any matching
-   the touched files. Ping-pong: fix every finding or answer
+   flag them for the orchestrator, never improvise.
+9. When the whole plan is done, launch the reviewer as a fresh task spawn
+   (`task`, agent `reviewer`) with the diff scope and the plan it was
+   implemented against. Name its skills in the brief —
+   `thermo-nuclear-code-quality-review` plus any matching the touched
+   files. Ping-pong: fix every finding or answer
    with a disagreement until GREENLIGHT, max 3 rounds without it. Amend
    fixes into the relevant commits instead of creating new ones.
-   - Each round is a new `delegate_task` (T3 rule). Its prompt carries the
-     ping-pong so far: brief, findings, answers, open objections.
+   - Each round is a new task spawn. Its prompt carries the ping-pong so
+     far: brief, findings, answers, open objections.
    - Round 2 onward checks only the fixes and what they touch, at effort
      high.
    - The reviewer checks HEAD only; the per-commit checks already ran and
