@@ -14,3 +14,6 @@
   code). No inline comments at all — nothing trailing or mid-line. Cap at
   ~3 lines; if it needs more, fix the code or naming instead. Match the
   density of nearby comments, and that's the ceiling, not the floor.
+- Never draw diagrams in chat — no mermaid, no svg, no ASCII sketches.
+  When a visual is warranted, it goes to the sideshow board (the
+  `sideshow` skill); chat replies stay text.
