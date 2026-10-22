@@ -45,7 +45,11 @@ back to.
    the reviewer as a fresh task spawn (`task`, agent `reviewer`) with the
    diff scope and the plan it was implemented against. Name its skills in
    the brief — `thermo-nuclear-code-quality-review` plus any matching the
-   touched files. Ping-pong: re-dispatch the implementer with each
+   touched files. Tier by risk: round 1 of high-risk code (core logic,
+   money math, pipeline, security, concurrency) gets the strong reviewer;
+   round 1 of low-risk code (UI only, refactors, release notes, docs)
+   and every round 2 onward get the light reviewer — the same model
+   while GLM-only. Ping-pong: re-dispatch the implementer with each
    round's findings — it fixes them or answers with a disagreement —
    until GREENLIGHT, max 3 rounds without it. Review fixes land as
    `git commit --fixup=<sha>` commits; you squash them.

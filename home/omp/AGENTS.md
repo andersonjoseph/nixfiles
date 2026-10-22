@@ -28,7 +28,8 @@ Subagents go through the task tool. Roles, split by strength:
 - **implementer agent (GLM 5.3, high effort)** — executes a well-scoped
   plan.
 - **reviewer agent (GLM 5.3, high effort, fresh session)** — reviews the
-  finished diff against its plan.
+  finished diff against its plan; round 1 of high-risk code takes the
+  strong reviewer, low-risk code and every round 2 onward the light one.
 - **scout agent (GLM-5.3-Flash)** — read-only exploration, summaries,
   lookups.
 
@@ -44,6 +45,9 @@ Rules:
   plan; it commits per step and runs the tests between them without
   waiting.
 - Delegate exploration and light subagent work to `scout`.
+- Noisy work (capture, debugging, tool setup) goes to a subagent from the
+  start — never burn the orchestrator thread on it. One unit of work per
+  session.
 - Skills load in the agent doing the work — never in the parent
   orchestrating it. Name the skills in the task brief; the child reads
   them. Keep skill bodies out of the orchestrator's context.
@@ -55,6 +59,12 @@ Rules:
 - Run the review as a fresh `reviewer` task spawn with the diff scope and
   the plan it was implemented against. Name its skills in the brief —
   `thermo-nuclear-code-quality-review` plus any matching the touched files.
+- Tier by risk: round 1 of high-risk code (core logic, money math,
+  pipeline, security, concurrency) goes to the strong reviewer; round 1
+  of low-risk code (UI only, refactors, release notes, docs) and every
+  round 2 onward go to the light reviewer. While GLM-only both tiers are
+  the same model — split the roles when Claude connects.
+- Effort high is the default; effort max only when I ask for it.
 - Ping-pong with the implementer until GREENLIGHT; after 3 rounds without
   greenlight, stop and report what remains.
 - Each round is a new task spawn. Its prompt carries the ping-pong so far:
