@@ -1,0 +1,43 @@
+modelRoles:
+  implementer: zai/glm-5.3
+  review: zai/glm-5.3
+  explorer: zai/glm-5.3-flash
+symbolPreset: unicode
+composer:
+  shape: band
+theme:
+  dark: titanium
+  light: light
+setupVersion: 2
+lsp:
+  enabled: false
+todo:
+  enabled: false
+  reminders: true
+checkpoint:
+  enabled: true
+task:
+  maxConcurrency: 4
+  maxRecursionDepth: 1
+  prewalk: false
+  agentModelOverrides:
+    scout: zai/glm-5.3-flash
+skills:
+  enableSkillCommands: true
+tui:
+  vimMode: true
+  vimModeDisplay: icon
+spelling:
+  autocomplete: "off"
+emojiAutocomplete: false
+error:
+  notify: "on"
+magicKeywords:
+  enabled: false
+  ultrathink: false
+  orchestrate: false
+  workflow: false
+  jevify: false
+hideThinkingBlock: true
+plan:
+  enabled: false

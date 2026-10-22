@@ -40,11 +40,12 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
   - `alacritty.nix`, `starship.toml` — terminal and prompt config.
   - `i3/` — i3 window manager and bar setup.
   - `nvim/` — Neovim config (LSP, plugins), symlinked into `~/.config/nvim`.
-  - `skills/` — agent skills, each symlinked into `~/.pi/agent/skills/`
-    and `~/.claude/skills/` by a home-manager activation script.
-  - `pi/AGENTS.md` — global pi instructions, symlinked into `~/.pi/agent/`.
-  - `claude/CLAUDE.md` — global Claude instructions, symlinked into
-    `~/.claude/`.
+  - `skills/` — agent skills, each symlinked into `~/.omp/agent/skills/`
+    by a home-manager activation script.
+  - `omp/` — omp agent setup, symlinked into `~/.omp/agent/`:
+    `AGENTS.md` (global instructions), `RULES.md` (sticky rules carried
+    on every request), `config.yml` (settings incl. model roles), and
+    `agents/` (custom task agents).
 - `flakes/nordvpn/` — Vendored standalone flake providing the NordVPN CLI/GUI
   packages and a NixOS module; consumed by `flake.nix` as `nordvpn-flake`.
 - `scripts/` — Utility scripts (e.g., `change-audio-port`).

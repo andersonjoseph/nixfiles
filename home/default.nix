@@ -198,33 +198,52 @@
           source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/nvim";
         };
 
-        # Agent skills and global instructions for pi and claude, linked
-        # directly instead of through the home-manager store tree so edits
-        # in this checkout are picked up without a rebuild. Each skill
-        # under home/skills/ links into both agents' user skills
-        # directories, replacing any real directory of the same name.
-        home.activation.piSkills = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+        # omp agent setup and skills, linked directly instead of through
+        # the home-manager store tree so edits in this checkout are picked
+        # up without a rebuild. ~/.omp/agent also holds live state
+        # (sessions, databases) — only the named entries below are
+        # managed; config.yml backs up once before its first link. The
+        # old pi/claude instruction and skill links from this checkout
+        # are removed; foreign entries in those directories stay.
+        home.activation.ompAgent = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+          OMP=${config.home.homeDirectory}/.omp/agent
           $DRY_RUN_CMD mkdir -p $VERBOSE_ARG \
-            ${config.home.homeDirectory}/.pi/agent/skills
-          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-            ${config.home.homeDirectory}/configuration/home/pi/AGENTS.md \
-            ${config.home.homeDirectory}/.pi/agent/AGENTS.md
-          $DRY_RUN_CMD mkdir -p $VERBOSE_ARG \
-            ${config.home.homeDirectory}/.claude \
-            ${config.home.homeDirectory}/.claude/skills
-          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-            ${config.home.homeDirectory}/configuration/home/claude/CLAUDE.md \
-            ${config.home.homeDirectory}/.claude/CLAUDE.md
+            $OMP/skills \
+            $OMP/agents
+          for name in AGENTS.md RULES.md config.yml; do
+            src=${config.home.homeDirectory}/configuration/home/omp/$name
+            if [ -f "$OMP/$name" ] && [ ! -L "$OMP/$name" ]; then
+              $DRY_RUN_CMD mv $VERBOSE_ARG "$OMP/$name" "$OMP/$name.backup"
+            fi
+            $DRY_RUN_CMD ln -sfn $VERBOSE_ARG "$src" "$OMP/$name"
+          done
+          for agent in ${config.home.homeDirectory}/configuration/home/omp/agents/*; do
+            $DRY_RUN_CMD ln -sfn $VERBOSE_ARG "$agent" "$OMP/agents/$(basename "$agent")"
+          done
           for skill in ${config.home.homeDirectory}/configuration/home/skills/*; do
             name=$(basename "$skill")
-            for skillsdir in \
-              ${config.home.homeDirectory}/.pi/agent/skills \
-              ${config.home.homeDirectory}/.claude/skills; do
-              dest="$skillsdir/$name"
-              if [ -d "$dest" ] && [ ! -L "$dest" ]; then
-                $DRY_RUN_CMD rm -rf $VERBOSE_ARG "$dest"
-              fi
-              $DRY_RUN_CMD ln -sfn $VERBOSE_ARG "$skill" "$dest"
+            if [ -d "$OMP/skills/$name" ] && [ ! -L "$OMP/skills/$name" ]; then
+              $DRY_RUN_CMD rm -rf $VERBOSE_ARG "$OMP/skills/$name"
+            fi
+            $DRY_RUN_CMD ln -sfn $VERBOSE_ARG "$skill" "$OMP/skills/$name"
+          done
+          for legacy in \
+            ${config.home.homeDirectory}/.pi/agent/AGENTS.md \
+            ${config.home.homeDirectory}/.claude/CLAUDE.md; do
+            if [ -L "$legacy" ]; then
+              $DRY_RUN_CMD rm $VERBOSE_ARG "$legacy"
+            fi
+          done
+          for skillsdir in \
+            ${config.home.homeDirectory}/.pi/agent/skills \
+            ${config.home.homeDirectory}/.claude/skills; do
+            for dest in "$skillsdir"/*; do
+              [ -L "$dest" ] || continue
+              case "$(readlink "$dest")" in
+                ${config.home.homeDirectory}/configuration/*)
+                  $DRY_RUN_CMD rm $VERBOSE_ARG "$dest"
+                  ;;
+              esac
             done
           done
         '';
