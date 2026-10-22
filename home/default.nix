@@ -210,7 +210,7 @@
           $DRY_RUN_CMD mkdir -p $VERBOSE_ARG \
             $OMP/skills \
             $OMP/agents
-          for name in AGENTS.md RULES.md config.yml; do
+          for name in AGENTS.md RULES.md config.yml keybindings.yml; do
             src=${config.home.homeDirectory}/configuration/home/omp/$name
             if [ -f "$OMP/$name" ] && [ ! -L "$OMP/$name" ]; then
               $DRY_RUN_CMD mv $VERBOSE_ARG "$OMP/$name" "$OMP/$name.backup"

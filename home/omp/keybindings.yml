@@ -1,0 +1,7 @@
+app.agents.hub: Alt+G
+app.model.selectTemporary: Alt+Shift+M
+app.plan.toggle: Alt+N
+app.ask.hide: Alt+B
+app.display.reset: Alt+C
+app.clipboard.copyLine: Alt+Shift+X
+app.retry: F5

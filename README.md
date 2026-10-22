@@ -44,7 +44,8 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
     by a home-manager activation script.
   - `omp/` — omp agent setup, symlinked into `~/.omp/agent/`:
     `AGENTS.md` (global instructions), `RULES.md` (sticky rules carried
-    on every request), `config.yml` (settings incl. model roles), and
+    on every request), `config.yml` (settings incl. model roles),
+    `keybindings.yml` (remaps onto Alt letters i3 leaves free), and
     `agents/` (custom task agents).
 - `flakes/nordvpn/` — Vendored standalone flake providing the NordVPN CLI/GUI
   packages and a NixOS module; consumed by `flake.nix` as `nordvpn-flake`.
