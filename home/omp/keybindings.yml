@@ -5,3 +5,4 @@ app.ask.hide: Alt+B
 app.display.reset: Alt+C
 app.clipboard.copyLine: Alt+Shift+X
 app.retry: F5
+app.live.toggle: []
