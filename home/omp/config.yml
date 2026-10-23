@@ -5,9 +5,9 @@ modelRoles:
   explorer: zai/glm-5.3-flash
 symbolPreset: unicode
 composer:
-  shape: band
+  shape: pi
 theme:
-  dark: titanium
+  dark: basalt
   light: light
 setupVersion: 2
 lsp:
@@ -28,6 +28,7 @@ skills:
 tui:
   vimMode: true
   vimModeDisplay: icon
+  tight: false
 spelling:
   autocomplete: "off"
 emojiAutocomplete: false
@@ -42,3 +43,11 @@ magicKeywords:
 hideThinkingBlock: true
 plan:
   enabled: false
+statusLine:
+  preset: compact
+  separator: block
+  transparent: false
+display:
+  subagentLivePreview: true
+title:
+  icons: emoji
