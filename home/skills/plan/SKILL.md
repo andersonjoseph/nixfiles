@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Explore read-only and design a plan for GLM to implement — file-level steps, one bounded action each, an acceptance check per step. Use when the user asks to plan, design, or scope a change before implementation.
+description: Explore read-only and design a plan for the implementer agent — file-level steps, one bounded action each, an acceptance check per step. Use when the user asks to plan, design, or scope a change before implementation.
 argument-hint: "What to plan"
 disable-model-invocation: true
 ---
@@ -48,6 +48,13 @@ the open. Write for that reader.
 - **Hard-part flags**: steps touching tricky concurrency, security-sensitive
   code, or core architecture are marked for the orchestrator — the
   implementer escalates them instead of improvising.
+- **Write paths**: a plan that adds or changes a write path (pipeline,
+  store, queue) lists every writer of each new table or key — its trigger,
+  its time source, its order against the other writers, and which inputs
+  it covers.
+- **Shared chrome**: when a new component copies a neighbour's chrome (tab
+  groups, stat cells, card shells), the plan decides share or duplicate.
 - **Files to touch**, one line each, marked `NEW`/`EDIT` with the intent.
 - **Open questions**, if any — resolve them before implementation starts,
-  not during.
+  not during: after the draft, load the `grilling` skill and settle them
+  with me one at a time, then give the final plan.

@@ -21,8 +21,10 @@ task:
   maxConcurrency: 4
   maxRecursionDepth: 1
   prewalk: false
+  enableEffort: true
+  maxEffort: high
   agentModelOverrides:
-    scout: zai/glm-5.3-flash
+    scout: "@explorer"
 skills:
   enableSkillCommands: true
 tui:
@@ -53,3 +55,5 @@ title:
   icons: emoji
 modelRoleStorage: project
 personality: pragmatic
+dev:
+  autoqaConsent: denied

@@ -20,63 +20,57 @@ I hate complications and overengineered solutions. Work accordingly:
 
 ## Model roles
 
-Subagents go through the task tool. Roles, split by strength:
+Subagents go through the task tool. Each role maps to a model in
+`modelRoles` (config.yml), the only place that names a model; change models
+with `/model` → Roles, never in a skill or an agent file.
 
-- **Main session (GLM 5.3)** — planner, orchestrator; keeps the hardest
-  parts: tricky concurrency, security-sensitive code, core architecture
-  changes.
-- **implementer agent (GLM 5.3, high effort)** — executes a well-scoped
-  plan.
-- **reviewer agent (GLM 5.3, high effort, fresh session)** — reviews the
-  finished diff against its plan; round 1 of high-risk code takes the
-  strong reviewer, low-risk code and every round 2 onward the light one.
-- **scout agent (GLM-5.3-Flash)** — read-only exploration, summaries,
+- **Main session** (`default` role) — planner, orchestrator; keeps the
+  hardest parts: tricky concurrency, security-sensitive code, core
+  architecture changes.
+- **`implementer` agent** (`@implementer`) — executes one phase of a plan; a
+  new one per phase. Its rules live in its agent file.
+- **`reviewer` agent** (`@review`) — reviews one phase and stays for every
+  round of it; a new one per phase. Its rules live in its agent file.
+- **`scout`** (bundled, `@explorer`) — read-only exploration, summaries,
   lookups.
-
-Roles map to models in `modelRoles` (config.yml); swapping a model never
-touches an agent file.
 
 Rules:
 
 - Plans are written for the implementer as the reader: file-level steps,
   one bounded action each, an acceptance check per step. It executes scoped
   work well and reasons worse in the open — never leave a step open-ended.
-- Delegate implementation as one task (`agent: implementer`) — the whole
-  plan; it commits per step and runs the tests between them without
-  waiting.
+- Delegate implementation one phase at a time, each phase to a new
+  `implementer` task; it commits per step and runs the tests between them
+  without waiting. It also takes the review fixes of its phase. The next
+  phase never reuses it.
 - Delegate exploration and light subagent work to `scout`.
 - Noisy work (capture, debugging, tool setup) goes to a subagent from the
   start — never burn the orchestrator thread on it. One unit of work per
   session.
 - Skills load in the agent doing the work — never in the parent
-  orchestrating it. Name the skills in the task brief; the child reads
-  them. Keep skill bodies out of the orchestrator's context.
+  orchestrating it. Name the skills matching the touched files in the task
+  brief; skills an agent always needs are autoloaded by its agent file.
+  Keep skill bodies out of the orchestrator's context.
 - When the implementer escalates a hard part back, take it over in the
   main session.
 
 ## Reviews
 
-- Run the review as a fresh `reviewer` task spawn with the diff scope and
-  the plan it was implemented against. Name its skills in the brief —
-  `thermo-nuclear-code-quality-review` plus any matching the touched files.
-- Tier by risk: round 1 of high-risk code (core logic, money math,
-  pipeline, security, concurrency) goes to the strong reviewer; round 1
-  of low-risk code (UI only, refactors, release notes, docs) and every
-  round 2 onward go to the light reviewer. While GLM-only both tiers are
-  the same model — split the roles when Claude connects.
-- Effort high is the default; effort max only when I ask for it.
+- Spawn one `reviewer` per phase as soon as that phase's implementer
+  returns — not one review at the end — with the phase's diff scope, the
+  plan, and the skills matching the touched files.
+- Effort by risk per phase, on the same model: high-risk phases (core
+  logic, money math, pipeline, security, concurrency) spawn the reviewer
+  with `effort: hi`; low-risk phases (UI only, refactors, release notes,
+  docs) with `effort: med`. The reviewer keeps it for all rounds.
+- Effort high is the default; effort max only when I ask for it
+  (`task.maxEffort: high` caps `effort: hi`).
 - Ping-pong with the implementer until GREENLIGHT; after 3 rounds without
   greenlight, stop and report what remains.
-- Each round is a new task spawn. Its prompt carries the ping-pong so far:
-  the brief, each earlier finding, the answer to it, and what is still
-  open.
-- Round 2 onward is scoped to the fixes and what they touch; it does not
-  re-review code an earlier round marked correct.
-- The reviewer checks HEAD only. The implementer already ran the checks on
-  each commit — neither the reviewer nor the orchestrator repeats them.
+- Round 2 onward goes to the same reviewer with `write agent://<name>`:
+  the fixup SHAs, the answer to each finding, and what is still open.
 - Review fixes go in as `git commit --fixup=<sha>` commits; the
   orchestrator squashes them.
-- Tests: only the packages the change touches, never the whole suite.
 
 ## Habits
 
