@@ -1,5 +1,5 @@
 modelRoles:
-  default: zai/glm-5.3
+  default: anthropic/claude-fable-5-1:off
   implementer: zai/glm-5.3
   review: zai/glm-5.3
   explorer: zai/glm-5.3-flash
@@ -51,3 +51,5 @@ display:
   subagentLivePreview: true
 title:
   icons: emoji
+modelRoleStorage: project
+personality: pragmatic
