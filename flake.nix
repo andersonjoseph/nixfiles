@@ -46,7 +46,6 @@
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
             omp = free-omp;
-            claude-code = free-claude-code;
             inherit
               jailed-omp
               jailed-claude-code
@@ -71,11 +70,11 @@
       );
 
       free-omp = llm-agents.packages.${system}.omp;
-      free-claude-code = llm-agents.packages.${system}.claude-code;
 
       jailed-omp = jailed-agents.lib.${system}.makeJailedOmp {
         name = "jailed-omp";
         enableNix = true;
+	extraReadwriteDirs = ["~/configuration"];
         extraPkgs = [
           sideshow-pkg
         ];
@@ -84,6 +83,7 @@
       jailed-claude-code = jailed-agents.lib.${system}.makeJailedClaudeCode {
         name = "jailed-claude-code";
         enableNix = true;
+	extraReadwriteDirs = ["~/configuration"];
         extraPkgs = [
           sideshow-pkg
           pkgs.nodejs

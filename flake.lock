@@ -242,11 +242,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1792757961,
-        "narHash": "sha256-d1k+3us8NO1Clk25562sQOerTRJEuF+ONyXYMQ3tEGc=",
+        "lastModified": 1792763231,
+        "narHash": "sha256-9TRpnxBL6DcRUM4F6uqZWyyfuRBz+YKEEczzv6N8MW4=",
         "owner": "andersonjoseph",
         "repo": "jailed-agents",
-        "rev": "438cdee56658a16e19582e831e8414207be1ba81",
+        "rev": "7acbe3ced320fbec0847814c0b935f5efa9e79d7",
         "type": "github"
       },
       "original": {
