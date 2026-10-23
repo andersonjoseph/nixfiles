@@ -20,7 +20,17 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, nordvpn-flake, jailed-agents, llm-agents, hunk, sideshow, herdr, ... }:
+    {
+      nixpkgs,
+      home-manager,
+      nordvpn-flake,
+      jailed-agents,
+      llm-agents,
+      hunk,
+      sideshow,
+      herdr,
+      ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -35,10 +45,10 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
-            pi = free-pi;
+            omp = free-omp;
             claude-code = free-claude-code;
             inherit
-              jailed-pi
+              jailed-omp
               jailed-claude-code
               t3-server
               t3-desktop
@@ -46,25 +56,26 @@
           })
         ];
       };
-      nordvpn-module = ({...}: {
-	  imports = [
-	    nordvpn-flake.nixosModules.nordvpn
-	  ];
-	  services.nordvpn.enable = true;
-	  environment.etc.hosts.mode = "0666";
-	  networking.firewall = {
-	    enable =  true;
-	    checkReversePath = "loose";
-	};
-      });
+      nordvpn-module = (
+        { ... }: {
+          imports = [
+            nordvpn-flake.nixosModules.nordvpn
+          ];
+          services.nordvpn.enable = true;
+          environment.etc.hosts.mode = "0666";
+          networking.firewall = {
+            enable = true;
+            checkReversePath = "loose";
+          };
+        }
+      );
 
-      free-pi = llm-agents.packages.${system}.pi;
+      free-omp = llm-agents.packages.${system}.omp;
       free-claude-code = llm-agents.packages.${system}.claude-code;
 
-      jailed-pi = jailed-agents.lib.${system}.makeJailedPi {
-        name = "jailed-pi";
+      jailed-omp = jailed-agents.lib.${system}.makeJailedOmp {
+        name = "jailed-omp";
         enableNix = true;
-        enableT3 = true;
         extraPkgs = [
           sideshow-pkg
         ];
@@ -89,20 +100,20 @@
 
       nixosConfigurations.vondel = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-	modules = [
-	  overlays
-	  nordvpn-module
-	  ./hosts/vondel
-	  ./home
-	  home-manager.nixosModules.home-manager
-	];
+        modules = [
+          overlays
+          nordvpn-module
+          ./hosts/vondel
+          ./home
+          home-manager.nixosModules.home-manager
+        ];
       };
 
       nixosConfigurations.ashika = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-	  overlays
-	  nordvpn-module
+          overlays
+          nordvpn-module
           ./hosts/ashika
           ./home
           home-manager.nixosModules.home-manager
@@ -112,8 +123,8 @@
       nixosConfigurations.lyndon = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-	  overlays
-	  nordvpn-module
+          overlays
+          nordvpn-module
           ./hosts/lyndon
           ./home
           home-manager.nixosModules.home-manager

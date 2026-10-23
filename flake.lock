@@ -242,11 +242,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1792594878,
-        "narHash": "sha256-5uJLmjRWx+9FoLa3Ro4L44KJGDHzsoAnJ2/EnxBm6Qc=",
+        "lastModified": 1792757961,
+        "narHash": "sha256-d1k+3us8NO1Clk25562sQOerTRJEuF+ONyXYMQ3tEGc=",
         "owner": "andersonjoseph",
         "repo": "jailed-agents",
-        "rev": "6c8ef883205f9b0cb590bbf8123cdc6353308709",
+        "rev": "438cdee56658a16e19582e831e8414207be1ba81",
         "type": "github"
       },
       "original": {
@@ -311,11 +311,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1780749050,
-        "narHash": "sha256-3av0pIjlOWQ6rDbNOmpUSvbNnJkGORQKKjb4LtCZsIY=",
+        "lastModified": 1792502884,
+        "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
         "type": "github"
       },
       "original": {

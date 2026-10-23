@@ -39,9 +39,9 @@
           [
             neovim
             hunk
-            pi
+            omp
             claude-code
-            jailed-pi
+            jailed-omp
             jailed-claude-code
             jq
             ripgrep
