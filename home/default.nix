@@ -38,10 +38,7 @@
           [
             neovim
             hunk
-            omp
-            claude-code
             jailed-omp
-            jailed-claude-code
             jq
             ripgrep
             tree

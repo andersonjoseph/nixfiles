@@ -25,7 +25,6 @@
       home-manager,
       nordvpn-flake,
       jailed-agents,
-      llm-agents,
       hunk,
       sideshow,
       herdr,
@@ -43,11 +42,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
-            omp = free-omp;
-            inherit
-              jailed-omp
-              jailed-claude-code
-              ;
+            inherit jailed-omp;
           })
         ];
       };
@@ -65,24 +60,12 @@
         }
       );
 
-      free-omp = llm-agents.packages.${system}.omp;
-
       jailed-omp = jailed-agents.lib.${system}.makeJailedOmp {
         name = "jailed-omp";
         enableNix = true;
 	extraReadwriteDirs = ["~/configuration"];
         extraPkgs = [
           sideshow-pkg
-        ];
-      };
-
-      jailed-claude-code = jailed-agents.lib.${system}.makeJailedClaudeCode {
-        name = "jailed-claude-code";
-        enableNix = true;
-	extraReadwriteDirs = ["~/configuration"];
-        extraPkgs = [
-          sideshow-pkg
-          pkgs.nodejs
         ];
       };
     in
