@@ -19,7 +19,7 @@
     isGaming = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Whether to enable gaming-related programs (lutris, etc.)";
+      description = "Whether to enable gaming-related programs (heroic, etc.)";
     };
 
     xrandr = {

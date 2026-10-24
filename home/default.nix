@@ -80,6 +80,11 @@
             (ffmpeg-full.override { withUnfree = true; })
             brightnessctl
             eternal-terminal
+          ])
+          ++ (lib.optionals nixosConfig.custom.isGaming [
+            (heroic.override {
+              extraPkgs = pkgs': [ pkgs'.gamemode ];
+            })
           ]);
 
         services.redshift = lib.mkIf isDesktopMachine {
@@ -122,10 +127,6 @@
               cudaSupport = true;
             }
           );
-        };
-
-        programs.lutris = lib.mkIf nixosConfig.custom.isGaming {
-          enable = true;
         };
 
         programs.git = {

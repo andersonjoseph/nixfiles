@@ -131,6 +131,7 @@ in
 
   programs.i3lock.enable = lib.mkIf isDesktopMachine true;
   programs.ssh.startAgent = true;
+  programs.gamemode.enable = lib.mkIf config.custom.isGaming true;
 
   services.openssh = {
     enable = true;
