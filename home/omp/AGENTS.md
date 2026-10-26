@@ -58,7 +58,10 @@ Rules:
 
 - Spawn one `reviewer` per phase as soon as that phase's implementer
   returns — not one review at the end — with the phase's diff scope, the
-  plan, and the skills matching the touched files.
+  plan, and the skills matching the touched files. Exception: a trivial
+  diff — one file or one flag, no cross-dependencies, targeted test
+  already green — gets no reviewer. Decide size before spawning, not
+  after.
 - Effort by risk per phase, on the same model: high-risk phases (core
   logic, money math, pipeline, security, concurrency) spawn the reviewer
   with `effort: hi`; low-risk phases (UI only, refactors, release notes,
@@ -80,5 +83,8 @@ Rules:
   one.
 - Changing a gate (flag/boolean)? Grep the flag across the feature
   directory and open every hit — gates repeat across components.
+- Verify with the narrowest check that covers the change: the targeted
+  test file, a build when types move, a smoke run for behavior. Full
+  suites belong to CI — don't re-run them locally to feel safe.
 - Read the exact block before an edit; prefer a whole-file write for new
   or heavily edited files.
