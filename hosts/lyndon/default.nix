@@ -9,6 +9,7 @@
   networking.hostName = "lyndon";
   custom.wallpaperFile = ./wallpaper;
   custom.hasNvidia = true;
+  custom.isGaming = true; # TEMP: test only, do not commit
 
   # External monitor: mirror the laptop, run at 100Hz with full RGB range.
   custom.xrandr.startupCommand = ''
