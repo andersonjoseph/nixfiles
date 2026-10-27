@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Explore read-only and design a plan for the implementer agent — file-level steps, one bounded action each, an acceptance check per step. Use when the user asks to plan, design, or scope a change before implementation.
+description: Explore read-only and design a plan for the implementer — file-level steps, one bounded action each, an acceptance check per step. Use when the user asks to plan, design, or scope a change before implementation.
 argument-hint: "What to plan"
 disable-model-invocation: true
 ---
@@ -10,8 +10,8 @@ Explore the codebase and design the change — do not make it.
 ## Operating rules
 
 - Explore freely: read files, search, run read-only commands, and
-  delegate exploration to the `scout` agent (`task`, agent `scout`)
-  when that is faster.
+  delegate exploration to the explorer (Model roles in the personal
+  instructions) when that is faster.
 - Do not create or modify any file. Never edit project files from
   planning, and never direct a subagent to edit them.
 - Stay in planning. If the user asks to implement, point at the
@@ -22,9 +22,9 @@ Explore the codebase and design the change — do not make it.
 
 ## Plan format
 
-The implementer is the implementer agent (Model roles in the personal
-instructions): it executes clearly scoped steps well and reasons worse in
-the open. Write for that reader.
+The implementer (Model roles in the personal instructions) executes
+clearly scoped steps well and reasons worse in the open. Write for that
+reader.
 
 - **One diagram that carries the logic** — publish it to the user's
   sideshow board as a mermaid surface (the `sideshow` skill, piped from
