@@ -35,6 +35,8 @@
       pkgs = import nixpkgs { inherit system; };
       # Packages provided by flake inputs, exposed as pkgs.<name>.
       sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
+      t3-server = pkgs.callPackage ./packages/t3code/package.nix { };
+      t3-desktop = pkgs.callPackage ./packages/t3code/appimage.nix { };
 
       overlays = {
         nixpkgs.overlays = [
@@ -43,6 +45,10 @@
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
             inherit jailed-omp;
+            inherit
+              t3-server
+              t3-desktop
+              ;
           })
         ];
       };
