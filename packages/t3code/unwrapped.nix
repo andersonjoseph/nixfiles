@@ -19,7 +19,7 @@
   writeDarwinBundle,
   xcbuild,
   fetchPnpmDeps,
-  pnpm_11,
+  pnpm_12,
   pnpmConfigHook,
   pnpmBuildHook,
   cacert,
@@ -30,7 +30,7 @@ stdenv.mkDerivation (
   let
     appName = "T3 Code (Alpha)";
     electron = electron_44;
-    pnpm = pnpm_11;
+    pnpm = pnpm_12;
     desktopIcon =
       if stdenv.hostPlatform.isDarwin then
         "assets/prod/black-macos-1024.png"
@@ -40,7 +40,7 @@ stdenv.mkDerivation (
   in
   {
     pname = "t3code-unwrapped";
-    version = "0.1.1";
+    version = "0.1.3";
     strictDeps = true;
     __structuredAttrs = true;
 
@@ -48,7 +48,7 @@ stdenv.mkDerivation (
       owner = "pingdotgg";
       repo = "t3code";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-kIGiC/uCDgRlqt+8/zZ9K48NBuCGJ1TgqW+rpdZgZUQ=";
+      hash = "sha256-xxmwaHPkXzR0CAtknCc6raAzcnPtmw8wxF3YO3WcbE4=";
     };
 
     postPatch = ''
@@ -105,11 +105,11 @@ stdenv.mkDerivation (
         ;
 
       fetcherVersion = 4;
-      hash = "sha256-witoens1UicKE+SIQCrRk9YtbAVIW5x+2MqDrFh4F0s=";
+      hash = "sha256-8x9wUvxXBq++6EGzOLLACloCNqm9L0JDX8gTCVA+OPE=";
     };
 
     preBuild = ''
-      # pnpm 11 otherwise detects the package version updates below as
+      # pnpm otherwise detects the package version updates below as
       # dependency drift and runs another install, including lifecycle scripts.
       export pnpm_config_verify_deps_before_run=false
 
