@@ -23,14 +23,20 @@ in briefs.
    ceremony.
 3. When a phase returns, launch its reviewer at once with the phase's
    commits, the plan, the skills matching the touched files, at the tier
-   its risk gets (Reviews in the personal instructions).
+   its risk gets (Reviews in the personal instructions). Its consumer
+   trace also covers what earlier phases of the branch added and this
+   phase reads, so a chain that spans phases gets checked where it
+   closes.
 4. Ping-pong: send the reviewer's findings to the phase's implementer; it
    fixes each one or disagrees. Send its fixup SHAs and answers to the
    same reviewer. Stop at GREENLIGHT, or after 3 rounds without it and
    report what remains. Rounds reach the agents per harness: omp
    continues the same agents with `write agent://<name>`; under T3 (pi,
    claude) every round is a new `delegate_task` whose prompt carries the
-   ping-pong so far — brief, findings, answers, open objections.
+   ping-pong so far — brief, findings, answers, open objections. A
+   finding whose fix only deletes code — a dead field, an unused return
+   value, a wrapper — is fixed in the same round, even when the reviewer
+   calls it a nit; never defer it.
 5. After GREENLIGHT, run `git branch --show-current`, then squash with
    `GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash <base>`. Then start
    the next phase.

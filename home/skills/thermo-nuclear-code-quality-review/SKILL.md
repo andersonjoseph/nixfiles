@@ -68,6 +68,20 @@ Apply the baseline prompt above, plus these explicit review rules:
    - If related updates can leave state half-applied, push for a more atomic structure.
    - Do not over-index on micro-optimizations, but do flag avoidable orchestration complexity that makes the implementation more brittle.
 
+## Required Procedures
+
+Run both on every review, before the open-ended questions below.
+
+### The plan is not a defense
+
+If the plan prescribes structure that this review would flag — a lookup layer, a wrapper, a second type for the same data, reuse of a helper through a search on its output — report it as a **plan finding**: say what to change in the code and in the plan. Do not pass it because the implementer followed the plan.
+
+### Consumer trace
+
+- For every new type field, export, parameter, return value (including each key of a returned object) and file in the diff, name one reader outside tests. No reader is a finding: delete it.
+- For every value reached through a lookup — a map from a key to something defined in the same codebase, a `find` on a list by a literal, a string key resolved to a component or function — ask whether the consumer can hold the value directly. If it can, the lookup is a finding.
+- A lookup by a display string (a label, a title, a name a user sees) is always a finding: a rename breaks it silently and no type check sees it.
+
 ## Primary Review Questions
 
 For every meaningful change, ask:
@@ -187,6 +201,8 @@ Treat these as presumptive blockers unless the author can justify them clearly:
 - the PR adds ad-hoc branching that makes an existing flow more tangled
 - the PR solves a local problem by scattering feature checks across shared code
 - the PR adds an unnecessary abstraction, wrapper, or cast-heavy contract that makes the design more indirect
+- the PR adds a field, export, return value, or file that nothing outside tests reads
+- the PR reaches a value through a lookup the consumer could skip, or through a display string
 - the PR duplicates an existing helper or puts logic in the wrong layer when there is a clear canonical home
 
 If those conditions are not met, leave explicit, actionable feedback and push for a cleaner decomposition.

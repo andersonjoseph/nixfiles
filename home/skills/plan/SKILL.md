@@ -52,6 +52,13 @@ reader.
   store, queue) lists every writer of each new table or key — its trigger,
   its time source, its order against the other writers, and which inputs
   it covers.
+- **No prescribed indirection**: give each data shape as its consumers
+  use it. Do not prescribe a key-to-value lookup table, a second type for
+  the same data, or a purity rule ("no X in this file") unless a named
+  consumer or test needs it. Reuse an existing helper only when its
+  output fits as-is; if a step would search or filter that output to get
+  one value, put the value in directly. Every field, export and return
+  value the plan adds names its reader.
 - **Shared chrome**: when a new component copies a neighbour's chrome (tab
   groups, stat cells, card shells), the plan decides share or duplicate.
 - **Files to touch**, one line each, marked `NEW`/`EDIT` with the intent.
