@@ -1,0 +1,8 @@
+[
+  { "key": "ctrl+alt+s", "command": "sidebar.toggle" },
+  { "key": "ctrl+alt+f", "command": "rightPanel.toggleMaximized" },
+  { "key": "ctrl+alt+m", "command": "modelPicker.toggle" },
+  { "key": "ctrl+alt+d", "command": "diff.toggle" },
+  { "key": "ctrl+alt+e", "command": "composer.increaseEffort" },
+  { "key": "ctrl+esc", "command": "thread.stop" }
+]

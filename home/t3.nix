@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   nixosConfig,
   ...
 }:
@@ -24,6 +25,12 @@ in
     pkgs.t3-desktop
     t3-cli
   ];
+
+  # T3 Code writes its default rules into this file at startup. The write
+  # follows the symlink, so the defaults land in the checkout.
+  home.file.".t3/userdata/keybindings.json" = lib.mkIf isDesktopMachine {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/t3/keybindings.json";
+  };
 
   systemd.user.services.t3code = lib.mkIf isVondel {
     Unit = {
