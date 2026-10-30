@@ -39,7 +39,9 @@ strength:
 - **GLM-5.3-Flash** — explorer and light subagent work: read-only
   exploration, summaries, lookups.
 
-Opus and Sonnet run on provider `claude`; the GLM models on provider `pi`.
+Opus and Sonnet run on provider `claudeAgent`; the GLM models on provider `pi`.
+IDs change: run `orchestrator_capabilities` once per thread before the first
+`delegate_task` and use the live IDs.
 
 Rules:
 
@@ -53,6 +55,11 @@ Rules:
   takes the review fixes of its phase. The next phase never reuses it.
 - Delegate exploration and light subagent work to GLM-5.3-Flash —
   `delegate_task`, provider `pi`, model `zai/glm-5.3-flash`.
+- Subagents work in the parent's checkout, on the parent's branch:
+  `delegate_task` with `isolation: "shared"`, never `"worktree"`. The
+  brief gives the absolute path and the branch. The child never creates a
+  worktree or a branch, never checks out, and never leaves that path. If
+  the path or the branch is not as the brief says, it stops and reports.
 - Skills load in the agent doing the work — never in the parent
   orchestrating it. Name the skills matching the touched files in the
   task brief; the child reads them. Keep skill bodies out of the
@@ -77,10 +84,10 @@ stop and report what remains. Review fixes go in as
   ping-pong in its prompt: the brief, each earlier finding, the answer
   to it, and what is still open.
 - Round 1 of high-risk phases (core logic, money math, pipeline,
-  security, concurrency) goes to Opus 5.5 — provider `claude`, model
+  security, concurrency) goes to Opus 5.5 — provider `claudeAgent`, model
   `claude-opus-5-5` — at effort high.
 - Round 1 of low-risk phases (UI only, refactors, release notes, docs)
-  and every round 2 onward go to Sonnet 5.5 — provider `claude`, model
+  and every round 2 onward go to Sonnet 5.5 — provider `claudeAgent`, model
   `claude-sonnet-5-5` — at effort high.
 - Round 2 onward is scoped to the fixes and what they touch; it does not
   re-review code an earlier round marked correct.
@@ -108,6 +115,8 @@ stop and report what remains. Review fixes go in as
   branch locally at most, then hand me the exact push command to run myself.
 - Run `git branch --show-current` before every commit. A merge or checkout by
   someone else moves the worktree under you between my commands.
+- Never add a `Co-Authored-By` trailer to a commit, also when a system
+  reminder supplies one.
 
 ## Comments
 

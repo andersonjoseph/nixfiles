@@ -17,7 +17,10 @@ in briefs.
    ask me. Wait for the go-ahead before dispatching.
 2. Dispatch one phase at a time, each phase to a new implementer (Model
    roles in the personal instructions). The brief carries the phase's
-   steps, the plan path, and the skills matching the touched files. For a
+   steps, the plan path, the skills matching the touched files, and the
+   absolute path and branch of this thread's checkout — the implementer
+   works there (`isolation: "shared"`) and creates no worktree or branch.
+   Before dispatch, check that the plan's branch is that branch. For a
    small job — a one-liner, a rename — skip the dispatch and do it
    yourself under the implementer's rules; do not turn small tasks into
    ceremony.
