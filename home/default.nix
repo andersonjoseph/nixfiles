@@ -39,7 +39,7 @@
           [
             neovim
             hunk
-            jailed-omp
+            jailed-pi
             jq
             ripgrep
             tree

@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nordvpn-flake.url = "path:./flakes/nordvpn";
     llm-agents.url = "github:numtide/llm-agents.nix/04f4e45f5be619f430cb5be5c0f579b8ecb27324";
-    jailed-agents.url = "github:andersonjoseph/jailed-agents";
+    jailed-agents.url = "github:andersonjoseph/jailed-agents/enable-t3";
     jailed-agents.inputs.llm-agents.follows = "llm-agents";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
@@ -44,7 +44,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             sideshow = sideshow-pkg;
-            inherit jailed-omp;
+            inherit jailed-pi;
             inherit
               t3-server
               t3-desktop
@@ -66,13 +66,10 @@
         }
       );
 
-      jailed-omp = jailed-agents.lib.${system}.makeJailedOmp {
-        name = "jailed-omp";
+      jailed-pi = jailed-agents.lib.${system}.makeJailedPi {
+        enableT3 = true;
         enableNix = true;
-	extraReadwriteDirs = ["~/configuration"];
-        extraPkgs = [
-          sideshow-pkg
-        ];
+        extraReadwriteDirs = [ "~/configuration" ];
       };
     in
     {
