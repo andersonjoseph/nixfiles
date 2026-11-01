@@ -101,12 +101,6 @@
         # delta stays installed for the lazygit pager; git itself pages through hunk.
         programs.delta.enable = true;
 
-        # Sandboxes without a root mapping (T3 AppImage, agent jails) show
-        # store files as nobody, so ssh rejects a store-linked config. The
-        # repo file is user-owned; that uid maps in every sandbox.
-        home.file.".ssh/config".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/ssh/config";
-
         programs.obs-studio = lib.mkIf isDesktopMachine {
           enable = true;
           package = (
@@ -174,56 +168,41 @@
           settings = pkgs.lib.importTOML ./starship.toml;
         };
 
-        home.file."pictures/wallpaper" = lib.mkIf (nixosConfig.custom.wallpaperFile != null) {
-          source = nixosConfig.custom.wallpaperFile;
-        };
-
-        home.file.".config/nvim" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/nvim";
-        };
-
-        # Agent instruction files and skills for omp, pi and claude,
-        # linked directly instead of through the home-manager store
-        # tree so edits in this checkout are picked up without a
-        # rebuild. ~/.omp/agent also holds live state (sessions,
-        # databases) — only the named entries below are managed;
-        # config.yml backs up once before its first link. Foreign
-        # entries in those directories stay.
-        home.activation.agentLinks = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-          OMP=${config.home.homeDirectory}/.omp/agent
-          PI=${config.home.homeDirectory}/.pi/agent
-          CLAUDE=${config.home.homeDirectory}/.claude
-          $DRY_RUN_CMD mkdir -p $VERBOSE_ARG \
-            $OMP/skills \
-            $OMP/agents \
-            $PI/skills \
-            $CLAUDE/skills
-          for name in AGENTS.md RULES.md config.yml keybindings.yml; do
-            src=${config.home.homeDirectory}/configuration/home/omp/$name
-            if [ -f "$OMP/$name" ] && [ ! -L "$OMP/$name" ]; then
-              $DRY_RUN_CMD mv $VERBOSE_ARG "$OMP/$name" "$OMP/$name.backup"
-            fi
-            $DRY_RUN_CMD ln -sfn $VERBOSE_ARG "$src" "$OMP/$name"
-          done
-          for agent in ${config.home.homeDirectory}/configuration/home/omp/agents/*; do
-            $DRY_RUN_CMD ln -sfn $VERBOSE_ARG "$agent" "$OMP/agents/$(basename "$agent")"
-          done
-          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-            ${config.home.homeDirectory}/configuration/home/pi/AGENTS.md \
-            $PI/AGENTS.md
-          $DRY_RUN_CMD ln -sfn $VERBOSE_ARG \
-            ${config.home.homeDirectory}/configuration/home/claude/CLAUDE.md \
-            $CLAUDE/CLAUDE.md
-          for skillsdir in $OMP/skills $PI/skills $CLAUDE/skills; do
-            for skill in ${config.home.homeDirectory}/configuration/home/skills/*; do
-              name=$(basename "$skill")
-              if [ -d "$skillsdir/$name" ] && [ ! -L "$skillsdir/$name" ]; then
-                $DRY_RUN_CMD rm -rf $VERBOSE_ARG "$skillsdir/$name"
-              fi
-              $DRY_RUN_CMD ln -sfn $VERBOSE_ARG "$skill" "$skillsdir/$name"
-            done
-          done
-        '';
+        # Entries link straight into the checkout so edits apply without a
+        # rebuild. Ssh needs a user-owned config: sandboxes without a root
+        # mapping (T3 AppImage, agent jails) show store files as nobody. The
+        # agent state dirs hold live data; only named entries are managed and
+        # a colliding real file moves to *.backup once. The wallpaper is the
+        # one store-sourced entry.
+        home.file =
+          let
+            repo = "${config.home.homeDirectory}/configuration/home";
+            link = rel: {
+              source = config.lib.file.mkOutOfStoreSymlink "${repo}/${rel}";
+            };
+            linkDir =
+              target: rel:
+              lib.mapAttrs' (name: _type: lib.nameValuePair "${target}/${name}" (link "${rel}/${name}")) (
+                builtins.readDir (./. + "/${rel}")
+              );
+          in
+          {
+            ".omp/agent/AGENTS.md" = link "omp/AGENTS.md";
+            ".omp/agent/RULES.md" = link "omp/RULES.md";
+            ".omp/agent/config.yml" = link "omp/config.yml";
+            ".omp/agent/keybindings.yml" = link "omp/keybindings.yml";
+            ".pi/agent/AGENTS.md" = link "pi/AGENTS.md";
+            ".claude/CLAUDE.md" = link "claude/CLAUDE.md";
+            ".ssh/config" = link "ssh/config";
+            ".config/nvim" = link "nvim";
+          }
+          // linkDir ".omp/agent/agents" "omp/agents"
+          // linkDir ".omp/agent/skills" "skills"
+          // linkDir ".pi/agent/skills" "skills"
+          // linkDir ".claude/skills" "skills"
+          // lib.optionalAttrs (nixosConfig.custom.wallpaperFile != null) {
+            "pictures/wallpaper".source = nixosConfig.custom.wallpaperFile;
+          };
 
       };
   };
