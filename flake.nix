@@ -58,9 +58,13 @@
             nordvpn-flake.nixosModules.nordvpn
           ];
           services.nordvpn.enable = true;
+          # nordvpnd runs as its own system user and rewrites /etc/hosts on
+          # connect, so the file must stay writable by it.
           environment.etc.hosts.mode = "0666";
           networking.firewall = {
             enable = true;
+            # tunnel reply traffic arrives on the nordlynx interface; strict
+            # reverse-path filtering would drop it as spoofed.
             checkReversePath = "loose";
           };
         }

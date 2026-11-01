@@ -32,6 +32,7 @@ in
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/t3/keybindings.json";
   };
 
+  # vondel runs the shared t3 server on the tailnet; the other hosts connect.
   systemd.user.services.t3code = lib.mkIf isVondel {
     Unit = {
       Description = "T3 Code server";

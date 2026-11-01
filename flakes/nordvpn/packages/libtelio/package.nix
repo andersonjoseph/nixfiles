@@ -35,6 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-e5JSEy6z/YUE+7b7HT+SNn6BZ8uDNf8riwfaZ59DSxU=";
 
+  # test_runner.sh wraps every call in sudo, which the build sandbox lacks.
   patches = [
     ./libtelio.patch
   ];
@@ -49,10 +50,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   env = {
+    # the llt suite expects proprietary NordVPN secrets we do not have
     BYPASS_LLT_SECRETS = "1";
     LIBCLANG_PATH = "${clang.cc.lib}/lib";
   };
 
+  # same reason: the tests need those secrets and a live network
   doCheck = false;
 
   meta = {

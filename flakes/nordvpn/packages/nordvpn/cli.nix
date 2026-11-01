@@ -25,6 +25,8 @@
   wireguard-tools,
 }:
 let
+  # NordVPN's obfuscated servers speak XOR-scrambled OpenVPN; upstream
+  # OpenVPN does not ship that, Tunnelblick's patch set adds it.
   patchedOpenvpn = openvpn.overrideAttrs (old: {
     patches =
       let
