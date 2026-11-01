@@ -187,17 +187,11 @@
               );
           in
           {
-            ".omp/agent/AGENTS.md" = link "omp/AGENTS.md";
-            ".omp/agent/RULES.md" = link "omp/RULES.md";
-            ".omp/agent/config.yml" = link "omp/config.yml";
-            ".omp/agent/keybindings.yml" = link "omp/keybindings.yml";
             ".pi/agent/AGENTS.md" = link "pi/AGENTS.md";
             ".claude/CLAUDE.md" = link "claude/CLAUDE.md";
             ".ssh/config" = link "ssh/config";
             ".config/nvim" = link "nvim";
           }
-          // linkDir ".omp/agent/agents" "omp/agents"
-          // linkDir ".omp/agent/skills" "skills"
           // linkDir ".pi/agent/skills" "skills"
           // linkDir ".claude/skills" "skills"
           // lib.optionalAttrs (nixosConfig.custom.wallpaperFile != null) {

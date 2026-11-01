@@ -41,13 +41,7 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
   - `i3/` — i3 window manager and bar setup.
   - `nvim/` — Neovim config (LSP, plugins), symlinked into `~/.config/nvim`.
   - `skills/` — agent skills shared by every harness, each symlinked
-    into `~/.omp/agent/skills/`, `~/.pi/agent/skills/` and
-    `~/.claude/skills/` by a home-manager activation script.
-  - `omp/` — omp agent setup, symlinked into `~/.omp/agent/`:
-    `AGENTS.md` (global instructions), `RULES.md` (sticky rules carried
-    on every request), `config.yml` (settings incl. model roles),
-    `keybindings.yml` (remaps onto Alt letters i3 leaves free), and
-    `agents/` (custom task agents).
+    into `~/.pi/agent/skills/` and `~/.claude/skills/` by home-manager.
   - `pi/AGENTS.md`, `claude/CLAUDE.md` — pi and claude global
     instructions for T3 Code, symlinked into `~/.pi/agent/AGENTS.md`
     and `~/.claude/CLAUDE.md`.

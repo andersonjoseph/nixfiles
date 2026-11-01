@@ -21,7 +21,6 @@ no blame. Decisions stay with the user.
 
   | harness | transcripts |
   | --- | --- |
-  | omp | `~/.omp/agent/sessions/<workspace>/` |
   | pi | `~/.pi/agent/sessions/<workspace>/` |
   | claude | `~/.claude/projects/<workspace>/` |
 

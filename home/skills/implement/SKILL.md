@@ -33,10 +33,10 @@ in briefs.
 4. Ping-pong: send the reviewer's findings to the phase's implementer; it
    fixes each one or disagrees. Send its fixup SHAs and answers to the
    same reviewer. Stop at GREENLIGHT, or after 3 rounds without it and
-   report what remains. Rounds reach the agents per harness: omp
-   continues the same agents with `write agent://<name>`; under T3 (pi,
-   claude) every round is a new `delegate_task` whose prompt carries the
-   ping-pong so far — brief, findings, answers, open objections. A
+   report what remains. Rounds reach the agents per harness: under
+   T3 (pi, claude) every round is a new `delegate_task` whose prompt
+   carries the ping-pong so far — brief, findings, answers, open
+   objections. A
    finding whose fix only deletes code — a dead field, an unused return
    value, a wrapper — is fixed in the same round, even when the reviewer
    calls it a nit; never defer it.
