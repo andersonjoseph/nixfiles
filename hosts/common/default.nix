@@ -6,10 +6,7 @@
 }:
 
 let
-  isDesktopMachine = builtins.elem config.networking.hostName [
-    "ashika"
-    "lyndon"
-  ];
+  isDesktopMachine = builtins.elem config.networking.hostName (import ../../home/desktop-hosts.nix);
 in
 {
   imports = [

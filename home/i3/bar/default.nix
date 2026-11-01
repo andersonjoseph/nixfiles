@@ -43,13 +43,15 @@ in
         interval = 60;
       };
     }
-    // lib.optionalAttrs (builtins.elem nixosConfig.networking.hostName [ "ashika" "lyndon" ]) {
-      battery = lib.hm.dag.entryAfter [ "time" ] {
-        command = "${scripts.battery}/bin/battery";
-        markup = "pango";
-        instance = "BAT0";
-        interval = 60;
-      };
-    };
+    //
+      lib.optionalAttrs (builtins.elem nixosConfig.networking.hostName (import ../../desktop-hosts.nix))
+        {
+          battery = lib.hm.dag.entryAfter [ "time" ] {
+            command = "${scripts.battery}/bin/battery";
+            markup = "pango";
+            instance = "BAT0";
+            interval = 60;
+          };
+        };
   };
 }
