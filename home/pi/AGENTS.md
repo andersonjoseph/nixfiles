@@ -63,17 +63,6 @@ Rules:
   orchestrating it. Name the skills in the delegation; the child reads
   them. Keep skill bodies out of the orchestrator's context.
 
-Reviews: the reviewer runs in a fresh thread and loads its review skills
-before starting — `thermo-nuclear-code-quality-review` plus any matching
-the touched files. Round 1 of high-risk work (core logic, money math,
-pipeline, security, concurrency) is Opus 5.5; round 1 of low-risk work (UI
-only, refactors, release notes, docs) and every round 2 onward is Sonnet
-5.5 — both provider `claude`, effort high; effort max only when the user
-asks for it. Round 2 onward checks only the fixes and what they touch.
-Ping-pong with the reviewer until GREENLIGHT; after 3 rounds without
-greenlight, stop and report what remains. Review fixes go in as
-`git commit --fixup=<sha>` commits; the orchestrator squashes them.
-
 ## Habits
 
 - Visuals go through the sideshow skill (mermaid or html surfaces) — but only

@@ -71,32 +71,6 @@ Rules:
   security-sensitive code, core architecture changes. When the
   implementer escalates one back, take it over.
 
-Reviews: spawn one reviewer per phase as soon as that phase's implementer
-returns — not one review at the end. The reviewer loads its review skills
-before starting — `thermo-nuclear-code-quality-review` plus any matching
-the touched files — checks the phase's diff against the plan, and
-confirms each finding against the code before reporting it. Ping-pong
-with the implementer until GREENLIGHT; after 3 rounds without greenlight,
-stop and report what remains. Review fixes go in as
-`git commit --fixup=<sha>` commits; the orchestrator squashes them.
-
-- T3 starts every review round as a new `delegate_task`. Carry the
-  ping-pong in its prompt: the brief, each earlier finding, the answer
-  to it, and what is still open.
-- Round 1 of high-risk phases (core logic, money math, pipeline,
-  security, concurrency) goes to Opus 5.5 — provider `claudeAgent`, model
-  `claude-opus-5-5` — at effort high.
-- Round 1 of low-risk phases (UI only, refactors, release notes, docs)
-  and every round 2 onward go to Sonnet 5.5 — provider `claudeAgent`, model
-  `claude-sonnet-5-5` — at effort high.
-- Round 2 onward is scoped to the fixes and what they touch; it does not
-  re-review code an earlier round marked correct.
-- Effort max only when the user asks for it.
-- The reviewer checks HEAD only. The implementer already ran the checks
-  on each commit — neither the reviewer nor the orchestrator repeats
-  them.
-- Tests: only the packages the change touches, never the whole suite.
-
 ## Habits
 
 - Visuals go through the sideshow skill (mermaid or html surfaces) — but only

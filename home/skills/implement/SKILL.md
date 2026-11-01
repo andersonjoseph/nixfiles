@@ -25,27 +25,37 @@ in briefs.
    yourself under the implementer's rules; do not turn small tasks into
    ceremony.
 3. When a phase returns, launch its reviewer at once with the phase's
-   commits, the plan, the skills matching the touched files, at the tier
-   its risk gets (Reviews in the personal instructions). Its consumer
-   trace also covers what earlier phases of the branch added and this
-   phase reads, so a chain that spans phases gets checked where it
-   closes.
-4. Ping-pong: send the reviewer's findings to the phase's implementer; it
+   commits and the plan — one reviewer per phase, never one review at
+   the end. The reviewer runs in a fresh thread, loads its review
+   skills before starting — `thermo-nuclear-code-quality-review` plus
+   any matching the touched files — checks the phase's diff against the
+   plan, and confirms each finding against the code before reporting
+   it. Its consumer trace also covers what earlier phases of the branch
+   added and this phase reads, so a chain that spans phases gets checked
+   where it closes.
+4. Tier — provider and ids from Model roles in the personal
+   instructions: round 1 of a high-risk phase (core logic, money math,
+   pipeline, security, concurrency) is Opus 5.5; round 1 of a low-risk
+   phase (UI only, refactors, release notes, docs) and every round 2
+   onward is Sonnet 5.5. Both at effort high; effort max only when the
+   user asks for it.
+5. Ping-pong: send the reviewer's findings to the phase's implementer; it
    fixes each one or disagrees. Send its fixup SHAs and answers to the
-   same reviewer. Stop at GREENLIGHT, or after 3 rounds without it and
-   report what remains. Rounds reach the agents per harness: under
-   T3 (pi, claude) every round is a new `delegate_task` whose prompt
-   carries the ping-pong so far — brief, findings, answers, open
-   objections. A
-   finding whose fix only deletes code — a dead field, an unused return
-   value, a wrapper — is fixed in the same round, even when the reviewer
-   calls it a nit; never defer it.
-5. After GREENLIGHT, run `git branch --show-current`, then squash with
+   same reviewer. Round 2 onward checks only the fixes and what they
+   touch; the reviewer checks HEAD and repeats no green run. Stop at
+   GREENLIGHT, or after 3 rounds without it and report what remains.
+   Rounds reach the agents per harness: under T3 (pi, claude) every
+   round is a new `delegate_task` whose prompt carries the ping-pong so
+   far — brief, findings, answers, open objections. A finding whose fix
+   only deletes code — a dead field, an unused return value, a wrapper —
+   is fixed in the same round, even when the reviewer calls it a nit;
+   never defer it.
+6. After GREENLIGHT, run `git branch --show-current`, then squash with
    `GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash <base>`. Then start
    the next phase.
-6. After the last phase, check that no `fixup!` commit remains and give me
+7. After the last phase, check that no `fixup!` commit remains and give me
    the push command. The PR text, the push and the PR are mine.
-7. Publish a sideshow overview board of the finished change (the
+8. Publish a sideshow overview board of the finished change (the
    `sideshow` skill): mermaid architecture and data flow, an end-to-end
    markdown narrative, one diff part per commit. Wait for my comments and
    reply or revise.
