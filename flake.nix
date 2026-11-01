@@ -34,8 +34,9 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
-      t3-server = pkgs.callPackage ./packages/t3code/package.nix { };
-      t3-desktop = pkgs.callPackage ./packages/t3code/appimage.nix { };
+      t3code-unwrapped = pkgs.callPackage ./packages/t3code/unwrapped.nix { };
+      t3-server = pkgs.callPackage ./packages/t3code/package.nix { inherit t3code-unwrapped; };
+      t3-desktop = pkgs.callPackage ./packages/t3code/appimage.nix { inherit t3code-unwrapped; };
 
       overlays = {
         nixpkgs.overlays = [

@@ -2,9 +2,10 @@
   appimageTools,
   fetchurl,
   makeDesktopItem,
+  t3code-unwrapped,
 }:
 let
-  version = "0.1.6";
+  inherit (t3code-unwrapped) version;
   src = fetchurl {
     url = "https://github.com/pingdotgg/t3code/releases/download/v${version}/T3-Code-${version}-x86_64.AppImage";
     hash = "sha512-p7DVuyB+gH2ek8IKMyZqj3Xel9g+JZMRGp6Nmmlk9GO+F94Q19dARYSAvuLQNM7IguxmP6zKktWgrhG/6L0qXQ==";
