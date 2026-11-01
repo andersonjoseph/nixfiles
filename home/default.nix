@@ -101,25 +101,11 @@
         # delta stays installed for the lazygit pager; git itself pages through hunk.
         programs.delta.enable = true;
 
-        programs.ssh = {
-          enable = true;
-          enableDefaultConfig = false;
-          settings = {
-            "*" = {
-              ForwardAgent = false;
-              HashKnownHosts = true;
-              AddKeysToAgent = "yes";
-            };
-            "github.com" = {
-              IdentityFile = "~/.ssh/identity/anderson";
-            };
-            "vondel-nord" = {
-              User = "anderson";
-              IdentityFile = "~/.ssh/access/vondel";
-              RemoteForward = "127.0.0.1:61413 127.0.0.1:61413";
-            };
-          };
-        };
+        # Sandboxes without a root mapping (T3 AppImage, agent jails) show
+        # store files as nobody, so ssh rejects a store-linked config. The
+        # repo file is user-owned; that uid maps in every sandbox.
+        home.file.".ssh/config".source =
+          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/configuration/home/ssh/config";
 
         programs.obs-studio = lib.mkIf isDesktopMachine {
           enable = true;

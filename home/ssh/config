@@ -1,0 +1,12 @@
+Host github.com
+  IdentityFile ~/.ssh/identity/anderson
+
+Host vondel-nord
+  IdentityFile ~/.ssh/access/vondel
+  RemoteForward 127.0.0.1:61413 127.0.0.1:61413
+  User anderson
+
+Host *
+  AddKeysToAgent yes
+  ForwardAgent no
+  HashKnownHosts yes
