@@ -8,19 +8,16 @@
 
   networking.hostName = "lyndon";
   custom.wallpaperFile = ./wallpaper;
-  custom.hasNvidia = true;
-  custom.isGaming = true; # TEMP: test only, do not commit
+  custom.isGaming = true;
 
   # External monitor: mirror the laptop, run at 100Hz with full RGB range.
   custom.xrandr.startupCommand = ''
     xrandr --output DP-1 --same-as eDP-1 --mode 1920x1080 --rate 99.93 --set "Broadcast RGB" "Full"
   '';
 
-  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Nvidia
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
@@ -39,7 +36,6 @@
     };
   };
 
-  # Intel integrated graphics
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [

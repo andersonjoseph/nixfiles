@@ -56,8 +56,8 @@ in
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  services.pulseaudio.enable = lib.mkIf isDesktopMachine false;
   services.gnome.gnome-keyring.enable = lib.mkIf isDesktopMachine true;
+  # keyring pulls the gcr agent in by default; startAgent already runs on all hosts
   services.gnome.gcr-ssh-agent.enable = lib.mkIf isDesktopMachine false;
   services.gvfs.enable = lib.mkIf isDesktopMachine true;
   services.tumbler.enable = lib.mkIf isDesktopMachine true;

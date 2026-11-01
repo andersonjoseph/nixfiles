@@ -50,8 +50,6 @@ in
         "${mod}+Return" = "exec --no-startup-id ${pkgs.ghostty}/bin/ghostty";
 
         "Print" = "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
-        "${mod}+grave" =
-          "exec --no-startup-id ${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png";
 
         "${mod}+q" = "kill";
         "${mod}+h" = "focus left";
@@ -70,9 +68,9 @@ in
 
         "${mod}+s" = "layout stacking";
         "${mod}+w" = "layout tabbed";
-	"${mod}+e" = "layout toggle split";
+        "${mod}+e" = "layout toggle split";
 
-	"${mod}+a" = "focus parent";
+        "${mod}+a" = "focus parent";
 
         "${mod}+1" = "workspace number 1";
         "${mod}+2" = "workspace number 2";

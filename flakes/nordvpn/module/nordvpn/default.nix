@@ -77,7 +77,6 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    # create the default user if that's the one used
     users.users = lib.mkIf (cfg.user == defaultUser) {
       ${defaultUser} = {
         description = "User that runs `nordvpnd`.";
@@ -86,7 +85,6 @@ in
       };
     };
 
-    # create the default group if that's the one used
     users.groups = lib.mkIf (cfg.group == defaultGroup) {
       ${defaultGroup} = { };
     };

@@ -10,12 +10,6 @@
       '';
     };
 
-    hasNvidia = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Whether the system has an Nvidia GPU or not";
-    };
-
     isGaming = lib.mkOption {
       type = lib.types.bool;
       default = false;

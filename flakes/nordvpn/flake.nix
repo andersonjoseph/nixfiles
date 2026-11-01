@@ -51,23 +51,18 @@
         };
       in {
         packages = {
-          # libdrop - NordVPN's filesharing library
           libdrop = pkgs.callPackage ./packages/libdrop/package.nix {};
 
-          # libtelio - Library providing networking utilities for NordVPN
           libtelio = pkgs.callPackage ./packages/libtelio/package.nix {};
 
-          # nordvpn-cli - CLI application (contains client, daemon, and fileshare)
           nordvpn-cli = pkgs.callPackage ./packages/nordvpn/cli.nix (
             commonArgs // {
               inherit (config.packages) libdrop libtelio;
             }
           );
 
-          # nordvpn-gui - Flutter GUI application
           nordvpn-gui = pkgs.callPackage ./packages/nordvpn/gui.nix commonArgs;
 
-          # nordvpn - Combined package (CLI + GUI)
           nordvpn = pkgs.callPackage ./packages/nordvpn/package.nix {
             inherit (config.packages) nordvpn-cli nordvpn-gui;
           };
@@ -75,7 +70,6 @@
           default = config.packages.nordvpn;
         };
 
-        # Apps for convenient running
         apps = {
           nordvpn-cli = {
             type = "app";
@@ -89,7 +83,6 @@
       };
 
       flake = {
-        # NixOS module
         nixosModules.nordvpn = {
           config,
           lib,
