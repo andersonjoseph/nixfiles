@@ -9,6 +9,7 @@
     jailed-agents.inputs.llm-agents.follows = "llm-agents";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
+    hex.url = "github:anomalyco/hex";
     sideshow.url = "github:modem-dev/sideshow";
     sideshow.flake = false;
     herdr.url = "github:herdrdev/herdr";
@@ -25,6 +26,7 @@
       home-manager,
       nordvpn-flake,
       jailed-agents,
+      hex,
       hunk,
       sideshow,
       herdr,
@@ -43,6 +45,7 @@
           herdr.overlays.default
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
+            hex = hex.packages.${system}.default.overrideAttrs { doCheck = false; };
             sideshow = sideshow-pkg;
             inherit jailed-pi;
             inherit
@@ -51,6 +54,7 @@
               ;
           })
         ];
+        home-manager.sharedModules = [ hex.homeManagerModules.hex ];
       };
       nordvpn-module = (
         { ... }: {

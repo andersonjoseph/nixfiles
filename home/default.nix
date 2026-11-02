@@ -27,6 +27,7 @@
           ./i3
           ./alacritty.nix
           ./ghostty.nix
+          ./hex.nix
         ]);
 
         home.stateVersion = "25.05";
