@@ -26,6 +26,7 @@
       home-manager,
       nordvpn-flake,
       jailed-agents,
+      llm-agents,
       hex,
       hunk,
       sideshow,
@@ -36,9 +37,6 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
-      t3code-unwrapped = pkgs.callPackage ./packages/t3code/unwrapped.nix { };
-      t3-server = pkgs.callPackage ./packages/t3code/package.nix { inherit t3code-unwrapped; };
-      t3-desktop = pkgs.callPackage ./packages/t3code/appimage.nix { inherit t3code-unwrapped; };
 
       overlays = {
         nixpkgs.overlays = [
@@ -47,11 +45,8 @@
             hunk = hunk.packages.${system}.hunk;
             hex = hex.packages.${system}.default.overrideAttrs { doCheck = false; };
             sideshow = sideshow-pkg;
-            inherit jailed-pi;
-            inherit
-              t3-server
-              t3-desktop
-              ;
+            opencode2 = llm-agents.packages.${system}.opencode2;
+            inherit jailed-opencode2;
           })
         ];
         home-manager.sharedModules = [ hex.homeManagerModules.hex ];
@@ -74,10 +69,12 @@
         }
       );
 
-      jailed-pi = jailed-agents.lib.${system}.makeJailedPi {
-        enableT3 = true;
+      jailed-opencode2 = jailed-agents.lib.${system}.makeJailedOpencode2 {
         enableNix = true;
-        extraReadwriteDirs = [ "~/configuration" ];
+        extraReadwriteDirs = [
+          "~/configuration"
+          "/tmp"
+        ];
       };
     in
     {

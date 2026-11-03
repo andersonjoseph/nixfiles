@@ -11,22 +11,14 @@ no blame. Decisions stay with the user.
 ## 1. Gather sources
 
 - Current session: already in context — do not re-read it.
-- Session transcripts, read-only, one directory per working directory —
-  match it by listing the sessions tree, not by guessing the encoding of
-  `<workspace>`. Files are JSONL named by start timestamp; read the most
-  recent ones for this workspace, and read a few lines to learn the line
-  schema before mining — the conversation and the tool executions (the
-  richest friction signal: repeated reads, failed commands, retries) are
-  all in there.
-
-  | harness | transcripts |
-  | --- | --- |
-  | pi | `~/.pi/agent/sessions/<workspace>/` |
-  | claude | `~/.claude/projects/<workspace>/` |
-
-- Delegated subagent threads are separate sessions — read their
-  transcripts from the child sessions when the work under review was
-  delegated.
+- Session transcripts, read-only: `opencode session list` shows the
+  sessions of the current project, newest first, including subagent child
+  sessions; `opencode session export <id>` dumps one as JSON. Read a few
+  messages to learn the schema before mining — the conversation and the
+  tool executions (the richest friction signal: repeated reads, failed
+  commands, retries) are all in there.
+- Delegated subagent threads are child sessions of the one under review —
+  export them too when the work was delegated.
 - Use token-heavy stretches, repeated file reads, and long back-and-forth
   as friction signals; dig where they are out of line.
 - Never write to anything in those transcript directories.

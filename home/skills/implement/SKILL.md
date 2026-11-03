@@ -19,11 +19,10 @@ in briefs.
    roles in the personal instructions). The brief carries the phase's
    steps, the plan path, the skills matching the touched files, and the
    absolute path and branch of this thread's checkout — the implementer
-   works there (`isolation: "shared"`) and creates no worktree or branch.
-   Before dispatch, check that the plan's branch is that branch. For a
-   small job — a one-liner, a rename — skip the dispatch and do it
-   yourself under the implementer's rules; do not turn small tasks into
-   ceremony.
+   works there and creates no worktree or branch. Before dispatch,
+   check that the plan's branch is that branch. For a small job — a
+   one-liner, a rename — skip the dispatch and do it yourself under the
+   implementer's rules; do not turn small tasks into ceremony.
 3. When a phase returns, launch its reviewer at once with the phase's
    commits and the plan — one reviewer per phase, never one review at
    the end. The reviewer runs in a fresh thread, loads its review
@@ -33,23 +32,22 @@ in briefs.
    it. Its consumer trace also covers what earlier phases of the branch
    added and this phase reads, so a chain that spans phases gets checked
    where it closes.
-4. Tier — provider and ids from Model roles in the personal
-   instructions: round 1 of a high-risk phase (core logic, money math,
-   pipeline, security, concurrency) is Opus 5.5; round 1 of a low-risk
-   phase (UI only, refactors, release notes, docs) and every round 2
-   onward is Sonnet 5.5. Both at effort high; effort max only when the
-   user asks for it.
+4. Tier — reviewers from Model roles in the personal instructions:
+   round 1 of a high-risk phase (core logic, money math, pipeline,
+   security, concurrency) goes to the Opus reviewer; round 1 of a
+   low-risk phase (UI only, refactors, release notes, docs) and every
+   round 2 onward goes to the Sonnet reviewer. Both at effort high;
+   effort max only when the user asks for it.
 5. Ping-pong: send the reviewer's findings to the phase's implementer; it
    fixes each one or disagrees. Send its fixup SHAs and answers to the
-   same reviewer. Round 2 onward checks only the fixes and what they
-   touch; the reviewer checks HEAD and repeats no green run. Stop at
-   GREENLIGHT, or after 3 rounds without it and report what remains.
-   Rounds reach the agents per harness: under T3 (pi, claude) every
-   round is a new `delegate_task` whose prompt carries the ping-pong so
-   far — brief, findings, answers, open objections. A finding whose fix
-   only deletes code — a dead field, an unused return value, a wrapper —
-   is fixed in the same round, even when the reviewer calls it a nit;
-   never defer it.
+   next reviewer round. Round 2 onward checks only the fixes and what
+   they touch; the reviewer checks HEAD and repeats no green run. Stop
+   at GREENLIGHT, or after 3 rounds without it and report what remains.
+   Every round is a new subagent launch whose prompt carries the
+   ping-pong so far — brief, findings, answers, open objections. A
+   finding whose fix only deletes code — a dead field, an unused return
+   value, a wrapper — is fixed in the same round, even when the reviewer
+   calls it a nit; never defer it.
 6. After GREENLIGHT, run `git branch --show-current`, then squash with
    `GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash <base>`. Then start
    the next phase.

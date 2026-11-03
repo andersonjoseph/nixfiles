@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "zai-coding-plan/glm-5.3#high",
+  "agents": {
+    "explore": {
+      "model": "zai-coding-plan/glm-5.3-flash",
+    },
+  },
+  "plugins": [],
+  "websearch": {
+    "provider": "tinyfish",
+  },
+  "mcp": {
+    "servers": {
+      "chrome-devtools": {
+        "type": "local",
+        "command": ["/home/anderson/projects/browser-flows/bin/devtools-mcp"],
+      },
+    },
+  },
+}

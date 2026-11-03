@@ -21,7 +21,6 @@
           ./herdr.nix
           ./url-open.nix
           ./sideshow.nix
-          ./t3.nix
         ]
         ++ (lib.optionals isDesktopMachine [
           ./i3
@@ -40,7 +39,8 @@
           [
             neovim
             hunk
-            jailed-pi
+            opencode2
+            jailed-opencode2
             jq
             ripgrep
             tree
@@ -177,17 +177,19 @@
         home.activation.checkoutLinks = lib.hm.dag.entryAfter [ "linkGeneration" ] (
           let
             repo = "${config.home.homeDirectory}/configuration/home";
-            skills = target: lib.mapAttrs' (name: _type: lib.nameValuePair "${target}/${name}" "skills/${name}") (
-              builtins.readDir ./skills
-            );
+            dir =
+              target: rel:
+              lib.mapAttrs' (name: _type: lib.nameValuePair "${target}/${name}" "${rel}/${name}") (
+                builtins.readDir (./. + "/${rel}")
+              );
             links = {
-              ".pi/agent/AGENTS.md" = "pi/AGENTS.md";
-              ".claude/CLAUDE.md" = "claude/CLAUDE.md";
+              ".config/opencode/AGENTS.md" = "opencode/AGENTS.md";
+              ".config/opencode/opencode.jsonc" = "opencode/opencode.jsonc";
               ".ssh/config" = "ssh/config";
               ".config/nvim" = "nvim";
             }
-            // skills ".pi/agent/skills"
-            // skills ".claude/skills";
+            // dir ".config/opencode/agents" "opencode/agents"
+            // dir ".config/opencode/skills" "skills";
           in
           lib.concatStrings (
             lib.mapAttrsToList (dst: src: ''

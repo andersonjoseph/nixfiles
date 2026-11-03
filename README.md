@@ -41,14 +41,12 @@ The available hosts are: `ashika`, `lyndon`, `vondel`.
   - `i3/` — i3 window manager and bar setup.
   - `nvim/` — Neovim config (LSP, plugins), symlinked into `~/.config/nvim`.
   - `skills/` — agent skills shared by every harness, each symlinked
-    into `~/.pi/agent/skills/` and `~/.claude/skills/` by home-manager.
-  - `pi/AGENTS.md`, `claude/CLAUDE.md` — pi and claude global
-    instructions for T3 Code, symlinked into `~/.pi/agent/AGENTS.md`
-    and `~/.claude/CLAUDE.md`.
-  - T3 jails mount `~/.pi` and `~/.claude` read-write but not
-    `~/configuration`: a project's pi/claude jail needs
-    `extraReadonlyDirs = [ "~/configuration/home" ]` for these
-    symlinks to resolve inside it.
+    into `~/.config/opencode/skills/` by home-manager.
+  - `opencode/` — global OpenCode config (personal `AGENTS.md`, agents,
+    `opencode.jsonc`), symlinked into `~/.config/opencode/`.
+  - The jailed-opencode2 jail mounts `~/.config/opencode` and the other
+    OpenCode state dirs read-write; its config symlinks resolve because
+    the flake passes `~/configuration` via `extraReadwriteDirs`.
 - `flakes/nordvpn/` — Vendored standalone flake providing the NordVPN CLI/GUI
   packages and a NixOS module; consumed by `flake.nix` as `nordvpn-flake`.
 - `scripts/` — Utility scripts (e.g., `change-audio-port`).
