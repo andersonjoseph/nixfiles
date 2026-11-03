@@ -170,34 +170,36 @@
         };
 
         # Entries link straight into the checkout so edits apply without a
-        # rebuild. Ssh needs a user-owned config: sandboxes without a root
-        # mapping (T3 AppImage, agent jails) show store files as nobody. The
-        # agent state dirs hold live data; only named entries are managed and
-        # a colliding real file moves to *.backup once. The wallpaper is the
-        # one store-sourced entry.
-        home.file =
+        # rebuild. They are made here, not with home.file, because
+        # mkOutOfStoreSymlink routes each link through two store paths that the
+        # agent jails do not mount; a direct link only needs ~/configuration.
+        # ln -T fails rather than nest a link inside a real directory.
+        home.activation.checkoutLinks = lib.hm.dag.entryAfter [ "linkGeneration" ] (
           let
             repo = "${config.home.homeDirectory}/configuration/home";
-            link = rel: {
-              source = config.lib.file.mkOutOfStoreSymlink "${repo}/${rel}";
-            };
-            linkDir =
-              target: rel:
-              lib.mapAttrs' (name: _type: lib.nameValuePair "${target}/${name}" (link "${rel}/${name}")) (
-                builtins.readDir (./. + "/${rel}")
-              );
+            skills = target: lib.mapAttrs' (name: _type: lib.nameValuePair "${target}/${name}" "skills/${name}") (
+              builtins.readDir ./skills
+            );
+            links = {
+              ".pi/agent/AGENTS.md" = "pi/AGENTS.md";
+              ".claude/CLAUDE.md" = "claude/CLAUDE.md";
+              ".ssh/config" = "ssh/config";
+              ".config/nvim" = "nvim";
+            }
+            // skills ".pi/agent/skills"
+            // skills ".claude/skills";
           in
-          {
-            ".pi/agent/AGENTS.md" = link "pi/AGENTS.md";
-            ".claude/CLAUDE.md" = link "claude/CLAUDE.md";
-            ".ssh/config" = link "ssh/config";
-            ".config/nvim" = link "nvim";
-          }
-          // linkDir ".pi/agent/skills" "skills"
-          // linkDir ".claude/skills" "skills"
-          // lib.optionalAttrs (nixosConfig.custom.wallpaperFile != null) {
-            "pictures/wallpaper".source = nixosConfig.custom.wallpaperFile;
-          };
+          lib.concatStrings (
+            lib.mapAttrsToList (dst: src: ''
+              run mkdir -p "$(dirname "$HOME/${dst}")"
+              run ln -sfnT "${repo}/${src}" "$HOME/${dst}"
+            '') links
+          )
+        );
+
+        home.file = lib.optionalAttrs (nixosConfig.custom.wallpaperFile != null) {
+          "pictures/wallpaper".source = nixosConfig.custom.wallpaperFile;
+        };
 
       };
   };

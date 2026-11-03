@@ -100,6 +100,7 @@ in
   environment.systemPackages = with pkgs; [
     pulseaudio
   ];
+  systemd.tmpfiles.rules = [ "L+ /bin/bash - - - - ${pkgs.bash}/bin/bash" ];
 
   fonts = lib.mkIf isDesktopMachine {
     packages = with pkgs; [

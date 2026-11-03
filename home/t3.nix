@@ -19,6 +19,40 @@ let
     ln -s ${pkgs.t3-server}/share/fish $out/share/fish
     ln -s ${pkgs.t3-server}/share/zsh $out/share/zsh
   '';
+
+  # The server's preview downloads a generic-Linux chrome-headless-shell into
+  # ~/.t3/tools. The FHS env gives it a loader and the libraries it links
+  # against, for the t3 server only.
+  t3-server-fhs = pkgs.buildFHSEnv {
+    name = "t3-server-fhs";
+    targetPkgs =
+      pkgs: with pkgs; [
+        alsa-lib
+        at-spi2-atk
+        at-spi2-core
+        atk
+        cairo
+        cups
+        dbus
+        expat
+        glib
+        libdrm
+        libgbm
+        libx11
+        libxcb
+        libxcomposite
+        libxdamage
+        libxext
+        libxfixes
+        libxkbcommon
+        libxrandr
+        nspr
+        nss
+        pango
+        systemd
+      ];
+    runScript = "${pkgs.t3-server}/bin/t3";
+  };
 in
 {
   home.packages = lib.optionals isDesktopMachine [
@@ -40,7 +74,7 @@ in
     };
     Install.WantedBy = [ "default.target" ];
     Service = {
-      ExecStart = "${pkgs.t3-server}/bin/t3 serve --host 100.88.47.99 --port 3773";
+      ExecStart = "${t3-server-fhs}/bin/t3-server-fhs serve --host 100.88.47.99 --port 3773";
       Restart = "on-failure";
     };
   };
