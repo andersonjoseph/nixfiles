@@ -1,7 +1,7 @@
 ---
 description: Reviewer for low-risk phases (UI only, refactors, release notes, docs) and for every review round from 2 onward. Claude Sonnet at effort high. Launch ONLY when the user's message explicitly asks for review or a skill driving the loop calls for it — never on your own initiative.
 mode: subagent
-model: anthropic/claude-sonnet-5-5#high
+model: claude-agent/sonnet#high
 permissions:
   - action: edit
     resource: "*"

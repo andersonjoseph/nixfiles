@@ -1,7 +1,7 @@
 ---
 description: Round-1 reviewer for high-risk phases (core logic, money math, pipelines, security, concurrency). Claude Opus at effort high. Launch ONLY when the user's message explicitly asks for review or a skill driving the loop calls for it — never on your own initiative.
 mode: subagent
-model: anthropic/claude-opus-5-5#high
+model: claude-agent/opus#high
 permissions:
   - action: edit
     resource: "*"

@@ -99,11 +99,9 @@ Rules:
 
 ## Comments
 
-- No code comments except one explaining the body of a function (why the body does
-  what it does, or what it does when that isn't obvious from the code).
-- No inline comments at all — nothing trailing or mid-line.
-- Cap at ~3 lines. If it needs more, fix the code or naming instead.
-- Match the density of nearby comments, and that's the ceiling, not the floor.
+- No code comments in new code. None: no function, type, inline or test comments.
+- Names, small functions and the commit message carry the "why".
+- Existing comments stay unless the change rewrites that code anyway.
 
 ## Visuals
 
