@@ -282,16 +282,15 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1793299421,
-        "narHash": "sha256-t81WZoHKT1dMWu3zgUqMxCl/+8hW2XF9OQBhWrDhwTE=",
+        "lastModified": 1793831714,
+        "narHash": "sha256-Opy+XNmiKeQ2rgkRLk/r62dx4edB/XxPUzJX+YYsfG8=",
         "owner": "andersonjoseph",
         "repo": "jailed-agents",
-        "rev": "bd163070360ab5ac34ccd336ce94a3e5132a582b",
+        "rev": "1d2b443291faa314bcf122c60eb94dd672373dad",
         "type": "github"
       },
       "original": {
         "owner": "andersonjoseph",
-        "ref": "enable-t3",
         "repo": "jailed-agents",
         "type": "github"
       }

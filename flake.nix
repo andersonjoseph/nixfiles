@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nordvpn-flake.url = "path:./flakes/nordvpn";
     llm-agents.url = "github:numtide/llm-agents.nix/78f777ba4f6141fca604a5cee3f6ff8dfab09f48";
-    jailed-agents.url = "github:andersonjoseph/jailed-agents/enable-t3";
+    jailed-agents.url = "github:andersonjoseph/jailed-agents";
     jailed-agents.inputs.llm-agents.follows = "llm-agents";
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
@@ -72,12 +72,10 @@
       jailed-opencode2 = jailed-agents.lib.${system}.makeJailedOpencode2 {
         enableNix = true;
         enableOpenUrls = true;
-        extraPkgs = [ llm-agents.packages.${system}.claude-code ];
+        enableClaudeCode = true;
         extraReadwriteDirs = [
           "~/configuration"
           "/tmp"
-          "~/.claude"
-          "~/.claude.json"
         ];
       };
     in
