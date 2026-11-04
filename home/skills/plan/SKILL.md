@@ -24,6 +24,6 @@ already clear.
 ## 3. Final plan
 
 Publish the final plan to my sideshow board (the `sideshow` skill),
-then give it in chat: ordered steps, one bounded action each, and the
-files to touch. When I comment on the board, read the comments with
-`sideshow wait` and treat them as plan feedback.
+open its session (`http://localhost:8228/session/<sessionId>`) in the
+in-app browser (the `browser` skill), then give it in chat: ordered steps, one bounded action each, and the
+files to touch. Do not wait for board comments; I give feedback in chat.

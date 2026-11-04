@@ -55,5 +55,5 @@ in briefs.
    the push command. The PR text, the push and the PR are mine.
 8. Publish a sideshow overview board of the finished change (the
    `sideshow` skill): mermaid architecture and data flow, an end-to-end
-   markdown narrative, one diff part per commit. Wait for my comments and
-   reply or revise.
+   markdown narrative, and diff parts only for the critical code (the
+   `sideshow` skill's diff rule). Do not wait for comments; I reply in chat.

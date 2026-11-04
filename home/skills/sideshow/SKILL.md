@@ -1,6 +1,6 @@
 ---
 name: sideshow
-description: Draw on the user's sideshow board when the user asks to explain, visualize, or sketch something, or when a diagram, table, diff, or other structured surface would clearly beat prose — architecture and data-flow diagrams, state machines, before/after code, per-commit diffs, rich visuals — and read their comments back.
+description: Draw on the user's sideshow board when the user asks to explain, visualize, or sketch something, or when a diagram, table, diff, or other structured surface would clearly beat prose — architecture and data-flow diagrams, state machines, before/after code, diffs of critical code, rich visuals.
 ---
 
 # sideshow
@@ -24,30 +24,32 @@ never start one yourself. If the board is unreachable, report
 Default to plain chat replies. Publish only when the user asks for an
 explanation, overview, or visual, or when the content is genuinely clearer
 as a structured surface — flow with branches, state, before/after code,
-review diffs. Do not mirror chat prose onto the board, and do not open a
+diffs of critical code. Do not mirror chat prose onto the board, and do not open a
 card per plan or per change by default.
 
 ## Publishing
 
-Surfaces appear in flag order; `-` reads a surface from stdin. Per-commit
-patches: `git show --format= <sha> > /tmp/sideshow/<sha>.patch`.
+Surfaces appear in flag order; `-` reads a surface from stdin. Patches:
+`git show --format= <sha> -- <file> > /tmp/sideshow/<name>.patch`.
 
 ```sh
 sideshow publish --title "Auth refactor" --session-title "Auth refactor" \
-  --md notes.md --mermaid arch.mmd --diff first.patch --diff second.patch
+  --md notes.md --mermaid arch.mmd --diff critical.patch
 ```
 
 When the user asks for an overview of a finished change (or one is genuinely
 clearer as a board post), it carries: a mermaid of the architecture and data
-flow (entry point to end), a markdown narrative of what changed and why, one
-diff surface per unit-of-work commit in landing order. Comment threads
-on the diff surfaces carry the code-level walkthrough.
+flow (entry point to end) and a markdown narrative of what changed and why.
 
-## Feedback loop
+Diff surfaces are only for super important or critical code — core logic,
+security, sandbox permissions, money math, concurrency. Always add them for
+that code, and limit them to those files. Never add a diff per commit, and
+never diff docs, tests or routine glue.
 
-`sideshow wait --timeout 120` blocks for comments; `sideshow watch` streams
-them; `sideshow comment "text" --post <id>` replies in the thread;
-`sideshow update <id> <file>` revises a post in place.
+## Feedback
+
+Do not wait for, poll or watch comments on the board. The user gives
+feedback in chat. `sideshow update <id> <file>` revises a post in place.
 
 ## Statecharts
 
