@@ -18,6 +18,10 @@ in the checkout the brief gives — absolute path and branch.
   never the whole suite, plus the type check. Run them once; a green run
   is not repeated. Full builds (e.g. Vite bundles) run once, on the last
   commit.
+- While editing, run only the test file you are changing. The package or
+  folder tests and the type check run once, just before the commit.
+- Before you report, read your own diff once against the House Rules of
+  every skill you loaded, and fix what breaks them.
 - A step that turns out underspecified is a plan bug — stop and report it
   instead of guessing.
 - Steps flagged as hard — tricky concurrency, security-sensitive code,
