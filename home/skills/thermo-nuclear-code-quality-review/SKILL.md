@@ -1,6 +1,8 @@
 ---
 name: thermo-nuclear-code-quality-review
 description: Run an extremely strict maintainability review for abstraction quality, giant files, and spaghetti-condition growth. Use for a thermo-nuclear code quality review, thermonuclear review, deep code quality audit, or especially harsh maintainability review.
+metadata:
+  source: https://github.com/cursor/plugins/tree/main/cursor-team-kit/skills/thermo-nuclear-code-quality-review
 ---
 
 # Thermo-Nuclear Code Quality Review
@@ -23,12 +25,15 @@ Non-negotiable while writing, before any review sees the code:
 - The consumer holds the value directly when it can. No map, `find`, registry
   or string-keyed lookup that one consumer resolves once. A lookup by a
   display string (a label, a title, a user-visible name) is always wrong.
-- Do not push a file from under 1k lines to over 1k lines. Extract first.
+- Do not push a file from under 1k lines to over 1k lines. When the diff
+  crosses the line, ask whether to decompose it first: extract helpers,
+  subcomponents or modules.
 - No ad-hoc conditional, special case or one-off branch inside an unrelated
   flow. Give the logic its own helper, module or abstraction.
-- No thin wrapper, identity abstraction, pass-through helper, or
-  cast / `any` / `unknown` that hides the real contract. Boring, direct,
-  maintainable code beats hacky or magical code.
+- No thin wrapper, identity abstraction, pass-through helper,
+  cast / `any` / `unknown` that hides the real contract, or silent fallback
+  that papers over an unclear invariant. Boring, direct, maintainable code
+  beats hacky or magical code.
 - Reuse the canonical helper; never write a near-duplicate. Feature logic
   stays out of shared paths; logic lives in the layer that owns the concept.
 - Prefer the reframing that deletes branches — a state machine, a typed
@@ -71,6 +76,8 @@ Every violated rule above is a finding. Escalate these review-side shapes:
   must hold.
 - Copy-pasted logic instead of an extracted or existing helper.
 - Narrow edge-case handling inserted into the middle of a busy function.
+- One-off booleans, nullable modes, or flags that complicate existing
+  control flow.
 - "Temporary" branching likely to become permanent debt.
 - A previously cohesive module made more coupled, more stateful, or harder
   to scan.
@@ -84,7 +91,9 @@ Every violated rule above is a finding. Escalate these review-side shapes:
 Be direct, serious, demanding. Do not soften structural issues into nits.
 Report a small number of high-conviction findings, ordered: structural
 regressions, missed simplifications, branching growth, boundary and
-type-contract problems, file size and decomposition, legibility. Approve
+type-contract problems, file size and decomposition, legibility. Prefer
+remedies that delete a layer, a branch, or an exception path over remedies
+that polish. Approve
 only with no structural regression, no visible simplification left on the
 table, no unjustified file-size explosion, and no violated rule. A violated
 rule is a presumptive blocker unless the author justifies it clearly.
