@@ -10,12 +10,4 @@
   "websearch": {
     "provider": "tinyfish",
   },
-  "mcp": {
-    "servers": {
-      "chrome-devtools": {
-        "type": "local",
-        "command": ["/home/anderson/projects/browser-flows/bin/devtools-mcp"],
-      },
-    },
-  },
 }

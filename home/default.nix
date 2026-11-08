@@ -185,6 +185,7 @@
             links = {
               ".config/opencode/AGENTS.md" = "opencode/AGENTS.md";
               ".config/opencode/opencode.jsonc" = "opencode/opencode.jsonc";
+              ".config/opencode/plugins/threads" = "opencode/plugin-threads";
               ".ssh/config" = "ssh/config";
               ".config/nvim" = "nvim";
             }
