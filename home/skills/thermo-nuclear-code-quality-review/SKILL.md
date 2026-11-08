@@ -5,6 +5,35 @@ description: Run an extremely strict maintainability review for abstraction qual
 
 # Thermo-Nuclear Code Quality Review
 
+Two roles share this file. An implementer whose code this review will cover
+applies `Rules when writing code` and skips the rest. A reviewer runs the
+whole file.
+
+## Rules when writing code
+
+Non-negotiable while writing, before any review sees the code:
+
+- Every new field, export, parameter, return value (each key of a returned
+  object) and file has a reader outside tests. No reader — do not write it.
+- The consumer holds the value directly when it can. No map, `find`, registry
+  or string-keyed lookup that one consumer resolves once. A lookup by a
+  display string (a label, a title, a user-visible name) is always wrong.
+- Do not push a file from under 1k lines to over 1k lines. Extract first.
+- No ad-hoc conditional, special case or one-off branch inside an unrelated
+  flow. Give the logic its own helper, module or abstraction.
+- No thin wrapper, identity abstraction, pass-through helper, or
+  cast / `any` / `unknown` that hides the real contract.
+- Reuse the canonical helper; never write a near-duplicate. Feature logic
+  stays out of shared paths; logic lives in the layer that owns the concept.
+- Prefer the reframing that deletes branches — a state machine, a typed
+  model, a dispatcher, a registry — over rearranging the same complexity.
+- Serialize only what depends on the result; keep related updates atomic.
+- The plan is not a defense. When the plan prescribes a wrapper, a lookup
+  layer, or a second type for the same data, report the plan problem before
+  implementing it.
+
+## Review procedure
+
 Use this skill for an unusually strict review focused on implementation quality, maintainability, abstraction quality, and codebase health.
 
 Above all, this skill should push the reviewer to be **ambitious** about code structure. Do not merely identify local cleanup opportunities. Actively search for "code judo" moves: restructurings that preserve behavior while making the implementation dramatically simpler, smaller, more direct, and more elegant.
