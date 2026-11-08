@@ -197,6 +197,11 @@
               run mkdir -p "$(dirname "$HOME/${dst}")"
               run ln -sfnT "${repo}/${src}" "$HOME/${dst}"
             '') links
+            ++ [
+              ''
+                run find "$HOME/.config/opencode/skills" "$HOME/.config/opencode/agents" -maxdepth 1 -xtype l -delete
+              ''
+            ]
           )
         );
 
