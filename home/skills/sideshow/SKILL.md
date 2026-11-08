@@ -54,12 +54,13 @@ feedback in chat. `sideshow update <id> <file>` revises a post in place.
 ## Statecharts
 
 Anything with states — auth, onboarding, request lifecycles, UI modes —
-explains best as a statechart: mermaid `stateDiagram-v2` with named states,
-transitions, and the events that trigger them. Draw one when explaining
-stateful code, when planning a user flow, or when a flow misbehaves. An
-honest statechart surfaces impossible states, missing transitions, and
-dead ends before users find them — treat every gap it reveals as a
-finding to fix, not just to draw.
+explains best as a statechart: mermaid `stateDiagram-v2` written in the
+reader's words, so the reader can judge the behavior. Draw one when
+explaining stateful code, when planning a user flow, or when a flow
+misbehaves. Read [`references/statechart.md`](references/statechart.md)
+before drawing one: the label rules, the chart forms, the arrow budget,
+and the rule that every gap the chart reveals — an impossible state, a
+missing transition, a dead end — is a finding to fix, not just a drawing.
 
 ## Rich visuals
 
