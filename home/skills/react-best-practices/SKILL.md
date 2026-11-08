@@ -1,6 +1,6 @@
 ---
 name: vercel-react-best-practices
-description: React performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React code to ensure optimal performance patterns. Triggers on tasks involving React components, data fetching, bundle optimization, or performance improvements.
+description: React performance optimization guidelines from Vercel Engineering, plus House Rules for every React task. Use when writing, reviewing, or refactoring React code. Triggers on React components, data fetching, bundle optimization, or performance improvements. Component API design and composition are composition-patterns.
 license: MIT
 metadata:
   author: vercel
