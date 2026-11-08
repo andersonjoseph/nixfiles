@@ -21,8 +21,9 @@ in briefs.
    session. A resumed session carries every earlier round in its
    context, and each call re-sends all of it. The brief carries the
    phase's steps, the plan path, the skills matching the touched files
-   — including every skill the reviewer will load, so the implementer
-   writes against the same House Rules the reviewer checks — and the
+   — always including `thermo-nuclear-code-quality-review` and every
+   other skill the reviewer will load, so the implementer writes
+   against the same House Rules the reviewer checks — and the
    absolute path and branch of this thread's checkout — the
    implementer works there and creates no worktree or branch. Before
    dispatch, check that the plan's branch is that branch. For a small
