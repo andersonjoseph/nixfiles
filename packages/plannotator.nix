@@ -2,6 +2,8 @@
   lib,
   stdenv,
   fetchurl,
+  glibc,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -17,9 +19,14 @@ stdenv.mkDerivation (finalAttrs: {
   dontBuild = true;
   dontFixup = true;
 
+  nativeBuildInputs = [ makeWrapper ];
+
   installPhase = ''
     runHook preInstall
-    install -Dm755 $src $out/bin/plannotator
+    install -Dm555 $src $out/libexec/plannotator
+    makeWrapper "${glibc}/lib64/ld-linux-x86-64.so.2" "$out/bin/plannotator" \
+      --add-flags "--library-path ${glibc}/lib" \
+      --add-flags "$out/libexec/plannotator"
     runHook postInstall
   '';
 
