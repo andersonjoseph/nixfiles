@@ -90,6 +90,10 @@
             })
           ]);
 
+        home.sessionVariables = {
+          PLANNOTATOR_PORT = "38931";
+        };
+
         services.redshift = lib.mkIf isDesktopMachine {
           enable = true;
           dawnTime = "7:00";
