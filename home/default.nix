@@ -41,6 +41,7 @@
             hunk
             opencode2
             jailed-opencode2
+            plannotator
             jq
             ripgrep
             tree

@@ -6,7 +6,7 @@
       "model": "zai-coding-plan/glm-5.3-flash",
     },
   },
-  "plugins": [],
+  "plugins": [ "@plannotator/opencode@0.28.55" ],
   "websearch": {
     "provider": "tinyfish",
   },
