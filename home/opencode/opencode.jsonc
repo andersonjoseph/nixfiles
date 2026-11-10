@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "package": "@plannotator/opencode@0.28.55",
+      "package": "@plannotator/opencode@0.28.60",
       "options": {
         "workflow": "manual",
       },
