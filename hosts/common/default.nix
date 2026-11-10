@@ -20,7 +20,6 @@ in
   environment.pathsToLink = [ "/libexec" ];
 
   networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [ 8228 ];
   time.timeZone = "America/Caracas";
   i18n.defaultLocale = "en_US.UTF-8";
 
