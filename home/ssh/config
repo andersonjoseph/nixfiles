@@ -4,6 +4,11 @@ Host github.com
 Host vondel-nord
   IdentityFile ~/.ssh/access/vondel
   RemoteForward 127.0.0.1:61413 127.0.0.1:61413
+  LocalForward 45585 127.0.0.1:45585
+  User anderson
+
+Host lyndon-nord
+  LocalForward 45585 127.0.0.1:45585
   User anderson
 
 Host *
