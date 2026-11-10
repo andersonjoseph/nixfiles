@@ -25,4 +25,6 @@ already clear.
 
 Send the final plan to my Plannotator Inbox (`plannotator_inbox`
 send_message, the plan file in `attachments`), then give it in chat: ordered steps, one bounded action each, and the
-files to touch. Do not wait for thread replies; I give feedback in chat.
+files to touch. Each step that adds code names the existing file whose
+pattern it follows, with its path. Do not wait for thread replies; I give
+feedback in chat.
