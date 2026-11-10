@@ -26,4 +26,6 @@ already clear.
 Publish the final plan to my sideshow board (the `sideshow` skill),
 open its session (`http://localhost:8228/session/<sessionId>`) in the
 in-app browser (the `browser` skill), then give it in chat: ordered steps, one bounded action each, and the
-files to touch. Do not wait for board comments; I give feedback in chat.
+files to touch. Each step that adds code names the existing file whose
+pattern it follows, with its path. Do not wait for board comments; I give
+feedback in chat.

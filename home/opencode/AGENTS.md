@@ -51,9 +51,11 @@ Rules:
 - Work through the plan without pauses: one step = one commit, tests and
   acceptance checks before each commit. Stop only when a step is red or
   ambiguous.
-- Checks before a commit: the tests of the packages the step touches, never
-  the whole suite, plus the type check. Run them once; a green run is not
-  repeated. Full builds (e.g. Vite bundles) run once, on the last commit.
+- Checks before a commit: only the tests relevant to the change, selected
+  with `-run` (Go) or by file (Vitest), never a whole package or the whole
+  suite, plus the type check. Run them once; a green run is not repeated.
+  CI runs the full suite. Full builds (e.g. Vite bundles) run once, on the
+  last commit.
 - A step that turns out underspecified is a plan bug — stop and get it
   fixed instead of guessing.
 - Tricky concurrency, security-sensitive code, core architecture changes:
@@ -86,6 +88,9 @@ Rules:
   directory and open every hit — gates repeat across components.
 - Read the exact block before an edit; prefer a whole-file write for new
   or heavily edited files.
+- Keep images out of my context. Show screenshots and GIFs to Anderson
+  with `browser.preview` or sideshow. To check one, read one downscaled
+  frame, not the full contact sheet.
 
 ## Git
 
