@@ -20,7 +20,6 @@ in
   environment.pathsToLink = [ "/libexec" ];
 
   networking.networkmanager.enable = true;
-  networking.hosts."100.88.47.99" = [ "vondel-nord" ];
   time.timeZone = "America/Caracas";
   i18n.defaultLocale = "en_US.UTF-8";
 
