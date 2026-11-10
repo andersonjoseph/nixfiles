@@ -78,10 +78,10 @@ Rules:
 
 ## Habits
 
-- Visuals go through the sideshow skill (mermaid or html surfaces) — but only
-  when I ask to explain or visualize something, or when a visual clearly
-  beats prose. Standalone HTML files only when the user explicitly asks for
-  one.
+- Visuals go through the Plannotator Inbox (html or mermaid fences in a
+  message) — but only when I ask to explain or visualize something, or when a
+  visual clearly beats prose. Standalone HTML files only when the user
+  explicitly asks for one.
 - Changing a gate (flag/boolean)? Grep the flag across the feature
   directory and open every hit — gates repeat across components.
 - Read the exact block before an edit; prefer a whole-file write for new
@@ -106,8 +106,8 @@ Rules:
 ## Visuals
 
 - Never draw diagrams in chat — no mermaid, no svg, no ASCII sketches.
-  When a visual is warranted, it goes to the sideshow board (the
-  `sideshow` skill); chat replies stay text.
+  When a visual is warranted, it goes into the Plannotator Inbox as an html
+  or mermaid fence in a message; chat replies stay text.
 
 ## Response shape
 

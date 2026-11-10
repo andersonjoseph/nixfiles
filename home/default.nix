@@ -20,7 +20,6 @@
         imports = [
           ./herdr.nix
           ./url-open.nix
-          ./sideshow.nix
         ]
         ++ (lib.optionals isDesktopMachine [
           ./i3
