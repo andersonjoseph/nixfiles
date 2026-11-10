@@ -20,6 +20,7 @@
         imports = [
           ./herdr.nix
           ./url-open.nix
+          ./plannotator.nix
         ]
         ++ (lib.optionals isDesktopMachine [
           ./i3
