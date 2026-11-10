@@ -13,6 +13,7 @@ Host vondel-tunnel
   HostName vondel-nord
   IdentityFile ~/.ssh/access/vondel
   LocalForward 8443 127.0.0.1:8443
+  LocalForward 45586 127.0.0.1:45586
   ExitOnForwardFailure yes
   ServerAliveInterval 30
   ServerAliveCountMax 3
