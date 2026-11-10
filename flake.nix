@@ -73,7 +73,10 @@
         extraReadwriteDirs = [
           "~/configuration"
           "/tmp"
+          "~/.plannotator"
+          "~/.cache/opencode"
         ];
+        extraPkgs = [ plannotator-pkg ];
       };
     in
     {
