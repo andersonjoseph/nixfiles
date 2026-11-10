@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Implement a plan in phases — a new implementer and a reviewer per phase, reviewer ping-pong, squash, sideshow overview.
+description: Implement a plan in phases — a new implementer and a reviewer per phase, reviewer ping-pong, squash, inbox overview.
 argument-hint: "The plan to implement (path or pasted)"
 disable-model-invocation: true
 ---
@@ -30,11 +30,12 @@ in briefs.
    job — a one-liner, a rename — skip the dispatch and do it yourself
    under the implementer's rules; do not turn small tasks into ceremony.
    - Handoff: the brief tells the implementer to end its dispatch with a
-     short sideshow post (the `sideshow` skill) in this task's session:
+     short message in this task's Plannotator Inbox thread
+     (`plannotator_inbox` send_message, one thread per task):
      commits with SHAs, decisions taken, what is open. The next
-     implementer's brief names that post; it reads the session's posts
-     before starting. The code and git carry the state, the post carries
-     the why.
+     implementer's brief names that thread; it reads the thread
+     (`read_thread`) before starting. The code and git carry the state, the
+     thread carries the why.
 3. When a phase returns, launch its reviewer at once with the phase's
    commits and the plan — one reviewer per phase, never one review at
    the end. The reviewer runs in a fresh thread, loads its review
@@ -67,7 +68,8 @@ in briefs.
    start the next phase.
 7. After the last phase, check that no `fixup!` commit remains and give me
    the push command. The PR text, the push and the PR are mine.
-8. Publish a sideshow overview board of the finished change (the
-   `sideshow` skill): mermaid architecture and data flow, an end-to-end
-   markdown narrative, and diff parts only for the critical code (the
-   `sideshow` skill's diff rule). Do not wait for comments; I reply in chat.
+8. Send a guided review of the finished change to the Inbox
+   (`plannotator_inbox` submit_guide): sections in reading order, a short
+   overview each, the exact diff, and a mermaid of the architecture and
+   data flow in the body when it helps. Diff sections only for the
+   critical code. Do not wait for comments; I reply in chat.
