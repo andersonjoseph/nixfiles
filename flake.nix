@@ -10,8 +10,6 @@
     hunk.url = "github:modem-dev/hunk";
     hunk.inputs.nixpkgs.follows = "nixpkgs";
     hex.url = "github:anomalyco/hex";
-    sideshow.url = "github:modem-dev/sideshow";
-    sideshow.flake = false;
     herdr.url = "github:herdrdev/herdr";
 
     home-manager = {
@@ -29,14 +27,13 @@
       llm-agents,
       hex,
       hunk,
-      sideshow,
       herdr,
       ...
     }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-      sideshow-pkg = pkgs.callPackage ./packages/sideshow.nix { sideshow-src = sideshow; };
+      plannotator-pkg = pkgs.callPackage ./packages/plannotator.nix { };
 
       overlays = {
         nixpkgs.overlays = [
@@ -44,7 +41,7 @@
           (_: _: {
             hunk = hunk.packages.${system}.hunk;
             hex = hex.packages.${system}.default.overrideAttrs { doCheck = false; };
-            sideshow = sideshow-pkg;
+            plannotator = plannotator-pkg;
             opencode2 = llm-agents.packages.${system}.opencode2;
             inherit jailed-opencode2;
           })

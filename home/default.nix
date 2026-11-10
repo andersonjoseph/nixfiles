@@ -20,7 +20,6 @@
         imports = [
           ./herdr.nix
           ./url-open.nix
-          ./sideshow.nix
         ]
         ++ (lib.optionals isDesktopMachine [
           ./i3
@@ -41,6 +40,7 @@
             hunk
             opencode2
             jailed-opencode2
+            plannotator
             jq
             ripgrep
             tree
