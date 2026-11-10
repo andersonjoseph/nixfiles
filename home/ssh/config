@@ -6,10 +6,16 @@ Host vondel-nord
   RemoteForward 127.0.0.1:61413 127.0.0.1:61413
   LocalForward 45585 127.0.0.1:45585
   LocalForward 8443 127.0.0.1:8443
+  ExitOnForwardFailure yes
+  ServerAliveInterval 30
+  ServerAliveCountMax 3
   User anderson
 
 Host lyndon-nord
   LocalForward 45585 127.0.0.1:45585
+  ExitOnForwardFailure yes
+  ServerAliveInterval 30
+  ServerAliveCountMax 3
   User anderson
 
 Host *
