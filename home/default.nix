@@ -21,6 +21,7 @@
           ./herdr.nix
           ./url-open.nix
           ./plannotator.nix
+          ./tunnels.nix
         ]
         ++ (lib.optionals isDesktopMachine [
           ./i3
