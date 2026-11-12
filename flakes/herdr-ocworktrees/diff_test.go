@@ -23,12 +23,32 @@ func TestPlanOpensNewAndClosesGone(t *testing.T) {
 
 func TestPlanNoActionsWhenMatched(t *testing.T) {
 	wt := Worktree{Path: "/r/p/feature-1"}
-	mirror := Mirror{WorkspaceID: "w1", CheckoutPath: "/r/p/feature-1/"}
+	mirror := Mirror{WorkspaceID: "w1", CheckoutPath: "/r/p/feature-1/", Label: "feature-1"}
 
 	actions := Plan([]Worktree{wt}, []Mirror{mirror}, []string{"/r"})
 
 	if len(actions) != 0 {
 		t.Fatalf("want no actions, got %+v", actions)
+	}
+}
+
+func TestPlanRelabelsStaleLabel(t *testing.T) {
+	wt := Worktree{Path: "/r/p/quick-harbor", Branch: "quick-harbor"}
+	mirror := Mirror{WorkspaceID: "w4", CheckoutPath: "/r/p/quick-harbor", Label: "samuraiseller/jungle-rabbit · quick-harbor"}
+
+	actions := Plan([]Worktree{wt}, []Mirror{mirror}, []string{"/r"})
+
+	if len(actions) != 1 || actions[0].Kind != ActionRelabel || actions[0].Mirror.WorkspaceID != "w4" {
+		t.Fatalf("want relabel w4, got %+v", actions)
+	}
+}
+
+func TestWorktreeLabel(t *testing.T) {
+	if got := (Worktree{Path: "/r/p/quick-harbor", Branch: "quick-harbor"}).label(); got != "quick-harbor" {
+		t.Fatalf("want branch label, got %q", got)
+	}
+	if got := (Worktree{Path: "/r/p/quick-harbor"}).label(); got != "quick-harbor" {
+		t.Fatalf("want directory-name fallback, got %q", got)
 	}
 }
 

@@ -23,10 +23,3 @@ func RepoRoot(worktree string) (string, error) {
 	}
 	return filepath.Dir(gitDir), nil
 }
-
-func labelFor(wt Worktree) string {
-	if wt.Branch != "" {
-		return wt.Branch
-	}
-	return filepath.Base(wt.Path)
-}

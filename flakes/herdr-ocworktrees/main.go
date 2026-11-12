@@ -55,9 +55,12 @@ func runSync(stdout, stderr io.Writer) error {
 	var failures []string
 	for _, action := range Plan(worktrees, mirrors, cfg.Roots) {
 		var err error
-		if action.Kind == ActionOpen {
+		switch action.Kind {
+		case ActionOpen:
 			err = herdr.OpenMirror(action.Worktree)
-		} else {
+		case ActionRelabel:
+			err = herdr.Rename(action.Mirror.WorkspaceID, action.Worktree.label())
+		case ActionClose:
 			err = herdr.Close(action.Mirror.WorkspaceID)
 		}
 		if err != nil {

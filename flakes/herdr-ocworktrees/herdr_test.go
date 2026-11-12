@@ -18,7 +18,7 @@ func stubHerdr(t *testing.T, script string) *Herdr {
 }
 
 func TestMirrorsParsesSnapshot(t *testing.T) {
-	h := stubHerdr(t, `echo '{"result":{"snapshot":{"workspaces":[{"workspace_id":"w1","worktree":{"checkout_path":"/r/a"}},{"workspace_id":"w2"},{"workspace_id":"w3","worktree":{"checkout_path":"/r/b"}}]}}}'`)
+	h := stubHerdr(t, `echo '{"result":{"snapshot":{"workspaces":[{"workspace_id":"w1","label":"stale · /r/a","worktree":{"checkout_path":"/r/a"}},{"workspace_id":"w2"},{"workspace_id":"w3","label":"b","worktree":{"checkout_path":"/r/b"}}]}}}'`)
 
 	mirrors, err := h.Mirrors()
 	if err != nil {
@@ -27,7 +27,7 @@ func TestMirrorsParsesSnapshot(t *testing.T) {
 	if len(mirrors) != 2 {
 		t.Fatalf("want 2 mirrors, got %+v", mirrors)
 	}
-	if mirrors[0].WorkspaceID != "w1" || mirrors[0].CheckoutPath != "/r/a" {
+	if mirrors[0].WorkspaceID != "w1" || mirrors[0].CheckoutPath != "/r/a" || mirrors[0].Label != "stale · /r/a" {
 		t.Fatalf("bad first mirror: %+v", mirrors[0])
 	}
 	if mirrors[1].WorkspaceID != "w3" || mirrors[1].CheckoutPath != "/r/b" {

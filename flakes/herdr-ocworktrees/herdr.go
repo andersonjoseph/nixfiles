@@ -67,6 +67,7 @@ func (h *Herdr) Mirrors() ([]Mirror, error) {
 		Snapshot struct {
 			Workspaces []struct {
 				WorkspaceID string `json:"workspace_id"`
+				Label       string `json:"label"`
 				Worktree    *struct {
 					CheckoutPath string `json:"checkout_path"`
 				} `json:"worktree"`
@@ -82,6 +83,7 @@ func (h *Herdr) Mirrors() ([]Mirror, error) {
 			mirrors = append(mirrors, Mirror{
 				WorkspaceID:  w.WorkspaceID,
 				CheckoutPath: w.Worktree.CheckoutPath,
+				Label:        w.Label,
 			})
 		}
 	}
@@ -109,7 +111,7 @@ func (h *Herdr) OpenMirror(wt Worktree) error {
 	if opened.Workspace.WorkspaceID == "" {
 		return nil
 	}
-	return h.Rename(opened.Workspace.WorkspaceID, labelFor(wt))
+	return h.Rename(opened.Workspace.WorkspaceID, wt.label())
 }
 
 func (h *Herdr) Close(workspaceID string) error {

@@ -9,12 +9,14 @@ type ActionKind int
 
 const (
 	ActionOpen ActionKind = iota
+	ActionRelabel
 	ActionClose
 )
 
 type Mirror struct {
 	WorkspaceID  string
 	CheckoutPath string
+	Label        string
 }
 
 type Action struct {
@@ -26,6 +28,9 @@ type Action struct {
 func (a Action) String() string {
 	if a.Kind == ActionOpen {
 		return "open " + a.Worktree.Path
+	}
+	if a.Kind == ActionRelabel {
+		return "relabel " + a.Mirror.WorkspaceID + " " + a.Worktree.label()
 	}
 	return "close " + a.Mirror.WorkspaceID + " " + a.Mirror.CheckoutPath
 }
@@ -39,8 +44,13 @@ func Plan(scanned []Worktree, mirrors []Mirror, roots []string) []Action {
 	var actions []Action
 	for _, wt := range scanned {
 		scannedPaths[wt.Path] = true
-		if _, ok := openByPath[wt.Path]; !ok {
+		mirror, ok := openByPath[wt.Path]
+		if !ok {
 			actions = append(actions, Action{Kind: ActionOpen, Worktree: wt})
+			continue
+		}
+		if mirror.Label != wt.label() {
+			actions = append(actions, Action{Kind: ActionRelabel, Worktree: wt, Mirror: mirror})
 		}
 	}
 	for _, m := range mirrors {
@@ -64,4 +74,11 @@ func underAnyRoot(path string, roots []string) bool {
 		}
 	}
 	return false
+}
+
+func (wt Worktree) label() string {
+	if wt.Branch != "" {
+		return wt.Branch
+	}
+	return filepath.Base(wt.Path)
 }
