@@ -1,4 +1,4 @@
-module github.com/anderson/herdr-ocworktrees
+module github.com/andersonjoseph/herdr-ocworktrees
 
 go 1.26.10
 

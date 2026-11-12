@@ -45,7 +45,7 @@ Optional keybinding for a manual sync, in herdr's `config.toml`:
     [[keys.command]]
     key = "prefix+o"
     type = "plugin_action"
-    command = "anderson.ocworktrees.sync"
+    command = "andersonjoseph.ocworktrees.sync"
     description = "sync OpenCode worktrees"
 
 Then `herdr server reload-config`.
@@ -53,7 +53,7 @@ Then `herdr server reload-config`.
 ## Configuration
 
 The plugin reads `config.toml` from its config directory
-(`herdr plugin config-dir anderson.ocworktrees` prints the path):
+(`herdr plugin config-dir andersonjoseph.ocworktrees` prints the path):
 
     roots = ["~/.local/share/opencode/worktree"]
 
