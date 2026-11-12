@@ -34,6 +34,7 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       plannotator-pkg = pkgs.callPackage ./packages/plannotator.nix { };
+      herdr-ocworktrees-pkg = pkgs.callPackage ./packages/herdr-ocworktrees.nix { };
 
       overlays = {
         nixpkgs.overlays = [
@@ -42,6 +43,7 @@
             hunk = hunk.packages.${system}.hunk;
             hex = hex.packages.${system}.default.overrideAttrs { doCheck = false; };
             plannotator = plannotator-pkg;
+            herdr-ocworktrees = herdr-ocworktrees-pkg;
             opencode2 = llm-agents.packages.${system}.opencode2;
             inherit jailed-opencode2;
           })
@@ -87,7 +89,10 @@
         ];
       };
 
-      packages.${system}.plannotator = plannotator-pkg;
+      packages.${system} = {
+        plannotator = plannotator-pkg;
+        herdr-ocworktrees = herdr-ocworktrees-pkg;
+      };
 
       nixosConfigurations.vondel = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

@@ -31,6 +31,12 @@ swap_pane_down    = "prefix+down"
 swap_pane_up      = "prefix+up"
 swap_pane_right   = "prefix+right"
 
+[[keys.command]]
+key = "prefix+o"
+type = "plugin_action"
+command = "andersonjoseph.ocworktrees.sync"
+description = "sync OpenCode worktrees"
+
 [theme]
 name = "vesper"
 auto_switch = false
