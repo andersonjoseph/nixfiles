@@ -109,7 +109,7 @@ func (h *Herdr) OpenMirror(wt Worktree) error {
 	if opened.Workspace.WorkspaceID == "" {
 		return nil
 	}
-	return h.Rename(opened.Workspace.WorkspaceID, labelFor(wt, repo))
+	return h.Rename(opened.Workspace.WorkspaceID, labelFor(wt))
 }
 
 func (h *Herdr) Close(workspaceID string) error {

@@ -10,8 +10,8 @@ repository, with no way to customize the location. This plugin watches that
 folder and keeps herdr's workspace list aligned with it:
 
 - a new worktree directory is opened as a herdr workspace (`worktree open` by
-  path, grouped under the repository, labelled `owner/repo · branch` when a
-  git remote exists, otherwise `<project-id> · <branch>`)
+  path, grouped under the repository's parent workspace, labelled with the
+  branch name)
 - when the directory disappears, the mirrored workspace is closed, together
   with its panes and processes
 - workspaces without worktree provenance, and worktrees outside the configured

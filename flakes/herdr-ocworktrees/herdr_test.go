@@ -88,7 +88,7 @@ fi
 	if !strings.Contains(calls, "worktree open --cwd") || !strings.Contains(calls, wt.Path) {
 		t.Fatalf("missing worktree open call: %s", calls)
 	}
-	if !strings.Contains(calls, "workspace rename wNEW") || !strings.Contains(calls, "acme/api · feature-9") {
+	if !strings.Contains(calls, "workspace rename wNEW") || !strings.Contains(calls, "feature-9") {
 		t.Fatalf("missing rename call: %s", calls)
 	}
 }
@@ -109,7 +109,7 @@ echo '{"result":{"already_open":true,"workspace":{"workspace_id":"wOLD"}}}'
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(string(args), "workspace rename wOLD acme/api · feature-9") {
+	if !strings.Contains(string(args), "workspace rename wOLD feature-9") {
 		t.Fatalf("want relabel of already-open mirror: %s", args)
 	}
 }
