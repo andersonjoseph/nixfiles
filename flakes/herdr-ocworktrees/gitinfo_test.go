@@ -43,9 +43,16 @@ func TestSlugFromRemote(t *testing.T) {
 	}
 }
 
+func TestLabelForFallsBackToRepoName(t *testing.T) {
+	wt := Worktree{Path: filepath.Join(t.TempDir(), "someproject", "fix"), Project: "someproject", Branch: "fix"}
+	if got := labelFor(wt, "/srv/checkouts/myrepo"); got != "myrepo · fix" {
+		t.Fatalf("want repo-name fallback label, got %q", got)
+	}
+}
+
 func TestLabelForFallsBackToProject(t *testing.T) {
 	wt := Worktree{Path: filepath.Join(t.TempDir(), "someproject", "fix"), Project: "someproject", Branch: "fix"}
-	if got := labelFor(wt); got != "someproject · fix" {
+	if got := labelFor(wt, ""); got != "someproject · fix" {
 		t.Fatalf("want project fallback label, got %q", got)
 	}
 }

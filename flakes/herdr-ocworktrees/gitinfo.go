@@ -49,13 +49,16 @@ func slugFromRemote(url string) string {
 	return parts[len(parts)-2] + "/" + parts[len(parts)-1]
 }
 
-func labelFor(wt Worktree) string {
+func labelFor(wt Worktree, repoRoot string) string {
 	branch := wt.Branch
 	if branch == "" {
 		branch = filepath.Base(wt.Path)
 	}
 	if slug := RemoteSlug(wt.Path); slug != "" {
 		return slug + " · " + branch
+	}
+	if base := filepath.Base(repoRoot); base != "" && base != "." && base != "/" {
+		return base + " · " + branch
 	}
 	if wt.Project != "" {
 		return wt.Project + " · " + branch

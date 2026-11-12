@@ -93,7 +93,7 @@ fi
 	}
 }
 
-func TestOpenMirrorSkipsRenameWhenAlreadyOpen(t *testing.T) {
+func TestOpenMirrorRenamesWhenAlreadyOpen(t *testing.T) {
 	wt := gitFixtureWorktree(t)
 	argsFile := filepath.Join(t.TempDir(), "args.log")
 	t.Setenv("STUB_ARGS_FILE", argsFile)
@@ -109,7 +109,7 @@ echo '{"result":{"already_open":true,"workspace":{"workspace_id":"wOLD"}}}'
 	if err != nil {
 		t.Fatal(err)
 	}
-	if strings.Contains(string(args), "rename") {
-		t.Fatalf("unexpected rename: %s", args)
+	if !strings.Contains(string(args), "workspace rename wOLD acme/api · feature-9") {
+		t.Fatalf("want relabel of already-open mirror: %s", args)
 	}
 }
